@@ -1,0 +1,85 @@
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{color:#effcff;background:#04070b;font-family:Impact,"Arial Black","Microsoft YaHei",Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 38% 32%,rgba(0,255,204,.16),transparent 28%),linear-gradient(135deg,#030609 0%,#0b1a22 55%,#dce8e8 100%)}
+body:after{content:"";position:fixed;inset:0;z-index:-1;background:url("assets/polar_landscape.png") center/cover no-repeat;opacity:.18;filter:contrast(1.1)}
+.back-home{position:fixed;left:24px;top:24px;z-index:50;padding:12px 16px;color:#041013;background:#00ffcc;border:4px solid #041013;box-shadow:7px 7px 0 #d71913;text-decoration:none;font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900}
+.progress{position:fixed;left:70px;right:70px;bottom:30px;z-index:50;display:grid;grid-template-columns:78px 1fr;gap:14px;align-items:center;color:#00ffcc;font-family:Arial,sans-serif;font-weight:900;letter-spacing:3px}
+.progress div{height:8px;background:rgba(255,255,255,.16);border:2px solid #00ffcc}.progress i{display:block;width:0%;height:100%;background:#00ffcc;box-shadow:0 0 18px #00ffcc}
+.edge-return-hint{position:fixed;right:34px;top:34px;z-index:55;width:270px;padding:14px 16px;color:#041013;background:#f4dfaa;border:4px solid #041013;box-shadow:8px 8px 0 #d71913;font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900;opacity:0;transform:translateY(-12px);transition:.22s ease;pointer-events:none}
+.edge-return-hint.show{opacity:1;transform:translateY(0)}
+.edge-return-hint i{display:block;height:7px;margin-top:10px;background:rgba(4,16,19,.2);border:2px solid #041013}
+.edge-return-hint b{display:block;width:0%;height:100%;background:#00ffcc}
+.polar-stage{position:relative;width:10350px;height:100vh;transform:translateX(0);transition:transform .18s ease-out}
+.route-svg{position:absolute;left:0;top:0;width:10000px;height:100vh;z-index:1;pointer-events:none}.route-svg path{fill:none;stroke:#00ffcc;stroke-width:10;stroke-dasharray:26 24;filter:drop-shadow(0 0 12px rgba(0,255,204,.7))}
+.polar-card{position:absolute;z-index:5;width:650px;min-height:360px;padding:30px;color:#041013;background:rgba(232,242,240,.94);border:6px solid #041013;box-shadow:16px 16px 0 #041013}
+.polar-card p:first-child{color:#d71913;font-family:Arial,sans-serif;font-weight:900;letter-spacing:4px;margin-bottom:16px}
+.polar-card h1,.polar-card h2{color:#041013;line-height:.95;text-shadow:4px 4px 0 #00ffcc}.polar-card h1{font-size:74px;margin-bottom:20px}.polar-card h2{font-size:45px;margin-bottom:18px}
+.desc{font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900;font-size:17px;line-height:1.66}.desc b{color:#d71913}
+.polar-card img{width:100%;margin-top:18px;border:5px solid #041013;display:block;max-height:340px;object-fit:cover}
+.card-hero{width:720px}.card-hero img{max-height:310px}
+.wide-card{width:790px}.screen-card{width:780px}.strategy-card{width:720px}.interior-card{width:840px}.health-card{width:710px}
+.image-card img{max-height:285px}
+.image-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.image-row img{margin:0;height:235px;object-fit:cover}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 4px}
+.pain-grid span,.system-grid span{padding:14px;background:#041013;color:#00ffcc;border:4px solid #041013;box-shadow:5px 5px 0 #d71913;font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900}
+.pain-grid b,.system-grid b{display:block;font-size:18px;margin-bottom:6px}.pain-grid small,.system-grid small{display:block;color:#d8f4f7;font-size:12px;line-height:1.45}
+.system-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
+.mini-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.mini-tags span{padding:8px 10px;background:#041013;color:#00ffcc;border:3px solid #041013;font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900;font-size:13px}
+.demo-card{width:740px;background:#041013;color:#eaffff;border-color:#00ffcc;box-shadow:0 0 36px rgba(0,255,204,.22),16px 16px 0 #041013}.demo-card h2{color:#eaffff;text-shadow:4px 4px 0 #d71913}.demo-card .desc{color:#d8f4f7}.demo-card p:first-child{color:#00ffcc}.demo-card img{border-color:#00ffcc;max-height:245px}
+.demo-btn{display:inline-block;margin-top:22px;padding:15px 21px;color:#041013;background:#00ffcc;border:4px solid #00ffcc;box-shadow:8px 8px 0 #d71913;text-decoration:none;font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900;font-size:21px}
+.final-card{width:720px;background:#f4dfaa}
+.final-card img{max-height:300px}
+@media(max-width:900px){.polar-card{width:84vw}.edge-return-hint{right:18px;top:18px;width:240px}}
+
+
+/* ===== v5 wave fix: keep vertical wave, only lift low cards and protect key buttons ===== */
+.demo-card img {
+  max-height: 210px;
+}
+
+.demo-card .demo-btn {
+  margin-top: 16px;
+}
+
+.health-card .system-grid {
+  margin-top: 14px;
+}
+
+/* If screen height is small, lift all cards slightly but keep the up/down wave. */
+@media (max-height: 820px) {
+  .polar-card {
+    padding: 24px;
+  }
+
+  .polar-card h1 {
+    font-size: 62px;
+  }
+
+  .polar-card h2 {
+    font-size: 40px;
+  }
+
+  .desc {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .polar-card img {
+    max-height: 260px;
+  }
+
+  .screen-card img,
+  .wide-card img,
+  .interior-card img {
+    max-height: 220px;
+  }
+
+  .demo-card img {
+    max-height: 170px;
+  }
+
+  .image-row img {
+    height: 205px;
+  }
+}
