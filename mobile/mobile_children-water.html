@@ -1,9 +1,1113 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>儿童智能饮水｜Portfolio</title><link rel="stylesheet" href="mobile_common.css"><link rel="stylesheet" href="mobile_children-water.css"></head><body class="project-snap child-page"><div class="progress-line" id="progressLine"></div><div class="transition-cover" id="transitionCover">WATER</div><main class="mobile-shell">
-<header class="top-bar"><a class="brand-dot" href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">船</a><div class="top-title"><small>CASE 01 / CHILD WATER</small><b>儿童智能饮水项目</b></div><button class="icon-btn tap" data-open-menu>目录</button></header>
-<nav class="chapter-nav"><a href="#overview">概览</a><a href="#research">调研</a><a href="#product">产品</a><a href="#program">程序</a><a href="#review">复盘</a></nav>
-<section class="hero-card water-hero reveal" id="overview" data-chapter><div class="bubble-field"></div><p class="kicker">Smart Water Companion</p><h1 class="big-title">DRINK<br>WATER</h1><p class="title-cn">用童趣反馈和亲子陪伴，把“喝水提醒”变成孩子愿意参与的小任务。</p><img class="hero-product" src="../assets/hero_product_narrow.png" alt="儿童智能饮水产品"></section>
-<section class="section reveal" id="research" data-chapter><div class="section-title"><h2>研究洞察</h2><span>WHY</span></div><article class="section-card"><h3>问题不是“不提醒”，而是提醒太像命令。</h3><p>儿童饮水行为需要即时反馈、低压力引导和家庭协作。把研究内容拆成可展开卡片，让阅读节奏更轻。</p></article><div class="accordion open"><button>用户痛点</button><div class="body">孩子容易忘记喝水，家长难以判断真实饮水量；普通提醒缺少情绪反馈，时间久了容易被忽略。</div></div><div class="accordion"><button>机会点</button><div class="body">把数据、提醒、奖励、亲子互动合在一起，让孩子感受到“完成任务”的成就感。</div></div><div class="carousel"><div class="carousel-track"><figure class="slide"><img class="img-card" src="../assets/child_persona.png" alt="用户画像"><figcaption class="caption">Persona：区分孩子、家长和使用场景。</figcaption></figure><figure class="slide"><img class="img-card" src="../assets/child_journey.png" alt="用户旅程"><figcaption class="caption">Journey：从早晨、上学、回家到睡前的饮水节点。</figcaption></figure><figure class="slide"><img class="img-card" src="../assets/child_opportunity.png" alt="机会点"><figcaption class="caption">Opportunity：把提醒转成陪伴式交互。</figcaption></figure></div><div class="dots"></div></div></section>
-<section class="section reveal" id="product" data-chapter><div class="section-title"><h2>产品系统</h2><span>HOW</span></div><div class="water-tabs pill-row"><button class="chip-btn active" data-water-tab="hardware">硬件结构</button><button class="chip-btn" data-water-tab="ui">界面反馈</button><button class="chip-btn" data-water-tab="relation">亲子关系</button></div><article class="section-card water-tab active" id="tab-hardware"><h3>硬件结构</h3><p>水杯/出水/储水结构通过可爱的产品语言降低“工具感”，让设备更接近儿童日常伙伴。</p><img class="img-card" src="../assets/child_product_exploded.png" alt="产品结构"></article><article class="section-card water-tab" id="tab-ui"><h3>界面反馈</h3><p>企鹅形象、进度、任务、商店和收集系统，让喝水被转译成游戏式反馈。</p><img class="img-card" src="../assets/child_ui_device.png" alt="设备 UI"></article><article class="section-card water-tab" id="tab-relation"><h3>亲子关系</h3><p>不是只给孩子提醒，也让家长获得柔性的陪伴和数据反馈。</p><img class="img-card" src="../assets/child_smart_penguin.png" alt="智能企鹅"></article></section>
-<section class="section reveal" id="program" data-chapter><div class="section-title"><h2>APP 体验</h2><span>PLAY</span></div><div class="phone-stack"><img src="../assets/program_start.png" alt="首页"><img src="../assets/program_shop.png" alt="商店"><img src="../assets/program_schedule_text.png" alt="日程"><img src="../assets/program_bag.png" alt="背包"></div><p class="notice">横向滑动查看程序关键界面。</p></section>
-<section class="section reveal" id="review" data-chapter><div class="section-title"><h2>复盘</h2><span>END</span></div><article class="section-card"><h3>表达重点</h3><p>不把所有大图硬塞在一屏，而是用章节、折叠、滑图和水滴反馈组织内容。</p><a class="main-action tap" href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">返回作品地图</a></article></section>
-</main><nav class="bottom-dock"><a href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">地图</a><a class="active" href="#overview">本页</a><a href="#product">产品</a><button data-open-menu>目录</button></nav><div class="drawer" id="mobileDrawer"><div class="drawer-panel"><button class="icon-btn close tap" data-close-menu>×</button><h2>WATER<br>INDEX</h2><a href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">返回地图</a><a href="#overview" data-close-menu>概览</a><a href="#research" data-close-menu>研究洞察</a><a href="#product" data-close-menu>产品系统</a><a href="#program" data-close-menu>APP 体验</a><a href="#review" data-close-menu>复盘</a></div></div><script src="mobile_common.js"></script><script src="mobile_children-water.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="../device-router.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>儿童智能饮水项目</title>
+
+    <style>
+        :root {
+            --ink: #172238;
+            --navy: #304977;
+            --blue: #bfe9ff;
+            --blue2: #eaf8ff;
+            --cream: #fffdf3;
+            --yellow: #f6e27a;
+            --pink: #f4a0b2;
+            --green: #9fe7d1;
+            --shadow: #304977;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "Microsoft YaHei","PingFang SC",Arial,sans-serif;
+            color: var(--ink);
+            background: radial-gradient(circle at 8% 12%, rgba(199,232,249,.75) 0 9px, transparent 10px) 0 0/120px 120px, radial-gradient(circle at 44% 20%, rgba(246,226,122,.36) 0 7px, transparent 8px) 0 0/156px 156px, radial-gradient(circle at 78% 78%, rgba(244,160,178,.28) 0 6px, transparent 7px) 0 0/150px 150px, linear-gradient(135deg,#fffdf5,#f9fdff 50%,#fff6df);
+        }
+
+        button {
+            font: inherit;
+            color: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .return {
+            position: fixed;
+            left: 20px;
+            top: 18px;
+            z-index: 100;
+            padding: 12px 18px;
+            border: 4px solid var(--ink);
+            border-radius: 999px;
+            background: var(--cream);
+            box-shadow: 8px 8px 0 var(--shadow);
+            font-weight: 1000;
+        }
+
+        .shell {
+            width: 100vw;
+            height: 100vh;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 138px minmax(0,1fr);
+            gap: 18px;
+            overflow: hidden;
+        }
+
+        .side {
+            padding-top: 105px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            height: calc(100vh - 48px);
+        }
+
+            .side button {
+                min-height: 124px;
+                border: 5px solid var(--ink);
+                border-radius: 30px;
+                background: #a8c2df;
+                color: #fff;
+                box-shadow: 8px 8px 0 var(--shadow);
+                writing-mode: vertical-rl;
+                text-orientation: upright;
+                letter-spacing: 4px;
+                font-size: 25px;
+                font-weight: 1000;
+                cursor: pointer;
+                transition: .2s ease;
+            }
+
+                .side button.active {
+                    background: var(--yellow);
+                    color: var(--ink);
+                    transform: translate(4px,-4px);
+                }
+
+        .stage {
+            position: relative;
+            height: calc(100vh - 48px);
+            border: 6px solid var(--ink);
+            border-radius: 38px;
+            background: rgba(255,255,255,.78);
+            box-shadow: 16px 16px 0 var(--shadow);
+            overflow: hidden;
+        }
+
+            .stage:before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                opacity: .12;
+                background: linear-gradient(90deg, rgba(48,73,119,.07) 1px, transparent 1px), linear-gradient(rgba(48,73,119,.07) 1px, transparent 1px);
+                background-size: 28px 28px;
+            }
+
+        .view {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: none;
+            padding: 36px 38px 34px;
+            overflow: hidden;
+        }
+
+            .view.active {
+                display: block;
+                animation: in .25s ease both;
+            }
+
+        @keyframes in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .title {
+            position: relative;
+            z-index: 3;
+            display: inline-block;
+            font-size: clamp(52px,4.7vw,82px);
+            line-height: .9;
+            font-weight: 1000;
+            letter-spacing: -4px;
+            text-shadow: 7px 7px 0 var(--green);
+            margin-bottom: 18px;
+        }
+
+            .title:before {
+                content: "";
+                position: absolute;
+                left: -14px;
+                top: 20px;
+                width: 150px;
+                height: 18px;
+                background: #b6def5;
+                z-index: -1;
+            }
+
+        .card {
+            border: 5px solid var(--ink);
+            border-radius: 28px;
+            background: var(--cream);
+            box-shadow: 10px 10px 0 var(--shadow);
+        }
+
+        .watermark {
+            position: absolute;
+            right: -42px;
+            bottom: -28px;
+            width: 340px;
+            height: 210px;
+            opacity: .16;
+            background: radial-gradient(circle at 35% 55%, #9fc7f1 0 44%, transparent 45%), radial-gradient(circle at 65% 40%, #304977 0 36%, transparent 37%);
+        }
+
+        /* 总览 */
+
+        .overview-layout {
+            position: relative;
+            z-index: 2;
+            height: calc(100% - 132px);
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 28px;
+            overflow: hidden;
+        }
+
+        .overview-hero {
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            background: #fff;
+        }
+
+            .overview-hero img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+        .overview-copy {
+            padding: 26px 30px;
+            display: grid;
+            grid-template-rows: auto auto auto 1fr;
+            gap: 18px;
+            overflow: hidden;
+        }
+
+            .overview-copy h2 {
+                font-size: 42px;
+                line-height: 1.1;
+                color: var(--navy);
+            }
+
+            .overview-copy p {
+                font-size: 19px;
+                line-height: 1.72;
+                font-weight: 900;
+            }
+
+        .jump-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .jump {
+            padding: 18px;
+            border: 4px solid var(--ink);
+            border-radius: 24px;
+            background: #fff8d6;
+            box-shadow: 6px 6px 0 var(--shadow);
+            cursor: pointer;
+            text-align: left;
+            font-weight: 1000;
+        }
+
+            .jump b {
+                display: block;
+                font-size: 28px;
+                margin-bottom: 7px;
+            }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            overflow: hidden;
+        }
+
+        .overview-item {
+            padding: 18px;
+            border: 4px solid var(--ink);
+            border-radius: 22px;
+            background: #f2fbff;
+            box-shadow: 6px 6px 0 #b9dcf3;
+        }
+
+            .overview-item h3 {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            .overview-item p {
+                font-size: 16px;
+                line-height: 1.58;
+            }
+
+        /* 产品 */
+
+        .product-layout {
+            position: relative;
+            z-index: 2;
+            height: calc(100% - 132px);
+            display: grid;
+            grid-template-columns: 470px 168px minmax(0,1fr);
+            gap: 18px;
+            overflow: hidden;
+        }
+
+        .hero-narrow {
+            padding: 14px;
+            background: #fffdf4;
+            overflow: hidden;
+        }
+
+        .hero-img-wrap {
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--ink);
+            border-radius: 24px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 8px 8px 0 #bfe3fb;
+            display: grid;
+            place-items: center;
+        }
+
+            .hero-img-wrap img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: center;
+                display: block;
+            }
+
+        .product-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: hidden;
+            padding-right: 6px;
+        }
+
+            .product-tabs button {
+                padding: 11px 12px;
+                border: 4px solid var(--ink);
+                border-radius: 18px;
+                background: #eff9ff;
+                box-shadow: 5px 5px 0 var(--shadow);
+                font-size: 15px;
+                font-weight: 1000;
+                text-align: left;
+                cursor: pointer;
+            }
+
+                .product-tabs button.active {
+                    background: var(--yellow);
+                }
+
+        .product-detail {
+            background: #fffdf6;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+            .product-detail::-webkit-scrollbar,
+            .related-grid::-webkit-scrollbar,
+            .program-viewer::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            .product-detail::-webkit-scrollbar-thumb,
+            .related-grid::-webkit-scrollbar-thumb,
+            .program-viewer::-webkit-scrollbar-thumb {
+                background: var(--shadow);
+                border-radius: 999px;
+            }
+
+            .product-detail::-webkit-scrollbar-track,
+            .related-grid::-webkit-scrollbar-track,
+            .program-viewer::-webkit-scrollbar-track {
+                background: #edf7ff;
+                border-radius: 999px;
+            }
+
+        .detail {
+            display: none;
+            min-height: 100%;
+            padding: 30px;
+        }
+
+            .detail.active {
+                display: block;
+                animation: in .2s ease;
+            }
+
+            .detail h2 {
+                font-size: 38px;
+                color: var(--navy);
+                margin-bottom: 14px;
+            }
+
+            .detail p {
+                font-size: 18px;
+                line-height: 1.75;
+                font-weight: 900;
+                margin-bottom: 14px;
+            }
+
+            .detail ul {
+                padding-left: 22px;
+                font-size: 17px;
+                line-height: 1.72;
+                font-weight: 900;
+                margin-bottom: 14px;
+            }
+
+            .detail img {
+                display: block;
+                width: 100%;
+                border: 4px solid var(--ink);
+                border-radius: 18px;
+                margin: 18px 0;
+                background: #fff;
+                box-shadow: 6px 6px 0 #b9def4;
+                object-fit: contain;
+            }
+
+        .two {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        /* 程序 */
+
+        .program-layout {
+            position: relative;
+            z-index: 2;
+            height: calc(100% - 132px);
+            display: grid;
+            grid-template-columns: minmax(0,1fr) 390px;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .prototype {
+            padding: 18px;
+            background: #fffdf6;
+            display: grid;
+            grid-template-rows: auto minmax(0,1fr) auto;
+            gap: 14px;
+            overflow: hidden;
+        }
+
+        .proto-head h2 {
+            font-size: 34px;
+            color: var(--navy);
+        }
+
+        .program-viewer {
+            border: 5px solid var(--ink);
+            border-radius: 28px;
+            background: #dff5ff;
+            box-shadow: 8px 8px 0 #bde0f4;
+            overflow: auto;
+            padding: 14px;
+            min-height: 0;
+        }
+
+        .program-display {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+            background: #fff;
+            transition: .22s ease;
+        }
+
+            .program-display.switching {
+                animation: programSwitch .26s ease;
+            }
+
+        @keyframes programSwitch {
+            from {
+                opacity: .25;
+                transform: scale(.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .feedback {
+            padding: 20px 22px;
+            border: 5px solid var(--ink);
+            border-radius: 26px;
+            background: #fffdf6;
+            box-shadow: 8px 8px 0 var(--pink);
+            display: grid;
+            grid-template-columns: 72px 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+            .feedback img {
+                width: 72px;
+                height: 72px;
+                object-fit: cover;
+                border: 4px solid var(--ink);
+                border-radius: 50%;
+                background: #fff;
+            }
+
+            .feedback h3 {
+                font-size: 26px;
+                margin-bottom: 6px;
+            }
+
+            .feedback p {
+                font-size: 17px;
+                line-height: 1.58;
+                font-weight: 900;
+            }
+
+        .side-info {
+            display: grid;
+            grid-template-rows: minmax(0,1fr) auto;
+            gap: 16px;
+            overflow: hidden;
+        }
+
+        .related {
+            padding: 18px;
+            background: #fffdf6;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto minmax(0,1fr);
+        }
+
+            .related h2 {
+                font-size: 32px;
+                margin-bottom: 12px;
+            }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 8px;
+        }
+
+        .related-card {
+            border: 4px solid var(--ink);
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 #bfe0f3;
+            transition: .16s ease;
+        }
+
+            .related-card:hover,
+            .related-card.active {
+                background: var(--yellow);
+                transform: translate(-2px,-2px);
+                box-shadow: 6px 6px 0 var(--shadow);
+            }
+
+            .related-card img {
+                width: 100%;
+                height: 92px;
+                object-fit: cover;
+                display: block;
+            }
+
+            .related-card span {
+                display: block;
+                padding: 7px 8px;
+                font-weight: 1000;
+                font-size: 13px;
+                text-align: center;
+            }
+
+        .explain {
+            padding: 20px;
+            background: #fffdf6;
+            overflow: hidden;
+        }
+
+            .explain h3 {
+                font-size: 28px;
+                margin-bottom: 10px;
+                color: var(--navy);
+            }
+
+            .explain p {
+                font-size: 16px;
+                line-height: 1.65;
+                font-weight: 900;
+                margin-bottom: 10px;
+            }
+
+            .explain ul {
+                padding-left: 20px;
+                font-size: 15px;
+                line-height: 1.6;
+                font-weight: 900;
+            }
+
+        @media(max-width:1180px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+
+            .side {
+                height: auto;
+                padding-top: 0;
+                flex-direction: row;
+            }
+
+                .side button {
+                    writing-mode: horizontal-tb;
+                    min-height: 78px;
+                    flex: 1;
+                }
+
+            .stage {
+                height: calc(100vh - 150px);
+            }
+
+            .overview-layout,
+            .product-layout,
+            .program-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="mobile_common.css">
+  <link rel="stylesheet" href="mobile_children-water.css">
+</head>
+
+<body>
+  <div class="mobile-pc-note">手机端功能不全，完整功能请使用 PC 端访问。</div>
+    <a class="return" href="mobile_index.html?page=2">← 返回划船地图</a>
+
+    <div class="shell">
+        <nav class="side">
+            <button class="nav active" data-view="overview">总览</button>
+            <button class="nav" data-view="product">产品</button>
+            <button class="nav" data-view="program">程序</button>
+        </nav>
+
+        <main class="stage">
+            <section class="view active" id="overview">
+                <div class="watermark"></div>
+
+                <h1 class="title">儿童智能饮水<br>项目总览</h1>
+
+                <div class="overview-layout">
+                    <div class="overview-hero card">
+                        <img src="../assets/hero_overview_room.png" alt="儿童智能饮水机场景">
+                    </div>
+
+                    <div class="overview-copy card">
+                        <h2>把饮水机变成儿童愿意靠近的桌面伙伴。</h2>
+
+                        <p>
+                            项目围绕儿童房使用场景展开，将硬件结构、大屏交互、企鹅桌宠和奖励机制整合为一套轻量养成系统。
+                            孩子不只是“接水”，而是在与小企鹅互动的过程中完成饮水、获得反馈、查看行程与收藏道具。
+                        </p>
+
+                        <div class="jump-row">
+                            <button class="jump" data-jump="product">
+                                <b>产品解说</b>
+                                结构、人机、场景与养成逻辑。
+                            </button>
+
+                            <button class="jump" data-jump="program">
+                                <b>程序原型</b>
+                                界面复刻、页面切换与功能说明。
+                            </button>
+                        </div>
+
+                        <div class="overview-grid">
+                            <div class="overview-item">
+                                <h3>适童设计</h3>
+                                <p>围绕儿童尺度、操作路径和安全感重新组织硬件。</p>
+                            </div>
+
+                            <div class="overview-item">
+                                <h3>桌宠关系</h3>
+                                <p>企鹅承担提醒、陪伴、奖励和情绪反馈。</p>
+                            </div>
+
+                            <div class="overview-item">
+                                <h3>习惯回路</h3>
+                                <p>饮水行为连接金币、行程、背包和收藏。</p>
+                            </div>
+
+                            <div class="overview-item">
+                                <h3>网页原型</h3>
+                                <p>将关键 Unity 界面整理为可直接浏览的 HTML 展示。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="product">
+                <div class="watermark"></div>
+
+                <h1 class="title">儿童智能饮水<br>产品解说</h1>
+
+                <div class="product-layout">
+                    <aside class="hero-narrow card">
+                        <div class="hero-img-wrap">
+                            <img src="../assets/hero_product_narrow.png" alt="产品英雄图">
+                        </div>
+                    </aside>
+
+                    <nav class="product-tabs">
+                        <button class="tab active" data-detail="position">项目定位</button>
+                        <button class="tab" data-detail="market">市场机会</button>
+                        <button class="tab" data-detail="target">人群定位</button>
+                        <button class="tab" data-detail="empathy">同理心地图</button>
+                        <button class="tab" data-detail="journey">用户旅程</button>
+                        <button class="tab" data-detail="opportunity">机会总结</button>
+                        <button class="tab" data-detail="structure">产品结构</button>
+                        <button class="tab" data-detail="ergo">人体工程学</button>
+                        <button class="tab" data-detail="pet">屏幕与桌宠</button>
+                        <button class="tab" data-detail="habit">养成回路</button>
+                    </nav>
+
+                    <div class="product-detail card">
+                        <article class="detail active" data-panel="position">
+                            <h2>项目定位：让儿童主动参与饮水</h2>
+
+                            <p>
+                                这台饮水机被放在儿童房语境中，不做成人化家电，而是把屏幕、桌宠与可更换水箱组合成儿童更愿意靠近的桌面伙伴。
+                            </p>
+
+                            <ul>
+                                <li>面向儿童独立操作，减少复杂步骤。</li>
+                                <li>用桌宠反馈替代单向命令式提醒。</li>
+                                <li>把喝水结果转化为可被看见的成长与收藏。</li>
+                            </ul>
+
+                            <img src="../assets/child_opportunity.png" alt="机会点">
+                        </article>
+
+                        <article class="detail" data-panel="market">
+                            <h2>市场机会：儿童专属饮水设备仍有空间</h2>
+
+                            <p>
+                                传统饮水机更多围绕成人家庭需求展开，儿童使用中的可达性、安全感、趣味性和长期使用动力往往没有被系统解决。
+                            </p>
+
+                            <img src="../assets/child_market.png" alt="市场研究">
+                        </article>
+
+                        <article class="detail" data-panel="target">
+                            <h2>人群定位：儿童与高知育儿家庭</h2>
+
+                            <p>
+                                项目将儿童作为主要使用者，将家长视为购买与场景提供者。核心体验必须让儿童自己愿意使用，而不是依赖外部反复催促。
+                            </p>
+
+                            <img src="../assets/child_persona.png" alt="用户画像">
+                        </article>
+
+                        <article class="detail" data-panel="empathy">
+                            <h2>同理心地图：看见真实使用顾虑</h2>
+
+                            <p>
+                                调研中可观察到：家长担心孩子饮水不足、担心冷热水风险；儿童则更容易被外观、声音、动画和互动角色吸引。
+                            </p>
+
+                            <img src="../assets/child_empathy_map.png" alt="同理心地图">
+                        </article>
+
+                        <article class="detail" data-panel="journey">
+                            <h2>用户旅程：从认知到长期使用</h2>
+
+                            <p>
+                                旅程被拆解为认知、获取、制定计划、学习使用、日常使用和维护问题。真正的挑战不是第一次使用，而是如何让孩子长期愿意回来。
+                            </p>
+
+                            <img src="../assets/child_journey.png" alt="用户旅程图">
+                        </article>
+
+                        <article class="detail" data-panel="opportunity">
+                            <h2>机会总结：适童、情感与习惯</h2>
+
+                            <p>
+                                设计机会收束为三条线：适合儿童操作的硬件结构、提供情感陪伴的桌宠关系，以及能持续驱动使用的习惯培养机制。
+                            </p>
+
+                            <img src="../assets/child_opportunity.png" alt="机会总结">
+                        </article>
+
+                        <article class="detail" data-panel="structure">
+                            <h2>产品结构：屏幕、水路与水箱的组合</h2>
+
+                            <p>
+                                结构上保留饮水机基础功能，同时将屏幕作为交互中心，透明水箱、滤芯、加热管和出水口共同构成可解释、可维护的产品系统。
+                            </p>
+
+                            <img src="../assets/child_structure.png" alt="产品结构">
+                            <img src="../assets/child_product_exploded.png" alt="爆炸图">
+                        </article>
+
+                        <article class="detail" data-panel="ergo">
+                            <h2>人体工程学：面向儿童的操作细节</h2>
+
+                            <p>
+                                可拆顶盖、旋转锁紧、透明水箱和加长出水口用于降低操作难度与风险，让儿童更容易理解“哪里拿、怎么换、如何接水”。
+                            </p>
+
+                            <div class="two">
+                                <img src="../assets/child_ergo_lid_lock.png" alt="顶盖与滤芯">
+                                <img src="../assets/child_ergo_tank_outlet.png" alt="水箱与出水口">
+                            </div>
+                        </article>
+
+                        <article class="detail" data-panel="pet">
+                            <h2>屏幕与桌宠：用关系感承接提醒</h2>
+
+                            <p>
+                                大屏幕承担主要信息呈现，企鹅桌宠则承担情绪与陪伴角色。孩子在界面中首先看到的不是命令，而是一个会对自己说话、会回应饮水行为的角色。
+                            </p>
+
+                            <img src="../assets/child_ui_device.png" alt="设备界面">
+                            <img src="../assets/child_smart_penguin.png" alt="智能企鹅">
+                        </article>
+
+                        <article class="detail" data-panel="habit">
+                            <h2>养成回路：饮水、金币、旅行与收藏</h2>
+
+                            <p>
+                                孩子通过饮水获得金币，金币进入商店与背包系统，行程和收藏制造持续期待，从而让饮水行为不再是孤立动作。
+                            </p>
+
+                            <div class="two">
+                                <img src="../assets/child_logic.png" alt="逻辑图">
+                                <img src="../assets/child_features_shop_schedule_bag.png" alt="功能页">
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="program">
+                <div class="watermark"></div>
+
+                <h1 class="title">儿童智能饮水<br>程序原型</h1>
+
+                <div class="program-layout">
+                    <div class="prototype card">
+                        <div class="proto-head">
+                            <h2>程序界面展示</h2>
+                        </div>
+
+                        <div class="program-viewer">
+                            <img id="programDisplay" class="program-display" src="../assets/program_start.png" alt="程序界面展示">
+                        </div>
+
+                        <div class="feedback">
+                            <img id="feedbackIcon" src="../assets/child_penguin.png" alt="">
+                            <div>
+                                <h3 id="feedbackTitle">主界面</h3>
+                                <p id="feedbackText">
+                                    主界面把企鹅桌宠、饮水操作、金币、商店、行程和背包整合到同一个儿童可理解的游戏化界面里。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="side-info">
+                        <div class="related card">
+                            <h2>关联页面</h2>
+
+                            <div class="related-grid">
+                                <button class="related-card page-link active" data-page="start">
+                                    <img src="../assets/program_start.png" alt="">
+                                    <span>主界面</span>
+                                </button>
+
+                                <button class="related-card page-link" data-page="shop">
+                                    <img src="../assets/program_shop.png" alt="">
+                                    <span>企鹅商店</span>
+                                </button>
+
+                                <button class="related-card page-link" data-page="schedule">
+                                    <img src="../assets/program_schedule_text.png" alt="">
+                                    <span>行程安排</span>
+                                </button>
+
+                                <button class="related-card page-link" data-page="bag">
+                                    <img src="../assets/program_bag.png" alt="">
+                                    <span>我的背包</span>
+                                </button>
+
+                                <button class="related-card page-link" data-page="collection">
+                                    <img src="../assets/program_collection.png" alt="">
+                                    <span>收藏总览</span>
+                                </button>
+
+                                <button class="related-card page-link" data-page="relation">
+                                    <img src="../assets/program_relation.png" alt="">
+                                    <span>关系说明</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="explain card">
+                            <h3 id="explainTitle">主界面的意义</h3>
+
+                            <p id="explainText">
+                                主界面承担日常最高频操作：孩子先看到企鹅，再完成水温选择和出水，功能入口放在右侧，减少寻找成本。
+                            </p>
+
+                            <ul id="explainList">
+                                <li>把饮水操作和桌宠反馈放在同一界面，降低儿童理解成本。</li>
+                                <li>通过金币、商店和背包，让饮水产生后续期待。</li>
+                                <li>用较大的按钮和明确图标减少误操作。</li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const navs = document.querySelectorAll(".nav");
+        const views = document.querySelectorAll(".view");
+
+        function showView(id){
+        navs.forEach(function(nav){
+        nav.classList.toggle("active", nav.dataset.view === id);
+        });
+
+        views.forEach(function(view){
+        view.classList.toggle("active", view.id === id);
+        });
+        }
+
+        navs.forEach(function(nav){
+        nav.addEventListener("click", function(){
+        showView(nav.dataset.view);
+        });
+        });
+
+        document.querySelectorAll(".jump").forEach(function(btn){
+        btn.addEventListener("click", function(){
+        showView(btn.dataset.jump);
+        });
+        });
+
+        const tabs = document.querySelectorAll(".tab");
+        const details = document.querySelectorAll(".detail");
+        const productDetail = document.querySelector(".product-detail");
+
+        tabs.forEach(function(tab){
+        tab.addEventListener("click", function(){
+        tabs.forEach(function(item){
+        item.classList.toggle("active", item === tab);
+        });
+
+        details.forEach(function(panel){
+        const active = panel.dataset.panel === tab.dataset.detail;
+        panel.classList.toggle("active", active);
+        });
+
+        productDetail.scrollTop = 0;
+        });
+        });
+
+        const programDisplay = document.querySelector("#programDisplay");
+        const feedbackIcon = document.querySelector("#feedbackIcon");
+        const feedbackTitle = document.querySelector("#feedbackTitle");
+        const feedbackText = document.querySelector("#feedbackText");
+        const explainTitle = document.querySelector("#explainTitle");
+        const explainText = document.querySelector("#explainText");
+        const explainList = document.querySelector("#explainList");
+        const programViewer = document.querySelector(".program-viewer");
+
+        const pages = {
+        start:{
+        title:"主界面",
+        img:"../assets/program_start.png",
+        icon:"../assets/child_penguin.png",
+        short:"主界面把企鹅桌宠、饮水操作、金币、商店、行程和背包整合到同一个儿童可理解的游戏化界面里。",
+        heading:"主界面的意义",
+        text:"主界面是整个儿童饮水体验的核心入口。它不是把功能分散到复杂菜单里，而是把桌宠、饮水按钮、状态反馈和功能入口放在同一张画面中，让孩子可以用很低的理解成本完成主要操作。",
+        list:[
+        "企鹅作为视觉中心，先建立陪伴关系，再引导喝水行为。",
+        "水温选择和出水按钮被放在底部，符合儿童从下方操作的直觉。",
+        "商店、行程、背包在右侧形成轻功能入口，不干扰主要出水操作。",
+        "金币和状态反馈放在顶部，让孩子知道自己的行为正在被记录。"
+        ]
+        },
+
+        shop:{
+        title:"企鹅商店",
+        img:"../assets/program_shop.png",
+        icon:"../assets/program_shop.png",
+        short:"商店把金币转化为道具购买，让饮水行为产生可期待的奖励。",
+        heading:"企鹅商店的意义",
+        text:"商店的核心价值不是单纯消费，而是把“今天喝了水”转化成可兑换、可积累、可期待的结果。孩子通过饮水获得金币，再用金币购买道具，形成从健康行为到游戏奖励的转化。",
+        list:[
+        "金币让饮水行为有即时反馈，避免喝水只是一件无感任务。",
+        "商品和道具提供选择权，满足儿童表达偏好和收集欲。",
+        "购买行为连接背包和收藏系统，让一次饮水产生后续价值。",
+        "商店页面也能延长设备的使用兴趣，减少新鲜感衰退。"
+        ]
+        },
+
+        schedule:{
+        title:"行程安排",
+        img:"../assets/program_schedule_text.png",
+        icon:"../assets/program_schedule_text.png",
+        short:"行程页把喝水提醒嵌入一天的时间节奏，让企鹅陪孩子完成日常任务。",
+        heading:"行程安排的意义",
+        text:"行程不是简单提醒，而是把饮水放进儿童一天的生活节奏里。早起、课间、午休、放学等节点被转化为企鹅和孩子共同完成的小任务，让喝水更像一种日常约定。",
+        list:[
+        "固定时间节点有助于儿童建立稳定的饮水习惯。",
+        "用企鹅旅行和回家的叙事替代冷冰冰的闹钟提醒。",
+        "行程让饮水任务更容易被家长解释，也更容易被孩子记住。",
+        "完成行程后可以连接背包奖励，增强持续使用动力。"
+        ]
+        },
+
+        bag:{
+        title:"我的背包",
+        img:"../assets/program_bag.png",
+        icon:"../assets/program_bag.png",
+        short:"背包保存已经获得的纪念品、道具和收藏物，让每一次饮水都有留下来的结果。",
+        heading:"我的背包的意义",
+        text:"背包承担的是“保存结果”的作用。孩子通过饮水、购买和行程获得道具后，需要一个地方看到自己的积累。背包让每一次使用都不只是一次点击，而是长期成长记录的一部分。",
+        list:[
+        "把奖励可视化，增强儿童对成果的拥有感。",
+        "背包承接商店购买、行程奖励和收藏内容。",
+        "孩子可以反复查看已获得物品，形成持续回访理由。",
+        "道具数量和稀有度可以作为长期激励。"
+        ]
+        },
+
+        collection:{
+        title:"收藏总览",
+        img:"../assets/program_collection.png",
+        icon:"../assets/program_collection.png",
+        short:"收藏总览展示企鹅旅行带回来的物品，强化阶段性成果。",
+        heading:"收藏总览的意义",
+        text:"收藏总览把分散的道具组织成一个更完整的成长档案。它让孩子知道自己已经收集了什么、还缺什么，从而产生继续完成饮水任务的动力。",
+        list:[
+        "收藏系统把短期奖励变成长期目标。",
+        "不同物品的数量和星级可以制造探索感。",
+        "收藏页为企鹅旅行叙事提供结果展示空间。",
+        "孩子可以通过补全收藏获得持续期待。"
+        ]
+        },
+
+        relation:{
+        title:"关系说明",
+        img:"../assets/program_relation.png",
+        icon:"../assets/program_relation.png",
+        short:"关系说明展示主界面与商店、行程、背包、收藏之间的连接方式。",
+        heading:"界面关系的意义",
+        text:"整个程序不是孤立页面堆叠，而是围绕“饮水—金币—道具—收藏—再次饮水”的行为回路展开。主界面负责高频操作，其他页面负责奖励、规划和长期动机。",
+        list:[
+        "主界面负责即时饮水行为。",
+        "商店负责把金币转化为可选择的奖励。",
+        "行程负责把喝水嵌入生活节奏。",
+        "背包和收藏负责保存成果，制造长期目标。"
+        ]
+        }
+        };
+
+        function renderProgramPage(key){
+        const page = pages[key];
+
+        programDisplay.classList.remove("switching");
+        void programDisplay.offsetWidth;
+        programDisplay.src = page.img;
+        programDisplay.classList.add("switching");
+
+        feedbackIcon.src = page.icon;
+        feedbackTitle.textContent = page.title;
+        feedbackText.textContent = page.short;
+
+        explainTitle.textContent = page.heading;
+        explainText.textContent = page.text;
+
+        explainList.innerHTML = "";
+        page.list.forEach(function(item){
+        const li = document.createElement("li");
+        li.textContent = item;
+        explainList.appendChild(li);
+        });
+
+        document.querySelectorAll(".page-link").forEach(function(btn){
+        btn.classList.toggle("active", btn.dataset.page === key);
+        });
+
+        programViewer.scrollTop = 0;
+        programViewer.scrollLeft = 0;
+        }
+
+        document.querySelectorAll(".page-link").forEach(function(btn){
+        btn.addEventListener("click", function(){
+        renderProgramPage(btn.dataset.page);
+        });
+        });
+
+        renderProgramPage("start");
+    </script>
+  <script src="mobile_common.js"></script>
+  <script src="mobile_children-water.js"></script>
+</body>
+</html>

@@ -1,112 +1,355 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>张长瑞｜Portfolio 2025</title>
-<link rel="icon" type="image/png" href="../assets/site-logo.png?v=999">
-<link rel="stylesheet" href="mobile_common.css">
-<link rel="stylesheet" href="mobile_style.css">
+  <script src="../device-router.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张长瑞的个人网站</title>
+    <link rel="icon" type="image/png" href="../assets/site-logo.png?v=999">
+    <link rel="shortcut icon" type="image/png" href="../assets/site-logo.png?v=999">
+    <link rel="apple-touch-icon" href="../assets/site-logo.png?v=999">
+    <link rel="stylesheet" href="mobile_common.css">
+    <link rel="stylesheet" href="mobile_style.css">
 </head>
+
 <body>
-<div class="progress-line" id="progressLine"></div>
-<div class="transition-cover" id="transitionCover"></div>
-<header class="top-bar">
-  <div class="brand-dot">张</div>
-  <div class="top-title"><small>PORTFOLIO 2025</small><b>张长瑞的个人网站</b></div>
-  <button class="icon-btn tap" data-open-menu>目录</button>
-</header>
+  <div class="mobile-pc-note" aria-label="手机端提示">手机端功能不全，完整功能请使用 PC 端访问。</div>
 
-<main class="mobile-shell home-shell page-mode" id="pageRoot">
-  <section class="page-screen cover-screen reveal" id="cover" data-chapter>
-    <div class="paper-grain"></div>
-    <p class="kicker">Design / Product / Interaction / AI</p>
-    <h1 class="name-title-mobile"><span>张</span><span>长</span><span>瑞</span></h1>
-    <p class="title-cn">在用户、系统与产品之间，寻找更清晰的体验秩序。</p>
-    <aside class="comic-lines" aria-label="作品集关键词">
-      <span>把问题拆开</span><span>把想法推进</span><span>把方案做成</span>
-    </aside>
-    <p class="pc-note">手机端展示核心内容，完整功能请使用 PC 端访问。</p>
-    <div class="hero-actions"><a class="tap main-action" href="#resume">查看简历</a><a class="tap ghost-action" href="#map">进入地图</a></div>
-  </section>
+  <div class="cursor"></div>
 
-  <section class="page-screen resume-screen loose reveal" id="resume" data-chapter>
-    <div class="section-title"><h2>简历</h2><span>02 / ABOUT</span></div>
-    <article class="section-card resume-intro">
-      <h3>张长瑞</h3>
-      <p class="role-line">系统架构 / 交互设计 / 跨界落地</p>
-      <p>在交大的这几年，我逐渐形成了“系统架构、交互设计与跨界落地”三位一体的工作方式。我天生对复杂系统有种拆解欲，也不满足于停留在“画界面”的悬浮概念上。</p>
-      <p>从儿童智能硬件背后长效的游戏化行为回路，到极地房车一体化 HMI，再到用 Android Studio 完成从 UX 到原生开发的独立落地，我始终在追求一种更自然的体验秩序。</p>
-    </article>
-    <div class="about-matrix-mobile">
-      <article><b>系统</b><span>从约束中拆出关系、流程与优先级</span></article>
-      <article><b>交互</b><span>让复杂任务变得清晰、自然、可操作</span></article>
-      <article><b>落地</b><span>用原型与代码验证想法，而不止停在概念</span></article>
-    </div>
-    <article class="section-card compact-card">
-      <h3>教育与实践</h3>
-      <p><b>上海交通大学 · 设计学院</b><br>工业设计专业 · 本科 · 2023.09 - 2027.06</p>
-      <div class="tag-row"><span>GPA 3.44</span><span>CET-6</span><span>课程设计 10+</span><span>参与科研：省部级</span></div>
-    </article>
-  </section>
+  <div class="edge-trigger"><span></span></div>
 
-  <section class="page-screen map-screen loose reveal" id="map" data-chapter>
-    <div class="section-title"><h2>划船找到<br>下一个项目</h2><span id="islandCounter">01 / 07</span></div>
-    <div class="map-help-mobile">左右滑动选择岛屿，点击当前岛屿进入项目。</div>
-    <div class="river-phone">
-      <div class="water-bg"></div>
-      <div class="boat-track"><img class="boat" id="boat" src="../assets/boat_idle.png" alt="划船小人"></div>
-      <div class="island-track" id="islandTrack" aria-label="作品地图">
-        <article class="island-card active" data-title="儿童智能饮水" data-enter="bubble" data-link="mobile_children-water.html"><img src="../assets/island_child.png" alt="儿童智能饮水"><b>儿童智能饮水</b><p>童趣硬件、亲子陪伴、饮水习惯养成。</p><button>查看项目</button></article>
-        <article class="island-card" data-title="极地房车 HMI" data-enter="ice" data-link="mobile_polar-rover.html"><img src="../assets/island_polar.png" alt="极地房车 HMI"><b>极地房车 HMI</b><p>低变化环境下的移动居住系统。</p><button>查看项目</button></article>
-        <article class="island-card" data-title="ASTORY" data-enter="paper" data-link="mobile_astory.html"><img src="../assets/island_astory.png" alt="ASTORY"><b>ASTORY</b><p>叙事经营、债务生存和轮回成长。</p><button>查看项目</button></article>
-        <article class="island-card" data-title="AI 智能家居" data-enter="grid" data-link="mobile_ai-home.html"><img src="../assets/island_ai_home.png" alt="AI 智能家居"><b>AI 智能家居</b><p>家庭 Agent、场景编排与解释型交互。</p><button>查看项目</button></article>
-        <article class="island-card" data-title="UI/UX 交互演示" data-enter="shape" data-link="mobile_UIUX.html"><img src="../assets/island_uiux.png" alt="UI/UX 交互演示"><b>UI/UX 交互演示</b><p>宽屏原型、热点交互和横屏体验。</p><button>查看项目</button></article>
-        <article class="island-card" data-title="其他项目" data-enter="gray" data-link="mobile_projects.html"><img src="../assets/island_other.png" alt="其他项目"><b>其他项目</b><p>视觉、产品、装置和课程项目合集。</p><button>查看项目</button></article>
-        <article class="island-card" data-title="更多实验" data-enter="boom" data-link="mobile_experiments.html"><img src="../assets/island_more.png" alt="更多实验"><b>更多实验</b><p>概念实验、原型练习、灵感草稿。</p><button>查看项目</button></article>
+  <aside class="quick-index">
+    <p>PAGE INDEX</p>
+    <button data-page="0">01 / &#23553;&#38754;</button>
+    <button data-page="1">02 / &#31616;&#21382;</button>
+    <button data-page="2">03 / &#21010;&#33337;&#22320;&#22270;</button>
+    <button data-page="3">04 / &#24037;&#20316;&#26041;&#24335;</button>
+    <button data-page="4">05 / &#32467;&#23614;</button>
+    <a href="mobile_polar-rover.html">&#26497;&#22320;&#25151;&#36710; HMI</a>
+    <a href="mobile_children-water.html">&#20799;&#31461;&#26234;&#33021;&#39278;&#27700;</a>
+    <a href="mobile_ai-home.html">AI &#26234;&#33021;&#23478;&#23621;</a>
+    <a href="mobile_astory.html">ASTORY</a>
+    <a href="mobile_UIUX.html">UI/UX 交互演示</a>
+    <a href="mobile_projects.html">其他项目</a>
+    <a href="mobile_experiments.html">更多实验</a>
+  </aside>
+
+  <div class="flip-flash">
+    <div class="wipe wipe-red"></div>
+    <div class="wipe wipe-yellow"></div>
+    <div class="wipe wipe-black"></div>
+    <div class="wipe wipe-cream"></div>
+    <div class="resume-curtain"></div>
+    <div class="wipe-grain"></div>
+  </div>
+
+  <main class="site">
+
+    <section class="page cover active" id="cover">
+      <div class="paper"></div>
+      <div class="dots dots-one"></div>
+      <div class="dots dots-two"></div>
+      <div class="shape red-box"></div>
+      <div class="shape yellow-box"></div>
+      <div class="shape black-bar"></div>
+      <div class="shape black-slash"></div>
+      <div class="shape red-slash"></div>
+
+      <header class="nav">
+        <div class="nav-left">PORTFOLIO 2025</div>
+        <nav>
+          <button data-page="0">01 &#23553;&#38754;</button>
+          <button data-page="1">02 &#31616;&#21382;</button>
+          <button data-page="2">03 &#30446;&#24405;</button>
+        </nav>
+      </header>
+
+      <div class="cover-content">
+        <div class="cover-main">
+          <p class="tagline">DESIGN / PRODUCT / INTERACTION / AI</p>
+          <h1 class="name-title"><span>&#24352;</span><span>&#38271;</span><span>&#29790;</span></h1>
+          <p class="slogan">
+            &#22312;&#29992;&#25143;&#12289;&#31995;&#32479;&#19982;&#20135;&#21697;&#20043;&#38388;&#65292;<br>
+            &#23547;&#25214;&#26356;&#28165;&#26224;&#30340;&#20307;&#39564;&#31209;&#24207;&#12290;
+          </p>
+        </div>
+        <aside class="comic-panel">
+          <div class="boom">WOW!</div>
+          <p>&#25226;&#38382;&#39064;&#25286;&#24320;</p>
+          <p>&#25226;&#24819;&#27861;&#25512;&#36827;</p>
+          <p>&#25226;&#26041;&#26696;&#20570;&#25104;</p>
+        </aside>
       </div>
-      <div class="map-dots" id="mapDots"></div>
-    </div>
-  </section>
 
-  <section class="page-screen method-screen loose reveal" id="method" data-chapter>
-    <div class="section-title"><h2>工作方式</h2><span>04 / METHOD</span></div>
-    <article class="section-card"><h3>把复杂问题拆开，把体验路径理顺，把想法推到可验证的原型里。</h3></article>
-    <div class="method-flow-mobile"><span>观察</span><i></i><span>拆解</span><i></i><span>原型</span><i></i><span>落地</span></div>
-    <div class="method-card-list">
-      <article><b>01</b><h3>系统拆解</h3><p>面对 HMI、AI Agent、儿童硬件或空间服务时，先找清楚角色、场景、约束与信息流。</p></article>
-      <article><b>02</b><h3>交互策略</h3><p>把真实行为转译成可操作路径：什么时候提醒，哪里给反馈，怎样降低理解成本。</p></article>
-      <article><b>03</b><h3>原型验证</h3><p>用 Figma、HTML、Android Studio、Blender 等工具把关键交互做出来。</p></article>
-      <article><b>04</b><h3>跨界落地</h3><p>把产品、空间、AI、HMI 和技术实现组织成可被使用的体验。</p></article>
-    </div>
-  </section>
+      <footer class="cover-footer">
+        <span>ZHANG CHANGRUI</span>
+        <span>&#19978;&#28023;&#20132;&#36890;&#22823;&#23398; / &#24037;&#19994;&#35774;&#35745;</span>
+        <span>SWIPE / TAP</span>
+      </footer>
+    </section>
 
-  <section class="page-screen ending-screen reveal" id="ending" data-chapter>
-    <p class="kicker">PORTFOLIO 2025 / ENDING</p>
-    <h2 class="end-title">继续探索</h2>
-    <blockquote>设计不是把问题画漂亮，<br>而是让复杂系统变得可以被理解、被使用、被感知。</blockquote>
-    <cite>— 张长瑞</cite>
-    <div class="ending-actions"><a class="tap main-action" href="#map">回到项目地图</a><a class="tap ghost-action" href="#cover">回到封面</a></div>
-  </section>
-</main>
+    <section class="page resume" id="resume">
+      <div class="paper"></div>
+      <div class="resume-red-slab"></div>
+      <div class="resume-yellow-slab"></div>
+      <div class="page-index">02</div>
 
-<nav class="bottom-dock">
-  <a class="active" href="#cover">封面</a><a href="#resume">简历</a><a href="#map">地图</a><button data-open-menu>目录</button>
-</nav>
+      <div class="resume-header">
+        <p>ABOUT / RESUME</p>
+        <h2>简历</h2>
+      </div>
 
-<div class="drawer" id="mobileDrawer"><div class="drawer-panel">
-  <button class="icon-btn close tap" data-close-menu>×</button>
-  <h2>PAGE<br>INDEX</h2>
-  <a href="#cover" data-close-menu>01 / 封面</a><a href="#resume" data-close-menu>02 / 简历</a><a href="#map" data-close-menu>03 / 作品地图</a><a href="#method" data-close-menu>04 / 工作方式</a><a href="#ending" data-close-menu>05 / 结尾</a>
-  <a href="mobile_children-water.html" data-transition data-transition-type="bubble" data-title="儿童智能饮水">儿童智能饮水</a>
-  <a href="mobile_polar-rover.html" data-transition data-transition-type="ice" data-title="极地房车 HMI">极地房车 HMI</a>
-  <a href="mobile_ai-home.html" data-transition data-transition-type="grid" data-title="AI 智能家居">AI 智能家居</a>
-  <a href="mobile_astory.html" data-transition data-transition-type="paper" data-title="ASTORY">ASTORY</a>
-  <a href="mobile_UIUX.html" data-transition data-transition-type="shape" data-title="UI/UX 交互演示">UI/UX 演示</a>
-  <a href="mobile_projects.html" data-transition data-transition-type="gray" data-title="其他项目">其他项目</a>
-  <a href="mobile_experiments.html" data-transition data-transition-type="boom" data-title="更多实验">更多实验</a>
-</div></div>
-<script src="mobile_common.js"></script>
-<script src="mobile_script.js"></script>
+      <div class="resume-board">
+        <aside class="resume-about">
+          <div class="mini-num">01</div>
+          <h3>张长瑞</h3>
+          <p class="resume-role">系统架构 / 交互设计 / 跨界落地</p>
+
+          <p class="about-text lead-text">
+            在交大的这几年，我逐渐形成了“系统架构、交互设计与跨界落地”三位一体的工作方式。我天生对复杂系统有种拆解欲，也不满足于停留在“画界面”的悬浮概念上。
+          </p>
+
+          <p class="about-text">
+            从儿童智能硬件背后长效的游戏化行为回路，到极地房车一体化 HMI，再到用 Android Studio 完成从 UX 到原生开发的独立落地，我始终在追求一种更自然的体验秩序。
+          </p>
+
+          <p class="about-text">
+            在算法和技术狂飙的时代，我的兴奋点在于探索 AI-Native 交互的可能：让技术从“命令式”走向“理解式”，让智能体隐于无形，让理解自然发生。
+          </p>
+
+          <p class="about-text life-text">
+            设计之外，我用摄影记录细节，也在旅行中感受不同地貌与文化。这些生活养分让我持续带着同理心观察人，带着探索欲重构产品。
+          </p>
+
+          <div class="about-matrix">
+            <div><b>系统</b><span>从约束中拆出关系、流程与优先级</span></div>
+            <div><b>交互</b><span>让复杂任务变得清晰、自然、可操作</span></div>
+            <div><b>落地</b><span>用原型与代码验证想法，而不止停在概念</span></div>
+          </div>
+
+          <div class="resume-highlight">
+            <span>工作方式：系统架构 / 交互设计 / 跨界落地</span>
+            <span>关注方向：AI-Native 体验 / 智能硬件 / HMI</span>
+            <span>设计态度：真实观察 / 原型验证 / 技术落地</span>
+          </div>
+        </aside>
+
+        <section class="resume-main">
+          <div class="resume-card education-card">
+            <div class="card-head"><span>02</span><h4>教育与实践</h4></div>
+            <div class="edu-practice-grid">
+              <div class="edu-block">
+                <strong>上海交通大学 · 设计学院</strong>
+                <p>工业设计专业 · 本科</p>
+                <p>2023.09 - 2027.06</p>
+                <div class="edu-tags"><span>GPA 3.44</span><span>CET-6</span><span>课程设计 10+</span><span>参与科研：省部级</span></div>
+              </div>
+
+              <div class="practice-block">
+                <strong>真实业务协作实践</strong>
+                <p>参与复杂信息流程中的资料梳理、结构化表达与跨角色沟通，训练从真实约束中提炼问题、组织信息并推动方案落地的能力。</p>
+                <ul class="practice-points">
+                  <li>把分散信息转译成清晰结构</li>
+                  <li>在多方沟通中确认问题边界</li>
+                  <li>从真实约束中推动方案表达</li>
+                </ul>
+                <div class="edu-tags"><span>信息梳理</span><span>流程理解</span><span>沟通协作</span><span>方案表达</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-card methods-card">
+            <div class="card-head"><span>03</span><h4>UX 方法实践</h4></div>
+            <div class="method-grid">
+              <div><b>3+</b><strong>用户访谈</strong><small>Interviews</small></div>
+              <div><b>7+</b><strong>问卷调研</strong><small>Surveys</small></div>
+              <div><b>3+</b><strong>可用性测试</strong><small>Usability Tests</small></div>
+              <div><b>5+</b><strong>用户旅程图</strong><small>User Journey</small></div>
+              <div><b>5+</b><strong>用户画像</strong><small>Personas</small></div>
+              <div><b>多次</b><strong>竞品分析</strong><small>Competitive Analysis</small></div>
+              <div><b>多次</b><strong>方案验证</strong><small>Validation</small></div>
+              <div><b>多次</b><strong>方案迭代</strong><small>Iteration</small></div>
+            </div>
+          </div>
+
+          <div class="resume-card skills-card">
+            <div class="card-head"><span>04</span><h4>工具与能力</h4></div>
+            <div class="skill-columns">
+              <div><h5>设计工具</h5><p>Figma / Illustrator / Photoshop / Blender</p></div>
+              <div><h5>技术实践</h5><p>Python / HTML / CSS / JavaScript / Android Studio / Git</p></div>
+              <div><h5>核心方向</h5><p>产品体验 / 智能交互 / HMI / 原型实现</p></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 03 BOAT MAP -->
+    <section class="page boat-map-page" id="boat-map">
+      <div class="paper"></div>
+      <div class="map-paper"></div>
+      <div class="page-index">03</div>
+
+      <div class="map-ui">
+        <p>PROJECT MAP / ROW TO EXPLORE</p>
+        <h2>&#21010;&#33337;&#25214;&#21040;<br>&#19979;&#19968;&#20010;&#39033;&#30446;</h2>
+        <div class="map-help">左右滑动划船，点击岛屿进入项目。</div>
+      </div>
+
+      <div class="river-viewport">
+        <div class="river-world" id="riverWorld">
+          <div class="water-layer"></div>
+
+          <a class="island island-child" href="mobile_children-water.html" data-project="child" data-enter="bubble" data-title="儿童智能饮水">
+            <img src="../assets/island_child.png" alt="儿童智能饮水项目岛">
+            <span>儿童智能饮水</span>
+          </a>
+
+          <a class="island island-polar featured" href="mobile_polar-rover.html" data-project="polar" data-enter="ice" data-title="极地房车 HMI">
+            <img src="../assets/island_polar.png" alt="极地房车 HMI 项目岛">
+            <span>极地房车 HMI</span>
+          </a>
+
+          <a class="island island-astory" href="mobile_astory.html" data-project="astory" data-enter="paper" data-title="ASTORY">
+            <img src="../assets/island_astory.png" alt="ASTORY 项目岛">
+            <span>ASTORY</span>
+          </a>
+
+          <a class="island island-ai" href="mobile_ai-home.html" data-project="aihome" data-enter="grid" data-title="AI 智能家居">
+            <img src="../assets/island_ai_home.png" alt="AI 智能家居项目岛">
+            <span>AI 智能家居</span>
+          </a>
+
+          <a class="island island-uiux" href="mobile_UIUX.html" data-project="uiux" data-enter="shape" data-title="UI/UX 交互演示">
+            <img src="../assets/island_uiux.png" alt="UI/UX 交互演示项目岛">
+            <span>UI/UX 交互演示</span>
+          </a>
+
+          <a class="island island-other" href="mobile_projects.html" data-project="other" data-enter="gray" data-title="其他项目">
+            <img src="../assets/island_other.png" alt="其他项目岛">
+            <span>其他项目</span>
+          </a>
+
+          <a class="island island-more" href="mobile_experiments.html" data-project="experiments" data-enter="boom" data-title="更多实验">
+            <img src="../assets/island_more.png" alt="更多实验岛">
+            <span>更多实验</span>
+          </a>
+
+          <div class="boat-wrap" id="boatWrap">
+            <div class="boat-speech" id="boatSpeech">按 A / D 划船，看到岛就点。</div>
+            <img id="boatSprite" src="../assets/boat_idle.png" alt="划船小人">
+          </div>
+        </div>
+      </div>
+
+      <div class="map-progress">
+        <span id="mapProgressText">00%</span>
+        <div><i id="mapProgressBar"></i></div>
+      </div>
+      <div class="island-enter-flash" id="islandEnterFlash" aria-hidden="true">
+        <div class="enter-wipe"></div>
+        <div class="enter-title" id="enterTitle">ENTER</div>
+      </div>
+    </section>
+
+
+    <!-- 04 METHOD / CAPABILITY SUMMARY -->
+    <section class="page method-page" id="method">
+      <div class="paper"></div>
+      <div class="method-red-block"></div>
+      <div class="method-yellow-strip"></div>
+      <div class="method-black-sun"></div>
+      <div class="page-index">04</div>
+
+      <header class="method-hero">
+        <p>HOW I DESIGN / SYSTEM TO EXPERIENCE</p>
+        <h2>工作方式</h2>
+        <span>把复杂问题拆开，把体验路径理顺，把想法推到可验证的原型里。</span>
+      </header>
+
+      <div class="method-flow" aria-label="设计流程">
+        <span>观察</span>
+        <i></i>
+        <span>拆解</span>
+        <i></i>
+        <span>原型</span>
+        <i></i>
+        <span>落地</span>
+      </div>
+
+      <section class="method-grid" aria-label="能力总结">
+        <article class="method-card card-system">
+          <div class="method-num">01</div>
+          <h3>系统拆解</h3>
+          <p>面对 HMI、AI Agent、儿童硬件或空间服务时，先找清楚角色、场景、约束与信息流，而不是急着画界面。</p>
+          <div class="method-tags"><span>复杂场景</span><span>流程结构</span><span>约束关系</span></div>
+        </article>
+
+        <article class="method-card card-interaction">
+          <div class="method-num">02</div>
+          <h3>交互策略</h3>
+          <p>把用户的真实行为转译成可操作路径：什么时候提醒、哪里给反馈、怎样降低理解成本，都要落到体验节奏里。</p>
+          <div class="method-tags"><span>行为路径</span><span>反馈机制</span><span>情绪节奏</span></div>
+        </article>
+
+        <article class="method-card card-prototype">
+          <div class="method-num">03</div>
+          <h3>原型验证</h3>
+          <p>不只停在概念图，会用 Figma、HTML、Android Studio、Blender 等工具把关键交互做出来，观察它是否真的成立。</p>
+          <div class="method-tags"><span>Figma</span><span>HTML</span><span>Android</span><span>Blender</span></div>
+        </article>
+
+        <article class="method-card card-delivery">
+          <div class="method-num">04</div>
+          <h3>跨界落地</h3>
+          <p>产品、空间、工程装置、游戏化、AI 与 HMI 并不是分散经验，而是同一种能力：把抽象系统变成能被使用的东西。</p>
+          <div class="method-tags"><span>产品体验</span><span>智能交互</span><span>空间服务</span><span>技术实现</span></div>
+        </article>
+      </section>
+
+      <aside class="method-side-note">
+        <b>DESIGN METHOD</b>
+        <p>系统不是为了显得复杂，而是为了让复杂变得清楚。</p>
+      </aside>
+    </section>
+
+    <!-- 05 ENDING -->
+    <section class="page ending-page" id="ending">
+      <div class="paper"></div>
+      <div class="ending-red"></div>
+      <div class="ending-yellow"></div>
+      <div class="ending-black"></div>
+      <div class="ending-dots"></div>
+      <div class="page-index">05</div>
+
+      <div class="ending-content">
+        <p class="ending-kicker">PORTFOLIO 2025 / ENDING</p>
+        <h2>继续探索</h2>
+        <blockquote>
+          设计不是把问题画漂亮，<br>
+          而是让复杂系统变得可以被理解、被使用、被感知。
+        </blockquote>
+        <cite>— 张长瑞</cite>
+        <div class="ending-actions">
+          <button data-page="2">回到项目地图</button>
+          <button data-page="0">回到封面</button>
+        </div>
+      </div>
+
+      <div class="ending-poster">
+        <span>SEE</span>
+        <span>THE</span>
+        <span>SYSTEM</span>
+      </div>
+    </section>
+
+
+  </main>
+
+  <script src="mobile_script.js"></script>
+<script src="loading-transition.js"></script>
+  <script src="mobile_common.js"></script>
 </body>
 </html>
