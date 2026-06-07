@@ -66,6 +66,25 @@
       });
     });
   }
+
+  function initAnchorScroll(){
+    $$('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click',function(e){
+        var h=a.getAttribute('href');
+        if(!h || h==='#') return;
+        var target=document.querySelector(h);
+        if(!target) return;
+        var root=scrollRoot();
+        e.preventDefault();
+        if(root && root!==document.scrollingElement){
+          root.scrollTo({top:target.offsetTop,behavior:'smooth'});
+        }else{
+          target.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
+  }
+
   function initPageMode(){
     var root=$('.page-mode');if(!root)return;
     // 轻量键盘支持，方便手机浏览器外接键盘/桌面调试。
@@ -79,5 +98,5 @@
     });
   }
   window.MobileUX={qs:$,qsa:$$,pageTransition:pageTransition,openDrawer:function(){var d=$('#mobileDrawer');if(d)d.classList.add('open')},closeDrawer:function(){var d=$('#mobileDrawer');if(d)d.classList.remove('open')}};
-  document.addEventListener('DOMContentLoaded',function(){showArrivalLoader();initDrawer();initProgress();initAccordions();initCarousels();initTransitions();initPageMode()});
+  document.addEventListener('DOMContentLoaded',function(){showArrivalLoader();initDrawer();initProgress();initAccordions();initCarousels();initTransitions();initAnchorScroll();initPageMode()});
 })();
