@@ -1,39 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <script src="../device-router.js"></script>
-  <title>AI Home 智能家居 Agent｜Mobile</title>
-  <link rel="stylesheet" href="mobile_ai-home.css" />
-</head>
-<body>
-  <a class="back" href="mobile_index.html?page=map">← 返回地图</a>
-  <main class="shell">
-    <section class="hero">
-      <p>CASE / AI HOME AGENT</p>
-      <h1>AI Home<br>智能家居 Agent</h1>
-      <p>用一个会理解家庭状态的 Agent，把设备控制、环境感知、情绪时间窗和执行日志组织成可读、可控、可解释的居家系统。</p>
-    </section>
-    <section class="metrics">
-      <article><span>室温</span><b id="temp">24°C</b></article><article><span>灯光</span><b id="light">柔和</b></article><article><span>能耗</span><b id="energy">低</b></article><article><span>状态</span><b id="state">回家模式</b></article>
-    </section>
-    <section class="agent card">
-      <h2>让 AI 讲清楚这个项目</h2>
-      <div class="chat" id="chat"><p><b>AI Agent：</b>我会根据家庭场景推断你真正想要的结果，而不是只执行单个按钮命令。</p></div>
-      <div class="quick"><button data-say="home">我回家了</button><button data-say="sleep">准备睡觉</button><button data-say="focus">进入专注</button><button data-say="guest">朋友来了</button></div>
-    </section>
-    <section class="card">
-      <h2>实时视觉面板</h2>
-      <div class="home-map"><span class="room living">客厅</span><span class="room bed">卧室</span><span class="room kitchen">厨房</span><span class="dot"></span></div>
-    </section>
-    <section class="card devices">
-      <h2>设备控制</h2>
-      <button data-device="light">灯光</button><button data-device="curtain">窗帘</button><button data-device="air">空调</button><button data-device="music">音乐</button>
-    </section>
-    <section class="card logs"><h2>执行日志</h2><ul id="logs"><li>已读取客厅亮度与温度</li><li>根据回家模式启动柔和灯光</li></ul></section>
-    <section class="card"><h2>项目结构</h2><p>输入层收集语音、设备状态与环境信息；理解层判断意图和场景；执行层调度设备；反馈层把结果以自然语言和状态面板返回给用户。</p></section>
-  </main>
-  <script src="mobile_ai-home.js"></script>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>AI Home｜Portfolio</title><link rel="stylesheet" href="mobile_common.css"><link rel="stylesheet" href="mobile_ai-home.css"></head><body class="project-snap ai-page"><div class="progress-line" id="progressLine"></div><main class="mobile-shell">
+<header class="top-bar"><a class="brand-dot" href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">AI</a><div class="top-title"><small>CASE 03 / HOME AGENT</small><b>AI 智能家居 Agent</b></div><button class="icon-btn tap" data-open-menu>目录</button></header><nav class="chapter-nav"><a href="#overview">概览</a><a href="#agent">Agent</a><a href="#scenes">场景</a><a href="#review">复盘</a></nav>
+<section class="hero-card ai-hero reveal" id="overview" data-chapter><p class="kicker">Context-Aware Home</p><h1 class="big-title">AI<br>HOME</h1><p class="title-cn">把家庭设备、场景规则和自然语言解释，组织成一个可协作的家庭 Agent。</p><div class="metric-row-mobile"><b>舒适度<span id="comfort">86</span></b><b>节能<span id="saving">21%</span></b><b>设备<span>12</span></b></div></section>
+<section class="section reveal" id="agent" data-chapter><div class="section-title"><h2>Agent 对话</h2><span>TRY</span></div><div class="agent-card"><div class="chat-log" id="chatLog"><p class="bot">晚上好，我可以根据你的状态和家庭环境推荐场景。</p></div><div class="prompt-row"><button data-prompt="回家模式">回家模式</button><button data-prompt="睡眠准备">睡眠准备</button><button data-prompt="节能建议">节能建议</button></div></div></section>
+<section class="section reveal" id="scenes" data-chapter><div class="section-title"><h2>场景编排</h2><span>AUTO</span></div><div class="scene-grid"><article class="scene active" data-scene="home"><h3>回家</h3><p>灯光渐亮、空调预热、玄关提醒。</p></article><article class="scene" data-scene="sleep"><h3>睡眠</h3><p>降低色温、关闭非必要设备、安静通知。</p></article><article class="scene" data-scene="focus"><h3>专注</h3><p>屏蔽干扰、调整照明、播放白噪音。</p></article><article class="scene" data-scene="away"><h3>离家</h3><p>安防巡检、能耗优化、异常提醒。</p></article></div><article class="section-card explain-card"><h3 id="sceneTitle">回家场景</h3><p id="sceneText">Agent 根据预计到家时间提前准备环境，而不是等用户手动打开每个设备。</p></article></section>
+<section class="section reveal" id="review" data-chapter><div class="section-title"><h2>复盘</h2><span>END</span></div><article class="section-card"><h3>表达重点</h3><p>用可点选的 prompt 和场景卡展示“智能家居不只是控制面板，而是能解释自己为什么这么做的 Agent”。</p><a class="main-action tap" href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">返回作品地图</a></article></section>
+</main><nav class="bottom-dock"><a href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">地图</a><a class="active" href="#overview">本页</a><a href="#agent">Agent</a><button data-open-menu>目录</button></nav><div class="drawer" id="mobileDrawer"><div class="drawer-panel"><button class="icon-btn close tap" data-close-menu>×</button><h2>AI HOME<br>INDEX</h2><a href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">返回地图</a><a href="#overview" data-close-menu>项目概览</a><a href="#agent" data-close-menu>Agent 对话</a><a href="#scenes" data-close-menu>场景编排</a></div></div><script src="mobile_common.js"></script><script src="mobile_ai-home.js"></script></body></html>

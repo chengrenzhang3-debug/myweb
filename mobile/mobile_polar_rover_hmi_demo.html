@@ -1,41 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <script src="../device-router.js"></script>
-  <title>PolarArk HMI Mobile Demo</title>
-  <link rel="stylesheet" href="mobile_polar_hmi.css" />
-</head>
-<body>
-  <a class="back" href="mobile_polar-rover.html">← 返回 PolarArk</a>
-  <main class="app">
-    <section class="hero-panel">
-      <p>POLARARK / MOBILE HMI</p>
-      <h1>极地房车<br>HMI 轻量演示</h1>
-      <p>手机端保留核心信息架构：风险、路线、能源、座舱健康和驾驶辅助。横屏时可以获得更接近仪表盘的体验。</p>
-    </section>
-    <section class="status-grid">
-      <article><span>MISSION</span><b>ARCTIC LOOP</b></article>
-      <article><span>RISK</span><b id="riskText">LOW</b></article>
-      <article><span>BATTERY</span><b id="batteryText">82%</b></article>
-      <article><span>CABIN</span><b id="cabinText">21°C</b></article>
-    </section>
-    <section class="map-panel panel">
-      <h2>环境态势</h2>
-      <div class="radar"><i></i><span class="car">ARK</span><span class="poi one">ICE</span><span class="poi two">CAMP</span><span class="poi three">WIND</span></div>
-      <p id="modeDesc">当前处于安全巡航，系统持续监控冰面、风速和能见度。</p>
-    </section>
-    <section class="panel controls">
-      <h2>驾驶模式</h2>
-      <div class="buttons"><button data-mode="cruise">巡航</button><button data-mode="storm">风雪</button><button data-mode="camp">驻车</button><button data-mode="health">恢复</button></div>
-    </section>
-    <section class="panel feed">
-      <h2>系统日志</h2>
-      <ul id="logList"><li>传感器校准完成</li><li>路线风险处于低等级</li><li>森林循环呼吸系统待命</li></ul>
-    </section>
-  </main>
-  <div class="rotate-hint">建议横屏体验完整 HMI 布局</div>
-  <script src="mobile_polar_hmi.js"></script>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Polar HMI Demo｜Portfolio</title><link rel="stylesheet" href="mobile_common.css"><link rel="stylesheet" href="mobile_polar_hmi.css"></head><body class="project-snap hmi-page"><div class="progress-line" id="progressLine"></div><main class="mobile-shell hmi-shell">
+<header class="top-bar"><a class="brand-dot" href="mobile_polar-rover.html#hmi" data-transition data-transition-type="ice" data-title="极地车 HMI">H</a><div class="top-title"><small>POLAR ROVER HMI</small><b>交互演示入口</b></div><button class="icon-btn tap" data-open-menu>目录</button></header>
+<section class="hero-card hmi-hero reveal"><p class="kicker">Interactive Cockpit</p><h1 class="big-title">HMI<br>DEMO</h1><p class="title-cn">竖屏先看系统说明；横屏会切换成更接近驾驶舱的全屏控制界面。</p><div class="orientation-card notice">建议横屏查看完整 HMI。竖屏下仍可浏览核心信息和模拟控制。</div></section>
+<section class="hmi-cockpit reveal" id="cockpit"><div class="cockpit-top"><b>POLARARK OS</b><span id="hmiClock">--:--</span></div><div class="cockpit-grid"><article class="hmi-panel map-panel"><h3>环境地图</h3><div class="radar"><i></i><b>LOW RISK</b></div></article><article class="hmi-panel"><h3>座舱状态</h3><div class="metric-list"><p><span>O₂</span><b id="oxygen">96%</b></p><p><span>温度</span><b id="temp">21℃</b></p><p><span>能量</span><b id="energy">78%</b></p></div></article><article class="hmi-panel"><h3>系统模式</h3><div class="mode-grid"><button class="chip-btn active" data-mode="巡航">巡航</button><button class="chip-btn" data-mode="驻留">驻留</button><button class="chip-btn" data-mode="健康">健康</button><button class="chip-btn" data-mode="节能">节能</button></div></article><article class="hmi-panel log"><h3>AI 建议</h3><p id="hmiLog">当前能见度稳定，建议保持巡航速度并开启柔性照明。</p></article></div></section>
+<section class="section reveal"><div class="section-title"><h2>交互亮点</h2><span>DEMO</span></div><div class="accordion open"><button>横屏驾驶舱</button><div class="body">横屏时，界面会更像宽屏 HMI：地图、指标、模式和 AI 建议并列呈现。</div></div><div class="accordion"><button>竖屏降级阅读</button><div class="body">竖屏保留主要交互，不强迫用户缩小看完整大屏，而是先讲清楚原型重点。</div></div><a class="main-action tap" href="mobile_polar-rover.html#hmi" data-transition data-transition-type="ice" data-title="极地车 HMI">返回极地车项目</a></section>
+</main><nav class="bottom-dock"><a href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">地图</a><a href="mobile_polar-rover.html" data-transition data-transition-type="ice" data-title="极地房车 HMI">项目</a><a class="active" href="#cockpit">HMI</a><button data-open-menu>目录</button></nav><div class="drawer" id="mobileDrawer"><div class="drawer-panel"><button class="icon-btn close tap" data-close-menu>×</button><h2>HMI<br>MENU</h2><a href="mobile_polar-rover.html#hmi" data-transition data-transition-type="ice" data-title="极地车 HMI">返回极地车</a><a href="mobile_index.html#map" data-transition data-transition-type="water" data-title="作品地图">返回地图</a><a href="#cockpit" data-close-menu>驾驶舱演示</a></div></div><script src="mobile_common.js"></script><script src="mobile_polar_hmi.js"></script></body></html>
