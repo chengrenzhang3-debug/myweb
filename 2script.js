@@ -1,7 +1,54 @@
 const cursor = document.querySelector(".cursor");
 const pages = document.querySelectorAll(".page");
 const flash = document.querySelector(".flip-flash");
-const movingItems = document.querySelectorAll(".shape, .dots, .comic-panel, .big-mark, .project-visual");
+const movingItems = document.querySelectorAll(".shape, .dots, .comic-panel, .big-mark, .project-visual, .phantom-hero-panel, .stage-hero, .stage-link");
+
+/* ===== portfolio return source: phantom style ===== */
+const PORTFOLIO_RETURN_URL = "2index.html?page=2";
+const PROJECT_ENTRY_PAGES = new Set([
+  "polar-rover.html",
+  "children-water.html",
+  "ai-home.html",
+  "astory.html",
+  "UIUX.html",
+  "projects.html",
+  "experiments.html"
+]);
+
+function normalizeLocalHref(href) {
+  try {
+    const url = new URL(href, window.location.href);
+    return url.pathname.split("/").pop();
+  } catch (error) {
+    return href.split("?")[0].split("#")[0];
+  }
+}
+
+function withPortfolioReturn(url) {
+  if (!url || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:")) return url;
+  if (/^https?:\/\//i.test(url)) return url;
+
+  try {
+    const parsed = new URL(url, window.location.href);
+    if (!PROJECT_ENTRY_PAGES.has(parsed.pathname.split("/").pop())) return url;
+    if (!parsed.searchParams.has("from")) {
+      parsed.searchParams.set("from", PORTFOLIO_RETURN_URL);
+    }
+    return parsed.pathname.split("/").pop() + parsed.search + parsed.hash;
+  } catch (error) {
+    const fileName = normalizeLocalHref(url);
+    if (!PROJECT_ENTRY_PAGES.has(fileName) || url.includes("from=")) return url;
+    const separator = url.includes("?") ? "&" : "?";
+    return url + separator + "from=" + encodeURIComponent(PORTFOLIO_RETURN_URL);
+  }
+}
+
+function rememberPortfolioReturn() {
+  try {
+    sessionStorage.setItem("portfolioReturnUrl", PORTFOLIO_RETURN_URL);
+  } catch (error) {}
+}
+
 
 let currentPage = 0;
 let isTurning = false;
@@ -56,11 +103,6 @@ window.addEventListener("wheel", function (event) {
   if (event.target.closest(".quick-index")) return;
   event.preventDefault();
 
-  if (currentPage === 2) {
-    handleBoatPageWheel(event.deltaY);
-    return;
-  }
-
   if (event.deltaY > 0) nextPage();
   else prevPage();
 }, { passive: false });
@@ -68,18 +110,8 @@ window.addEventListener("wheel", function (event) {
 window.addEventListener("keydown", function (event) {
   const key = event.key.toLowerCase();
 
-  if (currentPage === 2 && (key === "a" || key === "arrowleft")) {
-    moveBoat(-1);
-    return;
-  }
-
-  if (currentPage === 2 && (key === "d" || key === "arrowright")) {
-    moveBoat(1);
-    return;
-  }
-
-  if (key === "arrowdown" || key === " " || key === "arrowright") nextPage();
-  if (key === "arrowup" || key === "arrowleft") prevPage();
+  if (key === "arrowdown" || key === " " || key === "pagedown" || key === "arrowright" || key === "d") nextPage();
+  if (key === "arrowup" || key === "pageup" || key === "arrowleft" || key === "a") prevPage();
 });
 
 document.querySelectorAll("[data-page]").forEach(function (button) {
@@ -116,6 +148,65 @@ document.querySelectorAll("button, a").forEach(function (item) {
     if (cursor) cursor.style.transform = "translate(-50%, -50%) scale(1)";
   });
 });
+
+/* page 03 project entry cards */
+function enterStageProject(link, event) {
+  if (!link) return;
+  const rawUrl = link.getAttribute("href");
+  const url = withPortfolioReturn(rawUrl);
+  if (!url || url.startsWith("#")) return;
+  event.preventDefault();
+
+  const title = link.dataset.title || link.textContent.trim() || "ENTER";
+  const type = link.dataset.project || "other";
+
+  rememberPortfolioReturn();
+
+  if (window.portfolioComicNavigate) {
+    window.portfolioComicNavigate(url, {
+      title: title,
+      type: type,
+      sub: "ENTER PROJECT"
+    });
+    return;
+  }
+
+  try {
+    sessionStorage.setItem("portfolioLoadingTransition", JSON.stringify({
+      title: title,
+      type: type,
+      sub: "ENTER PROJECT",
+      phase: "reveal",
+      createdAt: Date.now()
+    }));
+  } catch (error) {}
+
+  rememberPortfolioReturn();
+  window.location.href = url;
+}
+
+document.querySelectorAll(".stage-link").forEach(function (link) {
+  link.addEventListener("click", function (event) {
+    enterStageProject(link, event);
+  });
+});
+
+
+/* Add return source to project links in quick index/sidebar. */
+document.querySelectorAll(".quick-index a[href]").forEach(function (link) {
+  const href = link.getAttribute("href");
+  const fileName = normalizeLocalHref(href || "");
+  if (!PROJECT_ENTRY_PAGES.has(fileName)) return;
+
+  const nextHref = withPortfolioReturn(href);
+  link.setAttribute("href", nextHref);
+
+  link.addEventListener("click", function () {
+    rememberPortfolioReturn();
+  });
+});
+
+
 
 /* open a specific page from URL, e.g. index.html?page=2 */
 (function openPageFromUrl() {
@@ -174,47 +265,6 @@ const islandLines = {
   other: ["其他项目岛，后面可以继续加东西。", "这里先作为更多作品入口。"],
   experiments: ["更多实验岛还在，没被删。", "实验区，危险但好玩。"]
 };
-
-/* Portfolio return source
-   美漫风格的项目入口统一带上来源页：
-   从 index.html 的第三页进入项目时，项目详情页会收到
-   ?from=index.html%3Fpage%3D2，返回按钮即可回到美漫第三页。
-*/
-const portfolioComicReturnUrl = "index.html?page=2";
-const portfolioProjectFiles = new Set([
-  "children-water.html",
-  "polar-rover.html",
-  "astory.html",
-  "ai-home.html",
-  "UIUX.html",
-  "projects.html",
-  "experiments.html"
-]);
-
-function withPortfolioReturn(url) {
-  if (!url) return url;
-  if (url.startsWith("#")) return url;
-  if (/^(https?:|mailto:|tel:)/i.test(url)) return url;
-  if (url.includes("from=")) return url;
-
-  const separator = url.includes("?") ? "&" : "?";
-  return url + separator + "from=" + encodeURIComponent(portfolioComicReturnUrl);
-}
-
-function decorateComicProjectLinks() {
-  document.querySelectorAll("a[href]").forEach(function (link) {
-    const href = link.getAttribute("href");
-    if (!href) return;
-
-    const fileName = href.split("?")[0].split("#")[0].replace(/^\.\//, "");
-    if (!portfolioProjectFiles.has(fileName)) return;
-
-    link.setAttribute("href", withPortfolioReturn(href));
-  });
-}
-
-decorateComicProjectLinks();
-
 
 function randomLine(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -311,7 +361,8 @@ function enterIsland(island, event) {
   if (enteringIsland) return;
   event.preventDefault();
 
-  const url = withPortfolioReturn(island.getAttribute("href"));
+  const rawUrl = island.getAttribute("href");
+  const url = withPortfolioReturn(rawUrl);
   const title = island.dataset.title || island.textContent.trim() || "ENTER";
   const type = island.dataset.project || "other";
 
@@ -326,6 +377,8 @@ function enterIsland(island, event) {
     新页面加载后由 loading-transition.js 继续播放同一块遮板的退场动画。
     这样用户看到的是：动画发生 → 动画结束 → 新页面已经在眼前。
   */
+  rememberPortfolioReturn();
+
   if (window.portfolioComicNavigate) {
     window.portfolioComicNavigate(url, {
       title: title,
@@ -391,3 +444,14 @@ if (resumeBoard && resumeModules.length) {
     });
   });
 }
+
+
+/* ===== style variant helper ===== */
+(function () {
+  const bodyClass = document.body.className || "";
+  document.querySelectorAll(".style-switcher a").forEach(function (a) {
+    if (a.getAttribute("href") === location.pathname.split("/").pop()) {
+      a.classList.add("active-style");
+    }
+  });
+})();

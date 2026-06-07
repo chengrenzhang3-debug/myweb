@@ -10,10 +10,11 @@
     <link rel="icon" type="image/png" href="./assets/site-logo.png?v=999">
     <link rel="shortcut icon" type="image/png" href="./assets/site-logo.png?v=999">
     <link rel="apple-touch-icon" href="./assets/site-logo.png?v=999">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="7style.css">
+  <!-- Style variant: 设计杂志风 -->
 </head>
 
-<body>
+<body class="theme-magazine">
   <div class="cursor"></div>
 
   <div class="edge-trigger"><span></span></div>
@@ -22,25 +23,25 @@
       <p>PAGE INDEX</p>
       <button data-page="0">01 / &#23553;&#38754;</button>
       <button data-page="1">02 / &#31616;&#21382;</button>
-      <button data-page="2">03 / &#21010;&#33337;&#22320;&#22270;</button>
+      <button data-page="2">03 / &#32534;&#36753;&#30446;&#24405;</button>
       <button data-page="3">04 / &#24037;&#20316;&#26041;&#24335;</button>
       <button data-page="4">05 / &#32467;&#23614;</button>
-      <a href="polar-rover.html">&#26497;&#22320;&#25151;&#36710; HMI</a>
-      <a href="children-water.html">&#20799;&#31461;&#26234;&#33021;&#39278;&#27700;</a>
-      <a href="ai-home.html">AI &#26234;&#33021;&#23478;&#23621;</a>
-      <a href="astory.html">ASTORY</a>
-      <a href="UIUX.html">UI/UX 交互演示</a>
-      <a href="projects.html">其他项目</a>
-      <a href="experiments.html">更多实验</a>
+      <a href="polar-rover.html" data-project="polar" data-title="极地房车 HMI">&#26497;&#22320;&#25151;&#36710; HMI</a>
+      <a href="children-water.html" data-project="child" data-title="儿童智能饮水">&#20799;&#31461;&#26234;&#33021;&#39278;&#27700;</a>
+      <a href="ai-home.html" data-project="aihome" data-title="AI 智能家居">AI &#26234;&#33021;&#23478;&#23621;</a>
+      <a href="astory.html" data-project="astory" data-title="ASTORY">ASTORY</a>
+      <a href="UIUX.html" data-project="uiux" data-title="UI/UX 交互演示">UI/UX 交互演示</a>
+      <a href="projects.html" data-project="other" data-title="其他项目">其他项目</a>
+      <a href="experiments.html" data-project="experiments" data-title="更多实验">更多实验</a>
       <div class="style-switcher">
           <p>风格选择</p>
-          <a class="active-style" href="index.html">美漫</a>
-          <a href="2index.html">怪盗</a>
-          <a href="3index.html">游戏</a>
-          <a href="4index.html">野蛮</a>
-          <a href="5index.html">展馆</a>
-          <a href="6index.html">瑞士</a>
-          <a href="7index.html">杂志</a>
+          <a href="index.html">美漫</a>
+          <a  href="2index.html">怪盗</a>
+          <a  href="3index.html">游戏</a>
+          <a  href="4index.html">野蛮</a>
+          <a  href="5index.html">展馆</a>
+          <a  href="6index.html">瑞士</a>
+          <a class="active-style" href="7index.html">杂志</a>
       </div>
 </aside>
 
@@ -70,7 +71,7 @@
         <nav>
           <button data-page="0">01 &#23553;&#38754;</button>
           <button data-page="1">02 &#31616;&#21382;</button>
-          <button data-page="2">03 &#30446;&#24405;</button>
+          <button data-page="2">03 &#32534;&#36753;&#30446;&#24405;</button>
         </nav>
       </header>
 
@@ -106,7 +107,7 @@
 
       <div class="resume-header">
         <p>ABOUT / RESUME</p>
-        <h2>简历</h2>
+        <h2</h2>
       </div>
 
       <div class="resume-board">
@@ -194,71 +195,72 @@
       </div>
     </section>
 
-    <!-- 03 BOAT MAP -->
-    <section class="page boat-map-page" id="boat-map">
+    <!-- 03 EDITORIAL DIRECTORY -->
+    <section class="page directory-page" id="directory">
       <div class="paper"></div>
-      <div class="map-paper"></div>
       <div class="page-index">03</div>
+      <div class="directory-wash"></div>
 
-      <div class="map-ui">
-        <p>PROJECT MAP / ROW TO EXPLORE</p>
-        <h2>&#21010;&#33337;&#25214;&#21040;<br>&#19979;&#19968;&#20010;&#39033;&#30446;</h2>
-        <div class="map-help">按 <b>A</b> / <b>D</b> 或方向键划船，滚轮也可以移动。点击岛屿进入项目。</div>
-      </div>
+      <header class="directory-header">
+        <p>SPECIAL ISSUE / SUMMER CONTENTS</p>
+        <h2></h2>
+        <span>像翻一本晒过太阳的设计杂志：版面松一点，空气多一点，按兴趣进入不同项目。</span>
+      </header>
 
-      <div class="river-viewport">
-        <div class="river-world" id="riverWorld">
-          <div class="water-layer"></div>
-
-          <a class="island island-child" href="children-water.html" data-project="child" data-enter="bubble" data-title="儿童智能饮水">
-            <img src="assets/island_child.png" alt="儿童智能饮水项目岛">
-            <span>儿童智能饮水</span>
-          </a>
-
-          <a class="island island-polar featured" href="polar-rover.html" data-project="polar" data-enter="ice" data-title="极地房车 HMI">
-            <img src="assets/island_polar.png" alt="极地房车 HMI 项目岛">
-            <span>极地房车 HMI</span>
-          </a>
-
-          <a class="island island-astory" href="astory.html" data-project="astory" data-enter="paper" data-title="ASTORY">
-            <img src="assets/island_astory.png" alt="ASTORY 项目岛">
-            <span>ASTORY</span>
-          </a>
-
-          <a class="island island-ai" href="ai-home.html" data-project="aihome" data-enter="grid" data-title="AI 智能家居">
-            <img src="assets/island_ai_home.png" alt="AI 智能家居项目岛">
-            <span>AI 智能家居</span>
-          </a>
-
-          <a class="island island-uiux" href="UIUX.html" data-project="uiux" data-enter="shape" data-title="UI/UX 交互演示">
-            <img src="assets/island_uiux.png" alt="UI/UX 交互演示项目岛">
-            <span>UI/UX 交互演示</span>
-          </a>
-
-          <a class="island island-other" href="projects.html" data-project="other" data-enter="gray" data-title="其他项目">
-            <img src="assets/island_other.png" alt="其他项目岛">
-            <span>其他项目</span>
-          </a>
-
-          <a class="island island-more" href="experiments.html" data-project="experiments" data-enter="boom" data-title="更多实验">
-            <img src="assets/island_more.png" alt="更多实验岛">
-            <span>更多实验</span>
-          </a>
-
-          <div class="boat-wrap" id="boatWrap">
-            <div class="boat-speech" id="boatSpeech">按 A / D 划船，看到岛就点。</div>
-            <img id="boatSprite" src="assets/boat_idle.png" alt="划船小人">
+      <div class="directory-board">
+        <article class="directory-intro-card">
+          <div class="cover-mini">
+            <div class="cover-block"></div>
+            <div class="cover-lines"></div>
+            <div class="cover-plus">+</div>
           </div>
-        </div>
-      </div>
+          <p class="intro-label">SPECIAL ISSUE</p>
+          <p class="intro-copy">把目录做成一张松散的专题页：像海边旅馆里摊开的设计刊物。轻一点、慢一点、清楚一点。</p>
+        </article>
 
-      <div class="map-progress">
-        <span id="mapProgressText">00%</span>
-        <div><i id="mapProgressBar"></i></div>
-      </div>
-      <div class="island-enter-flash" id="islandEnterFlash" aria-hidden="true">
-        <div class="enter-wipe"></div>
-        <div class="enter-title" id="enterTitle">ENTER</div>
+        <div class="directory-grid">
+            <a class="dir-card dir-polar" href="polar-rover.html" data-title="极地房车 HMI">
+                <span class="dir-kicker">HMI / Feature 01</span>
+                <h3>极地房车 HMI</h3>
+                <p>把极端场景拆成清晰可控的驾驶与居住界面。</p>
+            </a>
+
+            <a class="dir-card dir-child" href="children-water.html" data-title="儿童智能饮水">
+                <span class="dir-kicker">PRODUCT / Feature 02</span>
+                <h3>儿童智能饮水</h3>
+                <p>让儿童产品既安全、亲近，也真的愿意被使用。</p>
+            </a>
+
+            <a class="dir-card dir-ai" href="ai-home.html" data-title="AI 智能家居">
+                <span class="dir-kicker">AI UX / Feature 03</span>
+                <h3>AI 智能家居</h3>
+                <p>让 AI 不只是炫技，而是成为家居系统里的可理解助手。</p>
+            </a>
+
+            <a class="dir-card dir-astory" href="astory.html" data-title="ASTORY">
+                <span class="dir-kicker">NARRATIVE / Feature 04</span>
+                <h3>ASTORY</h3>
+                <p>围绕故事、选择与反馈，形成更沉浸的体验。</p>
+            </a>
+
+            <a class="dir-card dir-uiux" href="UIUX.html" data-title="UI/UX 交互演示">
+                <span class="dir-kicker">INTERACTION / Feature 05</span>
+                <h3>UI/UX 交互演示</h3>
+                <p>把交互细节、动效节奏与信息层级拆开来看。</p>
+            </a>
+
+            <a class="dir-card dir-other" href="projects.html" data-title="其他项目">
+                <span class="dir-kicker">ARCHIVE / Feature 06</span>
+                <h3>其他项目</h3>
+                <p>继续收纳不同方向的设计实验与项目延展。</p>
+            </a>
+
+            <a class="dir-card dir-more" href="experiments.html" data-title="更多实验">
+                <span class="dir-kicker">LAB / Feature 07</span>
+                <h3>更多实验</h3>
+                <p>一些没那么乖、但很能展示探索能力的小实验。</p>
+            </a>
+        </div>
       </div>
     </section>
 
@@ -292,28 +294,28 @@
           <div class="method-num">01</div>
           <h3>系统拆解</h3>
           <p>面对 HMI、AI Agent、儿童硬件或空间服务时，先找清楚角色、场景、约束与信息流，而不是急着画界面。</p>
-          <div class="method-tags"><span>复杂场景</span><span>流程结构</span><span>约束关系</span></div>
+          <div class="method-tags"><span>复杂场景 流程结构 约束关系</span></div>
         </article>
 
         <article class="method-card card-interaction">
-          <div class="method-num">02</div>
+          <div class="method-num"></div>
           <h3>交互策略</h3>
           <p>把用户的真实行为转译成可操作路径：什么时候提醒、哪里给反馈、怎样降低理解成本，都要落到体验节奏里。</p>
-          <div class="method-tags"><span>行为路径</span><span>反馈机制</span><span>情绪节奏</span></div>
+          <div class="method-tags"><span>行为路径 反馈机制 情绪节奏</span></div>
         </article>
 
         <article class="method-card card-prototype">
-          <div class="method-num">03</div>
+          <div class="method-num"></div>
           <h3>原型验证</h3>
           <p>不只停在概念图，会用 Figma、HTML、Android Studio、Blender 等工具把关键交互做出来，观察它是否真的成立。</p>
-          <div class="method-tags"><span>HTML</span><span>Android</span><span>Blender</span></div>
+          <div class="method-tags"><span>HTML Android Blender</span></div>
         </article>
 
         <article class="method-card card-delivery">
-          <div class="method-num">04</div>
+          <div class="method-num"></div>
           <h3>跨界落地</h3>
           <p>产品、空间、工程装置、游戏化、AI 与 HMI 并不是分散经验，而是同一种能力：把抽象系统变成能被使用的东西。</p>
-          <div class="method-tags"><span>产品体验</span><span>智能交互</span><span>技术实现</span></div>
+          <div class="method-tags"><span>产品体验 智能交互 技术实现</span></div>
         </article>
       </section>
 
@@ -356,7 +358,7 @@
 
   </main>
 
-  <script src="script.js"></script>
+  <script src="7script.js"></script>
 <script src="loading-transition.js"></script>
 </body>
 </html>

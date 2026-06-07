@@ -1103,5 +1103,54 @@
 
         renderProgramPage("start");
     </script>
+<script>
+(function () {
+  const DEFAULT_RETURN = "index.html?page=2";
+  const MAIN_PAGE_RE = /^(index|[2-7]index)\.html$/;
+
+  function sameOriginRelative(value) {
+    if (!value) return "";
+    try {
+      const url = new URL(value, window.location.href);
+      if (url.origin !== window.location.origin) return "";
+      const file = url.pathname.split("/").pop() || "index.html";
+      return file + url.search + url.hash;
+    } catch (error) {
+      return "";
+    }
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  let returnUrl = sameOriginRelative(params.get("from"));
+
+  if (!returnUrl) {
+    try {
+      returnUrl = sameOriginRelative(sessionStorage.getItem("portfolioReturnUrl"));
+    } catch (error) {}
+  }
+
+  if (!returnUrl && document.referrer) {
+    try {
+      const ref = new URL(document.referrer);
+      const file = ref.pathname.split("/").pop() || "index.html";
+      if (ref.origin === window.location.origin && MAIN_PAGE_RE.test(file)) {
+        returnUrl = file + (ref.search || "?page=2") + ref.hash;
+      }
+    } catch (error) {}
+  }
+
+  if (!returnUrl) returnUrl = DEFAULT_RETURN;
+
+  try {
+    sessionStorage.setItem("portfolioReturnUrl", returnUrl);
+  } catch (error) {}
+
+  window.portfolioReturnUrl = returnUrl;
+
+  document.querySelectorAll("a.return, a.back-home, a.back-link, #portfolioBack, a[href='index.html'], a[href^='index.html?page=']").forEach(function (link) {
+    link.setAttribute("href", returnUrl);
+  });
+})();
+</script>
 </body>
 </html>

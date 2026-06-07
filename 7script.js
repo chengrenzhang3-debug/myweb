@@ -3,6 +3,51 @@ const pages = document.querySelectorAll(".page");
 const flash = document.querySelector(".flip-flash");
 const movingItems = document.querySelectorAll(".shape, .dots, .comic-panel, .big-mark, .project-visual");
 
+/* ===== portfolio return source: sunny magazine style ===== */
+const PORTFOLIO_RETURN_URL = "7index.html?page=2";
+const PROJECT_ENTRY_PAGES = new Set([
+  "polar-rover.html",
+  "children-water.html",
+  "ai-home.html",
+  "astory.html",
+  "UIUX.html",
+  "projects.html",
+  "experiments.html"
+]);
+
+function normalizeLocalHref(href) {
+  try {
+    const url = new URL(href, window.location.href);
+    return url.pathname.split("/").pop();
+  } catch (error) {
+    return (href || "").split("?")[0].split("#")[0];
+  }
+}
+
+function withPortfolioReturn(url) {
+  if (!url || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:")) return url;
+  if (/^https?:\/\//i.test(url)) return url;
+
+  try {
+    const parsed = new URL(url, window.location.href);
+    if (!PROJECT_ENTRY_PAGES.has(parsed.pathname.split("/").pop())) return url;
+    if (!parsed.searchParams.has("from")) parsed.searchParams.set("from", PORTFOLIO_RETURN_URL);
+    return parsed.pathname.split("/").pop() + parsed.search + parsed.hash;
+  } catch (error) {
+    const fileName = normalizeLocalHref(url);
+    if (!PROJECT_ENTRY_PAGES.has(fileName) || url.includes("from=")) return url;
+    const separator = url.includes("?") ? "&" : "?";
+    return url + separator + "from=" + encodeURIComponent(PORTFOLIO_RETURN_URL);
+  }
+}
+
+function rememberPortfolioReturn() {
+  try {
+    sessionStorage.setItem("portfolioReturnUrl", PORTFOLIO_RETURN_URL);
+  } catch (error) {}
+}
+
+
 let currentPage = 0;
 let isTurning = false;
 
@@ -175,47 +220,6 @@ const islandLines = {
   experiments: ["更多实验岛还在，没被删。", "实验区，危险但好玩。"]
 };
 
-/* Portfolio return source
-   美漫风格的项目入口统一带上来源页：
-   从 index.html 的第三页进入项目时，项目详情页会收到
-   ?from=index.html%3Fpage%3D2，返回按钮即可回到美漫第三页。
-*/
-const portfolioComicReturnUrl = "index.html?page=2";
-const portfolioProjectFiles = new Set([
-  "children-water.html",
-  "polar-rover.html",
-  "astory.html",
-  "ai-home.html",
-  "UIUX.html",
-  "projects.html",
-  "experiments.html"
-]);
-
-function withPortfolioReturn(url) {
-  if (!url) return url;
-  if (url.startsWith("#")) return url;
-  if (/^(https?:|mailto:|tel:)/i.test(url)) return url;
-  if (url.includes("from=")) return url;
-
-  const separator = url.includes("?") ? "&" : "?";
-  return url + separator + "from=" + encodeURIComponent(portfolioComicReturnUrl);
-}
-
-function decorateComicProjectLinks() {
-  document.querySelectorAll("a[href]").forEach(function (link) {
-    const href = link.getAttribute("href");
-    if (!href) return;
-
-    const fileName = href.split("?")[0].split("#")[0].replace(/^\.\//, "");
-    if (!portfolioProjectFiles.has(fileName)) return;
-
-    link.setAttribute("href", withPortfolioReturn(href));
-  });
-}
-
-decorateComicProjectLinks();
-
-
 function randomLine(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
@@ -310,8 +314,8 @@ function updateBoatMap() {
 function enterIsland(island, event) {
   if (enteringIsland) return;
   event.preventDefault();
-
-  const url = withPortfolioReturn(island.getAttribute("href"));
+  const rawUrl = island.getAttribute("href");
+  const url = withPortfolioReturn(rawUrl);
   const title = island.dataset.title || island.textContent.trim() || "ENTER";
   const type = island.dataset.project || "other";
 
@@ -326,6 +330,8 @@ function enterIsland(island, event) {
     新页面加载后由 loading-transition.js 继续播放同一块遮板的退场动画。
     这样用户看到的是：动画发生 → 动画结束 → 新页面已经在眼前。
   */
+  rememberPortfolioReturn();
+
   if (window.portfolioComicNavigate) {
     window.portfolioComicNavigate(url, {
       title: title,
@@ -345,6 +351,7 @@ function enterIsland(island, event) {
     }));
   } catch (error) {}
 
+  rememberPortfolioReturn();
   window.location.href = url;
 }
 
@@ -391,3 +398,97 @@ if (resumeBoard && resumeModules.length) {
     });
   });
 }
+
+
+/* ===== style variant helper ===== */
+(function () {
+  const bodyClass = document.body.className || "";
+  document.querySelectorAll(".style-switcher a").forEach(function (a) {
+    if (a.getAttribute("href") === location.pathname.split("/").pop()) {
+      a.classList.add("active-style");
+    }
+  });
+})();
+
+
+
+/* Magazine directory/sidebar project links: add source return and transition. */
+document.querySelectorAll(".directory-page a[href], .quick-index a[href], .stage-link[href]").forEach(function (link) {
+  const href = link.getAttribute("href");
+  const fileName = normalizeLocalHref(href || "");
+  if (!PROJECT_ENTRY_PAGES.has(fileName)) return;
+
+  link.setAttribute("href", withPortfolioReturn(href));
+
+  if (!link.dataset.returnBound) {
+    link.dataset.returnBound = "true";
+    link.addEventListener("click", function (event) {
+      rememberPortfolioReturn();
+
+      if (link.classList.contains("dir-card") || link.classList.contains("stage-link")) {
+        event.preventDefault();
+        const targetUrl = withPortfolioReturn(link.getAttribute("href"));
+
+        if (window.portfolioComicNavigate) {
+          window.portfolioComicNavigate(targetUrl, {
+            title: link.dataset.title || link.textContent.trim(),
+            project: link.dataset.project || ""
+          });
+        } else {
+          window.location.href = targetUrl;
+        }
+      }
+    });
+  }
+});
+
+
+
+/* Wheel safeguard: directory page should continue to page 04. */
+(function () {
+  let magazineWheelLock = false;
+
+  function getActivePageIndex() {
+    const active = document.querySelector(".page.active");
+    const allPages = Array.from(document.querySelectorAll(".page"));
+    return allPages.indexOf(active);
+  }
+
+  function goToMagazinePage(index) {
+    if (typeof goToPage === "function") {
+      goToPage(index);
+      return;
+    }
+    if (typeof showPage === "function") {
+      showPage(index);
+      return;
+    }
+
+    const allPages = Array.from(document.querySelectorAll(".page"));
+    allPages.forEach(function (page, i) {
+      page.classList.toggle("active", i === index);
+      page.classList.remove("go-left", "go-right");
+    });
+  }
+
+  window.addEventListener("wheel", function (event) {
+    const activeIndex = getActivePageIndex();
+    if (activeIndex !== 2) return;
+
+    if (magazineWheelLock) {
+      event.preventDefault();
+      return;
+    }
+
+    const direction = event.deltaY > 0 ? 1 : -1;
+    if (Math.abs(event.deltaY) < 8) return;
+
+    event.preventDefault();
+    magazineWheelLock = true;
+    goToMagazinePage(direction > 0 ? 3 : 1);
+
+    setTimeout(function () {
+      magazineWheelLock = false;
+    }, 760);
+  }, { passive: false, capture: true });
+})();

@@ -10,10 +10,11 @@
     <link rel="icon" type="image/png" href="./assets/site-logo.png?v=999">
     <link rel="shortcut icon" type="image/png" href="./assets/site-logo.png?v=999">
     <link rel="apple-touch-icon" href="./assets/site-logo.png?v=999">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="2style.css">
+  <!-- Style variant: 怪盗都市风 -->
 </head>
 
-<body>
+<body class="theme-phantom">
   <div class="cursor"></div>
 
   <div class="edge-trigger"><span></span></div>
@@ -22,7 +23,7 @@
       <p>PAGE INDEX</p>
       <button data-page="0">01 / &#23553;&#38754;</button>
       <button data-page="1">02 / &#31616;&#21382;</button>
-      <button data-page="2">03 / &#21010;&#33337;&#22320;&#22270;</button>
+      <button data-page="2">03 / 陈列室</button>
       <button data-page="3">04 / &#24037;&#20316;&#26041;&#24335;</button>
       <button data-page="4">05 / &#32467;&#23614;</button>
       <a href="polar-rover.html">&#26497;&#22320;&#25151;&#36710; HMI</a>
@@ -34,13 +35,13 @@
       <a href="experiments.html">更多实验</a>
       <div class="style-switcher">
           <p>风格选择</p>
-          <a class="active-style" href="index.html">美漫</a>
-          <a href="2index.html">怪盗</a>
-          <a href="3index.html">游戏</a>
-          <a href="4index.html">野蛮</a>
-          <a href="5index.html">展馆</a>
-          <a href="6index.html">瑞士</a>
-          <a href="7index.html">杂志</a>
+          <a href="index.html">美漫</a>
+          <a class="active-style" href="2index.html">怪盗</a>
+          <a  href="3index.html">游戏</a>
+          <a  href="4index.html">野蛮</a>
+          <a  href="5index.html">展馆</a>
+          <a  href="6index.html">瑞士</a>
+          <a  href="7index.html">杂志</a>
       </div>
 </aside>
 
@@ -70,7 +71,7 @@
         <nav>
           <button data-page="0">01 &#23553;&#38754;</button>
           <button data-page="1">02 &#31616;&#21382;</button>
-          <button data-page="2">03 &#30446;&#24405;</button>
+          <button data-page="2">03 陈列室</button>
         </nav>
       </header>
 
@@ -98,7 +99,7 @@
       </footer>
     </section>
 
-    <section class="page resume" id="resume">
+    <section class="page resume phantom-resume" id="resume">
       <div class="paper"></div>
       <div class="resume-red-slab"></div>
       <div class="resume-yellow-slab"></div>
@@ -109,72 +110,78 @@
         <h2>简历</h2>
       </div>
 
-      <div class="resume-board">
-        <aside class="resume-about">
-          <div class="mini-num">01</div>
-          <h3>张长瑞</h3>
-          <p class="resume-role">系统架构 / 交互设计 / 跨界落地</p>
+      <div class="resume-board phantom-resume-board">
+          <aside class="resume-about phantom-profile-card">
+              <div class="mini-num">01</div>
+              <h3>张长瑞</h3>
+              <p class="resume-role">系统架构 / 交互设计 / 跨界落地</p>
+              <p class="about-text lead-text">
+                  在交大的这几年，我逐渐形成了“系统架构、交互设计与跨界落地”三位一体的工作方式。我天生对复杂系统有种拆解欲，也不满足于停留在“画界面”的悬浮概念上。
+              </p>
 
-          <p class="about-text lead-text">
-            在交大的这几年，我逐渐形成了“系统架构、交互设计与跨界落地”三位一体的工作方式。我天生对复杂系统有种拆解欲，也不满足于停留在“画界面”的悬浮概念上。
-          </p>
+              <p class="about-text">
+                  从儿童智能硬件背后长效的游戏化行为回路，到极地房车一体化 HMI，再到用 Android Studio 完成从 UX 到原生开发的独立落地，我始终在追求一种更自然的体验秩序。
+              </p>
 
-          <p class="about-text">
-            从儿童智能硬件背后长效的游戏化行为回路，到极地房车一体化 HMI，再到用 Android Studio 完成从 UX 到原生开发的独立落地，我始终在追求一种更自然的体验秩序。
-          </p>
+              <p class="about-text">
+                  在算法和技术狂飙的时代，我的兴奋点在于探索 AI-Native 交互的可能：让技术从“命令式”走向“理解式”，让智能体隐于无形，让理解自然发生。
+              </p>
 
-          <p class="about-text">
-            在算法和技术狂飙的时代，我的兴奋点在于探索 AI-Native 交互的可能：让技术从“命令式”走向“理解式”，让智能体隐于无形，让理解自然发生。
-          </p>
+              <p class="about-text life-text">
+                  设计之外，我用摄影记录细节，也在旅行中感受不同地貌与文化。这些生活养分让我持续带着同理心观察人，带着探索欲重构产品。
+              </p>
 
-          <p class="about-text life-text">
-            设计之外，我用摄影记录细节，也在旅行中感受不同地貌与文化。这些生活养分让我持续带着同理心观察人，带着探索欲重构产品。
-          </p>
+              <div class="about-matrix">
+                  <div><b>系统</b><span>拆解角色、流程、约束与优先级</span></div>
+                  <div><b>交互</b><span>组织路径、反馈、节奏与理解成本</span></div>
+                  <div><b>落地</b><span>用原型、代码和测试验证方案</span></div>
+              </div>
 
-          <div class="about-matrix">
-            <div><b>系统</b><span>从约束中拆出关系、流程与优先级</span></div>
-            <div><b>交互</b><span>让复杂任务变得清晰、自然、可操作</span></div>
-            <div><b>落地</b><span>用原型与代码验证想法，而不止停在概念</span></div>
-          </div>
+              <div class="resume-highlight">
+                  <span>方向：AI-Native 体验 / 智能硬件 / HMI</span>
+                  <span>方法：调研观察 / 原型验证 / 技术实现</span>
+                  <span>能力：系统架构 / 交互设计 / 跨界落地</span>
+              </div>
+          </aside>
 
-          <div class="resume-highlight">
-            <span>工作方式：系统架构 / 交互设计 / 跨界落地</span>
-            <span>关注方向：AI-Native 体验 / 智能硬件 / HMI</span>
-            <span>设计态度：真实观察 / 原型验证 / 技术落地</span>
-          </div>
-        </aside>
-
-        <section class="resume-main">
+        <section class="resume-main phantom-resume-main">
           <div class="resume-card education-card">
             <div class="card-head"><span>02</span><h4>教育与实践</h4></div>
+
             <div class="edu-practice-grid">
               <div class="edu-block">
                 <strong>上海交通大学 · 设计学院</strong>
                 <p>工业设计专业 · 本科</p>
                 <p>2023.09 - 2027.06</p>
-                <div class="edu-tags"><span>GPA 3.44</span><span>CET-6</span><span>课程设计 10+</span><span>参与科研：省部级</span></div>
+                <div class="edu-tags">
+                  <span>GPA 3.44</span>
+                  <span>CET-6</span>
+                  <span>课程设计 10+</span>
+                  <span>参与科研：省部级</span>
+                </div>
               </div>
 
               <div class="practice-block">
                 <strong>真实业务协作实践</strong>
-                <p>参与复杂信息流程中的资料梳理、结构化表达与跨角色沟通，训练从真实约束中提炼问题、组织信息并推动方案落地的能力。</p>
-                <ul class="practice-points">
-                  <li>把分散信息转译成清晰结构</li>
-                  <li>在多方沟通中确认问题边界</li>
-                  <li>从真实约束中推动方案表达</li>
-                </ul>
-                <div class="edu-tags"><span>信息梳理</span><span>流程理解</span><span>沟通协作</span><span>方案表达</span></div>
+                <p>参与复杂信息流程中的资料梳理、结构化表达与跨角色沟通，训练从真实约束中提炼问题并推动方案表达的能力。</p>
+                <div class="edu-tags">
+                  <span>信息梳理</span>
+                  <span>流程理解</span>
+                  <span>沟通协作</span>
+                  <span>方案表达</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="resume-card methods-card">
             <div class="card-head"><span>03</span><h4>UX 方法实践</h4></div>
-            <div class="method-grid">
+
+            <div class="ux-method-board">
               <div><b>3+</b><strong>用户访谈</strong><small>Interviews</small></div>
               <div><b>7+</b><strong>问卷调研</strong><small>Surveys</small></div>
               <div><b>3+</b><strong>可用性测试</strong><small>Usability Tests</small></div>
-              <div><b>5+</b><strong>用户旅程图</strong><small>User Journey</small></div>
+              <div><b>5+</b><strong>旅程图</strong><small>User Journey</small></div>
               <div><b>5+</b><strong>用户画像</strong><small>Personas</small></div>
               <div><b>多次</b><strong>竞品分析</strong><small>Competitive Analysis</small></div>
               <div><b>多次</b><strong>方案验证</strong><small>Validation</small></div>
@@ -184,6 +191,7 @@
 
           <div class="resume-card skills-card">
             <div class="card-head"><span>04</span><h4>工具与能力</h4></div>
+
             <div class="skill-columns">
               <div><h5>设计工具</h5><p>Figma / Illustrator / Photoshop / Blender</p></div>
               <div><h5>技术实践</h5><p>Python / HTML / CSS / JavaScript / Android Studio / Git</p></div>
@@ -194,76 +202,76 @@
       </div>
     </section>
 
-    <!-- 03 BOAT MAP -->
-    <section class="page boat-map-page" id="boat-map">
+
+    <section class="page project-stage phantom-gallery" id="project-gallery">
       <div class="paper"></div>
-      <div class="map-paper"></div>
-      <div class="page-index">03</div>
+      <div class="stage-glow"></div>
+      <div class="page-index"></div>
 
-      <div class="map-ui">
-        <p>PROJECT MAP / ROW TO EXPLORE</p>
-        <h2>&#21010;&#33337;&#25214;&#21040;<br>&#19979;&#19968;&#20010;&#39033;&#30446;</h2>
-        <div class="map-help">按 <b>A</b> / <b>D</b> 或方向键划船，滚轮也可以移动。点击岛屿进入项目。</div>
-      </div>
+      <div class="stage-layout phantom-layout phantom-gallery-layout">
+        <aside class="stage-hero-panel phantom-hero-panel">
+          <p class="stage-kicker">CASE ROOM / PHANTOM COLLECTION</p>
+          <div class="phantom-subline">INVITATION ONLY / 今晚开放</div>
 
-      <div class="river-viewport">
-        <div class="river-world" id="riverWorld">
-          <div class="water-layer"></div>
+          <h2>怪盗陈列室</h2>
 
-          <a class="island island-child" href="children-water.html" data-project="child" data-enter="bubble" data-title="儿童智能饮水">
-            <img src="assets/island_child.png" alt="儿童智能饮水项目岛">
-            <span>儿童智能饮水</span>
+          <p class="stage-intro">
+            欢迎步入怪盗的收藏现场：沿着编号浏览被锁进展柜的作品，挑一件靠近，看看它在什么场景留下线索，又如何被重新陈列。
+          </p>
+
+          <p class="phantom-note">
+            请像潜入展厅一样观看这些收藏品：先扫视，再锁定，最后打开每一件藏品背后的现场。
+          </p>
+
+          <img class="stage-hero" src="2image/stage-hero.svg" alt="怪盗陈列室装饰图">
+        </aside>
+
+        <div class="vault-wall phantom-vault-wall" aria-label="项目陈列室">
+          <a class="stage-link exhibit-case case-1" href="polar-rover.html" data-project="polar" data-title="极地房车 HMI">
+            <small>CASE 01 / HMI</small>
+            <strong>极地房车 HMI</strong>
+            <span>把极端场景拆成清晰可控的驾驶与居住界面。</span>
           </a>
 
-          <a class="island island-polar featured" href="polar-rover.html" data-project="polar" data-enter="ice" data-title="极地房车 HMI">
-            <img src="assets/island_polar.png" alt="极地房车 HMI 项目岛">
-            <span>极地房车 HMI</span>
+          <a class="stage-link exhibit-case case-2" href="children-water.html" data-project="child" data-title="儿童智能饮水">
+            <small>CASE 02 / PRODUCT</small>
+            <strong>儿童智能饮水</strong>
+            <span>把儿童产品做得安全、亲近，并且真的愿意被使用。</span>
           </a>
 
-          <a class="island island-astory" href="astory.html" data-project="astory" data-enter="paper" data-title="ASTORY">
-            <img src="assets/island_astory.png" alt="ASTORY 项目岛">
-            <span>ASTORY</span>
+          <a class="stage-link exhibit-case case-3" href="ai-home.html" data-project="aihome" data-title="AI 智能家居">
+            <small>CASE 03 / AI UX</small>
+            <strong>AI 智能家居</strong>
+            <span>让 AI 不只是炫技，而是成为家居系统里的可理解助手。</span>
           </a>
 
-          <a class="island island-ai" href="ai-home.html" data-project="aihome" data-enter="grid" data-title="AI 智能家居">
-            <img src="assets/island_ai_home.png" alt="AI 智能家居项目岛">
-            <span>AI 智能家居</span>
+          <a class="stage-link exhibit-case case-4" href="astory.html" data-project="astory" data-title="ASTORY">
+            <small>CASE 04 / NARRATIVE</small>
+            <strong>ASTORY</strong>
+            <span>围绕故事、选择与反馈构建更有沉浸感的体验。</span>
           </a>
 
-          <a class="island island-uiux" href="UIUX.html" data-project="uiux" data-enter="shape" data-title="UI/UX 交互演示">
-            <img src="assets/island_uiux.png" alt="UI/UX 交互演示项目岛">
-            <span>UI/UX 交互演示</span>
+          <a class="stage-link exhibit-case case-5" href="UIUX.html" data-project="uiux" data-title="UI/UX 交互演示">
+            <small>CASE 05 / INTERACTION</small>
+            <strong>UI/UX 交互演示</strong>
+            <span>把交互细节、动效节奏和信息层级拆开给你看。</span>
           </a>
 
-          <a class="island island-other" href="projects.html" data-project="other" data-enter="gray" data-title="其他项目">
-            <img src="assets/island_other.png" alt="其他项目岛">
-            <span>其他项目</span>
+          <a class="stage-link exhibit-case case-6" href="projects.html" data-project="other" data-title="其他项目">
+            <small>CASE 06 / ARCHIVE</small>
+            <strong>其他项目</strong>
+            <span>继续收纳不同方向的设计实验与项目延展。</span>
           </a>
 
-          <a class="island island-more" href="experiments.html" data-project="experiments" data-enter="boom" data-title="更多实验">
-            <img src="assets/island_more.png" alt="更多实验岛">
-            <span>更多实验</span>
+          <a class="stage-link exhibit-case case-7" href="experiments.html" data-project="experiments" data-title="更多实验">
+            <small>CASE 07 / LAB</small>
+            <strong>更多实验</strong>
+            <span>一些不那么规整，但很适合展示探索能力的小实验。</span>
           </a>
-
-          <div class="boat-wrap" id="boatWrap">
-            <div class="boat-speech" id="boatSpeech">按 A / D 划船，看到岛就点。</div>
-            <img id="boatSprite" src="assets/boat_idle.png" alt="划船小人">
-          </div>
         </div>
-      </div>
-
-      <div class="map-progress">
-        <span id="mapProgressText">00%</span>
-        <div><i id="mapProgressBar"></i></div>
-      </div>
-      <div class="island-enter-flash" id="islandEnterFlash" aria-hidden="true">
-        <div class="enter-wipe"></div>
-        <div class="enter-title" id="enterTitle">ENTER</div>
       </div>
     </section>
 
-
-    <!-- 04 METHOD / CAPABILITY SUMMARY -->
     <section class="page method-page" id="method">
       <div class="paper"></div>
       <div class="method-red-block"></div>
@@ -341,7 +349,7 @@
         </blockquote>
         <cite>— 张长瑞</cite>
         <div class="ending-actions">
-          <button data-page="2">回到项目地图</button>
+          <button data-page="2">回到项目目录</button>
           <button data-page="0">回到封面</button>
         </div>
       </div>
@@ -356,7 +364,7 @@
 
   </main>
 
-  <script src="script.js"></script>
+  <script src="2script.js"></script>
 <script src="loading-transition.js"></script>
 </body>
 </html>

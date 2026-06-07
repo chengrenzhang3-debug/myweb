@@ -1,10 +1,29 @@
 const cursor = document.querySelector(".cursor");
 const pages = document.querySelectorAll(".page");
 const flash = document.querySelector(".flip-flash");
-const movingItems = document.querySelectorAll(".shape, .dots, .comic-panel, .big-mark, .project-visual");
+const movingItems = document.querySelectorAll(".shape, .dots, .comic-panel, .big-mark, .project-visual, .stage-hero, .stage-link, .quest-console, .quest-node");
 
 let currentPage = 0;
 let isTurning = false;
+
+/* keep project return target tied to the current style */
+const PORTFOLIO_RETURN_URL = "3index.html?page=2";
+
+function withPortfolioReturn(url) {
+  if (!url || url.startsWith("#") || url.startsWith("http") || url.startsWith("mailto:") || url.startsWith("tel:")) return url;
+  if (url.includes("from=")) return url;
+  const separator = url.includes("?") ? "&" : "?";
+  return url + separator + "from=" + encodeURIComponent(PORTFOLIO_RETURN_URL);
+}
+
+document.querySelectorAll('.quick-index > a[href]').forEach(function (link) {
+  const href = link.getAttribute("href");
+  const projectPages = ["polar-rover.html","children-water.html","ai-home.html","astory.html","UIUX.html","projects.html","experiments.html"];
+  if (projectPages.some(function (page) { return href && href.indexOf(page) === 0; })) {
+    link.setAttribute("href", withPortfolioReturn(href));
+  }
+});
+
 
 function showFlash(targetPage) {
   flash.classList.remove("active", "resume-special");
@@ -56,11 +75,6 @@ window.addEventListener("wheel", function (event) {
   if (event.target.closest(".quick-index")) return;
   event.preventDefault();
 
-  if (currentPage === 2) {
-    handleBoatPageWheel(event.deltaY);
-    return;
-  }
-
   if (event.deltaY > 0) nextPage();
   else prevPage();
 }, { passive: false });
@@ -68,18 +82,8 @@ window.addEventListener("wheel", function (event) {
 window.addEventListener("keydown", function (event) {
   const key = event.key.toLowerCase();
 
-  if (currentPage === 2 && (key === "a" || key === "arrowleft")) {
-    moveBoat(-1);
-    return;
-  }
-
-  if (currentPage === 2 && (key === "d" || key === "arrowright")) {
-    moveBoat(1);
-    return;
-  }
-
-  if (key === "arrowdown" || key === " " || key === "arrowright") nextPage();
-  if (key === "arrowup" || key === "arrowleft") prevPage();
+  if (key === "arrowdown" || key === " " || key === "pagedown" || key === "arrowright" || key === "d") nextPage();
+  if (key === "arrowup" || key === "pageup" || key === "arrowleft" || key === "a") prevPage();
 });
 
 document.querySelectorAll("[data-page]").forEach(function (button) {
@@ -116,6 +120,45 @@ document.querySelectorAll("button, a").forEach(function (item) {
     if (cursor) cursor.style.transform = "translate(-50%, -50%) scale(1)";
   });
 });
+
+/* page 03 project entry cards */
+function enterStageProject(link, event) {
+  if (!link) return;
+  const url = withPortfolioReturn(link.getAttribute("href"));
+  if (!url || url.startsWith("#")) return;
+  event.preventDefault();
+
+  const title = link.dataset.title || link.textContent.trim() || "ENTER";
+  const type = link.dataset.project || "other";
+
+  if (window.portfolioComicNavigate) {
+    window.portfolioComicNavigate(url, {
+      title: title,
+      type: type,
+      sub: "ENTER PROJECT"
+    });
+    return;
+  }
+
+  try {
+    sessionStorage.setItem("portfolioLoadingTransition", JSON.stringify({
+      title: title,
+      type: type,
+      sub: "ENTER PROJECT",
+      phase: "reveal",
+      createdAt: Date.now()
+    }));
+  } catch (error) {}
+
+  window.location.href = url;
+}
+
+document.querySelectorAll(".stage-link").forEach(function (link) {
+  link.addEventListener("click", function (event) {
+    enterStageProject(link, event);
+  });
+});
+
 
 /* open a specific page from URL, e.g. index.html?page=2 */
 (function openPageFromUrl() {
@@ -174,47 +217,6 @@ const islandLines = {
   other: ["其他项目岛，后面可以继续加东西。", "这里先作为更多作品入口。"],
   experiments: ["更多实验岛还在，没被删。", "实验区，危险但好玩。"]
 };
-
-/* Portfolio return source
-   美漫风格的项目入口统一带上来源页：
-   从 index.html 的第三页进入项目时，项目详情页会收到
-   ?from=index.html%3Fpage%3D2，返回按钮即可回到美漫第三页。
-*/
-const portfolioComicReturnUrl = "index.html?page=2";
-const portfolioProjectFiles = new Set([
-  "children-water.html",
-  "polar-rover.html",
-  "astory.html",
-  "ai-home.html",
-  "UIUX.html",
-  "projects.html",
-  "experiments.html"
-]);
-
-function withPortfolioReturn(url) {
-  if (!url) return url;
-  if (url.startsWith("#")) return url;
-  if (/^(https?:|mailto:|tel:)/i.test(url)) return url;
-  if (url.includes("from=")) return url;
-
-  const separator = url.includes("?") ? "&" : "?";
-  return url + separator + "from=" + encodeURIComponent(portfolioComicReturnUrl);
-}
-
-function decorateComicProjectLinks() {
-  document.querySelectorAll("a[href]").forEach(function (link) {
-    const href = link.getAttribute("href");
-    if (!href) return;
-
-    const fileName = href.split("?")[0].split("#")[0].replace(/^\.\//, "");
-    if (!portfolioProjectFiles.has(fileName)) return;
-
-    link.setAttribute("href", withPortfolioReturn(href));
-  });
-}
-
-decorateComicProjectLinks();
-
 
 function randomLine(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -311,7 +313,7 @@ function enterIsland(island, event) {
   if (enteringIsland) return;
   event.preventDefault();
 
-  const url = withPortfolioReturn(island.getAttribute("href"));
+  const url = island.getAttribute("href");
   const title = island.dataset.title || island.textContent.trim() || "ENTER";
   const type = island.dataset.project || "other";
 
@@ -391,3 +393,14 @@ if (resumeBoard && resumeModules.length) {
     });
   });
 }
+
+
+/* ===== style variant helper ===== */
+(function () {
+  const bodyClass = document.body.className || "";
+  document.querySelectorAll(".style-switcher a").forEach(function (a) {
+    if (a.getAttribute("href") === location.pathname.split("/").pop()) {
+      a.classList.add("active-style");
+    }
+  });
+})();
