@@ -1,90 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>张长瑞｜Mobile Portfolio</title>
-<link rel="icon" type="image/png" href="../assets/site-logo.png?v=999">
-<link rel="stylesheet" href="mobile_common.css">
-<link rel="stylesheet" href="mobile_style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="../device-router.js"></script>
+  <title>张长瑞的个人网站｜Mobile</title>
+  <link rel="icon" type="image/png" href="../assets/site-logo.png?v=999" />
+  <link rel="apple-touch-icon" href="../assets/site-logo.png?v=999" />
+  <link rel="stylesheet" href="mobile_style.css" />
 </head>
 <body>
-<div class="progress-line" id="progressLine"></div>
-<div class="transition-cover" id="transitionCover">SAILING</div>
-
-<div class="mobile-shell home-shell">
-  <header class="top-bar">
-    <div class="brand-dot">张</div>
-    <div class="top-title"><small>PORTFOLIO MOBILE</small><b>张长瑞的移动作品集</b></div>
-    <button class="icon-btn tap" data-open-menu>目录</button>
+  <header class="mobile-topbar">
+    <a class="brand" href="#cover" aria-label="返回封面"><img src="../assets/site-logo.png?v=999" alt="" /><span>PORTFOLIO</span></a>
+    <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false"><span></span><span></span><span></span></button>
   </header>
 
-  <section class="hero-card home-hero reveal" id="home">
-    <p class="kicker">Design / Product / Interaction / AI</p>
-    <h1 class="big-title"><span>PORT</span><span>FOLIO</span></h1>
-    <p class="title-cn">把桌面端的“划船地图”，改成手机可玩的触摸航线。</p>
-    <p class="lead">左右滑动探索作品岛，点击当前岛屿进入项目。上滑继续看个人档案，底部船坞随时返回地图。</p>
-    <div class="hero-actions">
-      <a class="tap main-action" href="#map">开始航行</a>
-      <button class="tap ghost-action" id="surpriseBtn">点点小船</button>
-    </div>
-  </section>
-
-  <section class="section reveal" id="map">
-    <div class="section-title"><h2>作品岛屿</h2><span id="islandCounter">01 / 07</span></div>
-    <div class="map-hint" id="mapHint">← 左右滑动探索作品岛 · 点击岛屿进入 →</div>
-    <div class="river-phone">
-      <div class="water-bg"></div>
-      <div class="boat-track"><img class="boat" id="boat" src="../assets/boat_idle.png" alt="小船"></div>
-      <div class="island-track" id="islandTrack" aria-label="手机端作品地图">
-        <article class="island-card active" data-title="儿童智能饮水" data-link="mobile_children-water.html" data-go="WATER"><img src="../assets/island_child.png" alt="儿童智能饮水"><b>儿童智能饮水</b><p>童趣硬件、亲子陪伴、饮水习惯养成。</p><button>登岛查看</button></article>
-        <article class="island-card" data-title="PolarArk 极地车" data-link="mobile_polar-rover.html" data-go="POLAR"><img src="../assets/island_polar.png" alt="极地房车"><b>PolarArk 极地车</b><p>低变化环境下的移动居住系统。</p><button>登岛查看</button></article>
-        <article class="island-card" data-title="ASTORY" data-link="mobile_astory.html" data-go="STORY"><img src="../assets/island_astory.png" alt="Astory"><b>ASTORY</b><p>AI 叙事经营、债务生存和轮回成长。</p><button>登岛查看</button></article>
-        <article class="island-card" data-title="AI Home" data-link="mobile_ai-home.html" data-go="AI HOME"><img src="../assets/island_ai_home.png" alt="AI Home"><b>AI 智能家居</b><p>家庭 Agent、场景编排与解释型交互。</p><button>登岛查看</button></article>
-        <article class="island-card" data-title="UIUX Demo" data-link="mobile_UIUX.html" data-go="UIUX"><img src="../assets/island_uiux.png" alt="UIUX"><b>UI/UX 交互演示</b><p>宽屏原型、热点交互和横屏体验。</p><button>登岛查看</button></article>
-        <article class="island-card" data-title="其他项目" data-link="mobile_projects.html" data-go="WORKS"><img src="../assets/island_other.png" alt="其他项目"><b>其他项目</b><p>视觉、产品、装置和课程项目合集。</p><button>登岛查看</button></article>
-        <article class="island-card" data-title="更多实验" data-link="mobile_experiments.html" data-go="LAB"><img src="../assets/island_more.png" alt="更多实验"><b>更多实验</b><p>概念实验、原型练习、灵感草稿。</p><button>登岛查看</button></article>
-      </div>
-      <div class="map-dots" id="mapDots"></div>
-    </div>
-  </section>
-
-  <section class="section reveal" id="profile">
-    <div class="section-title"><h2>个人档案</h2><span>ABOUT</span></div>
-    <div class="profile-grid">
-      <article class="section-card"><h3>我关注什么？</h3><p>我喜欢把产品逻辑、视觉表达和交互反馈揉在一起，让作品不只是“页面”，而是有行动、有节奏、有记忆点的体验。</p></article>
-      <article class="section-card"><h3>手机端原则</h3><p>保留桌面端的漫画感和地图叙事，但换成触摸、滑动、卡片展开、章节进度这些更适合手机的交互。</p></article>
-      <article class="section-card"><h3>快速入口</h3><div class="quick-grid"><a href="mobile_children-water.html">儿童饮水</a><a href="mobile_polar-rover.html">极地车</a><a href="mobile_ai-home.html">AI Home</a><a href="mobile_astory.html">Astory</a></div></article>
-    </div>
-  </section>
-
-  <section class="section reveal" id="contact">
-    <div class="section-title"><h2>航行结束</h2><span>END</span></div>
-    <div class="section-card end-card"><h3>准备好继续看项目了吗？</h3><p>建议从作品岛屿地图开始滑动探索。每个项目页都加入了移动端章节导航、图片滑动、触摸反馈和轻量互动。</p><a class="main-action tap" href="#map">回到地图</a></div>
-  </section>
-</div>
-
-<nav class="bottom-dock">
-  <a class="active" href="#home">首页</a><a href="#map">地图</a><a href="#profile">档案</a><button data-open-menu>目录</button>
-</nav>
-
-<div class="drawer" id="mobileDrawer">
-  <div class="drawer-panel">
-    <button class="icon-btn close tap" data-close-menu>×</button>
-    <h2>PAGE<br>INDEX</h2>
-    <a href="#home" data-close-menu>首页封面</a>
-    <a href="#map" data-close-menu>作品岛屿地图</a>
-    <a href="#profile" data-close-menu>个人档案</a>
+  <nav class="mobile-menu" aria-label="移动端目录">
+    <a href="#cover">01 封面</a>
+    <a href="#resume">02 简历</a>
+    <a href="#map">03 作品地图</a>
+    <a href="#method">04 工作方式</a>
+    <a href="#ending">05 结尾</a>
     <a href="mobile_children-water.html">儿童智能饮水</a>
-    <a href="mobile_polar-rover.html">PolarArk 极地车</a>
+    <a href="mobile_polar-rover.html">极地房车 HMI</a>
     <a href="mobile_ai-home.html">AI 智能家居</a>
     <a href="mobile_astory.html">ASTORY</a>
-    <a href="mobile_UIUX.html">UI/UX 演示</a>
+    <a href="mobile_UIUX.html">UI/UX 交互演示</a>
     <a href="mobile_projects.html">其他项目</a>
-    <a href="mobile_experiments.html">更多实验</a>
-  </div>
-</div>
-<script src="mobile_common.js"></script>
-<script src="mobile_script.js"></script>
+  </nav>
+
+  <main>
+    <section class="hero section" id="cover">
+      <div class="paper"></div>
+      <p class="kicker">DESIGN / PRODUCT / INTERACTION / AI</p>
+      <h1><span>张</span><span>长</span><span>瑞</span></h1>
+      <p class="lead">在用户、系统与产品之间，寻找更清晰的体验秩序。</p>
+      <div class="hero-card">
+        <b>WOW!</b>
+        <span>把问题拆开</span>
+        <span>把想法推进</span>
+        <span>把方案做成</span>
+      </div>
+      <a class="primary-cta" href="#map">划到作品地图</a>
+    </section>
+
+    <section class="resume section" id="resume">
+      <div class="section-head">
+        <p>ABOUT / RESUME</p>
+        <h2>简历</h2>
+      </div>
+      <article class="dark-card intro-card">
+        <h3>张长瑞</h3>
+        <p class="role">系统架构 / 交互设计 / 跨界落地</p>
+        <p>我逐渐形成了“系统架构、交互设计与跨界落地”三位一体的工作方式。面对复杂系统，我会先拆角色、场景、约束和信息流，再把它推进到可验证的原型里。</p>
+      </article>
+      <div class="resume-grid">
+        <article class="info-card">
+          <b>上海交通大学 · 设计学院</b>
+          <p>工业设计专业 · 本科<br />2023.09 - 2027.06</p>
+          <div class="tags"><span>GPA 3.44</span><span>CET-6</span><span>课程设计 10+</span></div>
+        </article>
+        <article class="info-card">
+          <b>UX 方法实践</b>
+          <p>用户访谈、问卷调研、可用性测试、用户旅程图、用户画像、竞品分析、方案验证与迭代。</p>
+          <div class="tags"><span>Research</span><span>Prototype</span><span>Validation</span></div>
+        </article>
+        <article class="info-card">
+          <b>工具与能力</b>
+          <p>Figma / Illustrator / Photoshop / Blender / Python / HTML / CSS / JavaScript / Android Studio / Git</p>
+          <div class="tags"><span>AI-Native</span><span>HMI</span><span>智能硬件</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="map section" id="map">
+      <div class="section-head">
+        <p>PROJECT MAP / TOUCH TO EXPLORE</p>
+        <h2>划船找到<br />下一个项目</h2>
+      </div>
+      <p class="map-help">左右滑动浏览岛屿，点击项目卡进入详情。</p>
+      <div class="boat-strip" aria-hidden="true">
+        <img src="../assets/boat_idle.png" alt="" />
+        <span>手机端小船准备好了，直接点岛出发。</span>
+      </div>
+      <div class="project-scroll">
+        <a class="project-island child" href="mobile_children-water.html">
+          <img src="../assets/island_child.png" alt="儿童智能饮水" />
+          <strong>儿童智能饮水</strong><small>智能硬件 / 桌宠关系 / 习惯回路</small>
+        </a>
+        <a class="project-island polar" href="mobile_polar-rover.html">
+          <img src="../assets/island_polar.png" alt="极地房车 HMI" />
+          <strong>极地房车 HMI</strong><small>移动生活系统 / HMI / 车内体验</small>
+        </a>
+        <a class="project-island astory" href="mobile_astory.html">
+          <img src="../assets/island_astory.png" alt="ASTORY" />
+          <strong>ASTORY</strong><small>AI 叙事 / 经营系统 / Android</small>
+        </a>
+        <a class="project-island ai" href="mobile_ai-home.html">
+          <img src="../assets/island_ai_home.png" alt="AI 智能家居" />
+          <strong>AI 智能家居</strong><small>Agent / 家庭设备 / 语义控制</small>
+        </a>
+        <a class="project-island uiux" href="mobile_UIUX.html">
+          <img src="../assets/island_uiux.png" alt="UI/UX 交互演示" />
+          <strong>UI/UX 交互演示</strong><small>战前准备 / 宽屏原型 / 热区交互</small>
+        </a>
+        <a class="project-island other" href="mobile_projects.html">
+          <img src="../assets/island_other.png" alt="其他项目" />
+          <strong>其他项目</strong><small>空间 / 工程 / App / 装置</small>
+        </a>
+        <a class="project-island more" href="mobile_experiments.html">
+          <img src="../assets/island_more.png" alt="更多实验" />
+          <strong>更多实验</strong><small>课程作业 / 概念实验 / 小项目</small>
+        </a>
+      </div>
+    </section>
+
+    <section class="method section" id="method">
+      <div class="section-head">
+        <p>HOW I DESIGN / SYSTEM TO EXPERIENCE</p>
+        <h2>工作方式</h2>
+      </div>
+      <div class="method-flow"><span>观察</span><i></i><span>拆解</span><i></i><span>原型</span><i></i><span>落地</span></div>
+      <div class="method-cards">
+        <article><b>01</b><h3>系统拆解</h3><p>先找清楚角色、场景、约束与信息流，而不是急着画界面。</p></article>
+        <article><b>02</b><h3>交互策略</h3><p>把真实行为转译成可操作路径，控制提醒、反馈与理解成本。</p></article>
+        <article><b>03</b><h3>原型验证</h3><p>用 Figma、HTML、Android Studio、Blender 把关键交互做出来。</p></article>
+        <article><b>04</b><h3>跨界落地</h3><p>把产品、空间、AI 与 HMI 变成能被使用的系统。</p></article>
+      </div>
+    </section>
+
+    <section class="ending section" id="ending">
+      <p class="kicker">PORTFOLIO 2025 / ENDING</p>
+      <h2>继续探索</h2>
+      <blockquote>设计不是把问题画漂亮，<br />而是让复杂系统变得可以被理解、被使用、被感知。</blockquote>
+      <a class="primary-cta" href="#map">回到项目地图</a>
+      <a class="desktop-link" href="../index.html?view=desktop">查看桌面版</a>
+    </section>
+  </main>
+  <script src="mobile_script.js"></script>
 </body>
 </html>
