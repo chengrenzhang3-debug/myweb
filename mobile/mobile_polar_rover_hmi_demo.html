@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="../device-router.js"></script>
+  <title>PolarArk HMI Mobile Demo</title>
+  <link rel="stylesheet" href="mobile_polar_hmi.css" />
+</head>
+<body>
+  <a class="back" href="mobile_polar-rover.html">← 返回 PolarArk</a>
+  <main class="app">
+    <section class="hero-panel">
+      <p>POLARARK / MOBILE HMI</p>
+      <h1>极地房车<br>HMI 轻量演示</h1>
+      <p>手机端保留核心信息架构：风险、路线、能源、座舱健康和驾驶辅助。横屏时可以获得更接近仪表盘的体验。</p>
+    </section>
+    <section class="status-grid">
+      <article><span>MISSION</span><b>ARCTIC LOOP</b></article>
+      <article><span>RISK</span><b id="riskText">LOW</b></article>
+      <article><span>BATTERY</span><b id="batteryText">82%</b></article>
+      <article><span>CABIN</span><b id="cabinText">21°C</b></article>
+    </section>
+    <section class="map-panel panel">
+      <h2>环境态势</h2>
+      <div class="radar"><i></i><span class="car">ARK</span><span class="poi one">ICE</span><span class="poi two">CAMP</span><span class="poi three">WIND</span></div>
+      <p id="modeDesc">当前处于安全巡航，系统持续监控冰面、风速和能见度。</p>
+    </section>
+    <section class="panel controls">
+      <h2>驾驶模式</h2>
+      <div class="buttons"><button data-mode="cruise">巡航</button><button data-mode="storm">风雪</button><button data-mode="camp">驻车</button><button data-mode="health">恢复</button></div>
+    </section>
+    <section class="panel feed">
+      <h2>系统日志</h2>
+      <ul id="logList"><li>传感器校准完成</li><li>路线风险处于低等级</li><li>森林循环呼吸系统待命</li></ul>
+    </section>
+  </main>
+  <div class="rotate-hint">建议横屏体验完整 HMI 布局</div>
+  <script src="mobile_polar_hmi.js"></script>
+</body>
+</html>

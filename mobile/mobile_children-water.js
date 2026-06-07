@@ -1,0 +1,1 @@
+(function(){const btn=document.getElementById('tocBtn');const toc=document.getElementById('toc');btn&&btn.addEventListener('click',()=>toc.classList.toggle('open'));toc&&toc.addEventListener('click',e=>{if(e.target.tagName==='A')toc.classList.remove('open')});})();

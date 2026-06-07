@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="../device-router.js"></script>
+  <title>AI Home 智能家居 Agent｜Mobile</title>
+  <link rel="stylesheet" href="mobile_ai-home.css" />
+</head>
+<body>
+  <a class="back" href="mobile_index.html?page=map">← 返回地图</a>
+  <main class="shell">
+    <section class="hero">
+      <p>CASE / AI HOME AGENT</p>
+      <h1>AI Home<br>智能家居 Agent</h1>
+      <p>用一个会理解家庭状态的 Agent，把设备控制、环境感知、情绪时间窗和执行日志组织成可读、可控、可解释的居家系统。</p>
+    </section>
+    <section class="metrics">
+      <article><span>室温</span><b id="temp">24°C</b></article><article><span>灯光</span><b id="light">柔和</b></article><article><span>能耗</span><b id="energy">低</b></article><article><span>状态</span><b id="state">回家模式</b></article>
+    </section>
+    <section class="agent card">
+      <h2>让 AI 讲清楚这个项目</h2>
+      <div class="chat" id="chat"><p><b>AI Agent：</b>我会根据家庭场景推断你真正想要的结果，而不是只执行单个按钮命令。</p></div>
+      <div class="quick"><button data-say="home">我回家了</button><button data-say="sleep">准备睡觉</button><button data-say="focus">进入专注</button><button data-say="guest">朋友来了</button></div>
+    </section>
+    <section class="card">
+      <h2>实时视觉面板</h2>
+      <div class="home-map"><span class="room living">客厅</span><span class="room bed">卧室</span><span class="room kitchen">厨房</span><span class="dot"></span></div>
+    </section>
+    <section class="card devices">
+      <h2>设备控制</h2>
+      <button data-device="light">灯光</button><button data-device="curtain">窗帘</button><button data-device="air">空调</button><button data-device="music">音乐</button>
+    </section>
+    <section class="card logs"><h2>执行日志</h2><ul id="logs"><li>已读取客厅亮度与温度</li><li>根据回家模式启动柔和灯光</li></ul></section>
+    <section class="card"><h2>项目结构</h2><p>输入层收集语音、设备状态与环境信息；理解层判断意图和场景；执行层调度设备；反馈层把结果以自然语言和状态面板返回给用户。</p></section>
+  </main>
+  <script src="mobile_ai-home.js"></script>
+</body>
+</html>
