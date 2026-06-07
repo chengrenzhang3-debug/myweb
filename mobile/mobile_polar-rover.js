@@ -1,1 +1,4 @@
-(function(){const bar=document.getElementById('progressBar');const text=document.getElementById('progressText');function update(){const max=document.documentElement.scrollHeight-innerHeight;const p=max>0?Math.round(scrollY/max*100):0;if(bar)bar.style.width=p+'%';if(text)text.textContent=String(p).padStart(2,'0')+'%'}addEventListener('scroll',update,{passive:true});addEventListener('resize',update);update();})();
+document.addEventListener('DOMContentLoaded',function(){
+  var cards=Array.from(document.querySelectorAll('.route-card'));
+  addEventListener('scroll',function(){cards.forEach(function(c){if(c.getBoundingClientRect().top<innerHeight*.7)c.classList.add('active')})},{passive:true});
+});
