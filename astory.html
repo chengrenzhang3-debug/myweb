@@ -3,193 +3,283 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astory｜互动叙事档案</title>
+  <title>Astory｜AI叙事经营系统档案</title>
   <link rel="stylesheet" href="css/astory.css" />
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="scan" aria-hidden="true"></div>
+  <div class="paper-noise" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
-  <a class="back-link" href="index.html?page=2">← 返回划船地图</a>
+  <a class="back-link" href="index.html?page=2">← 返回作品集地图</a>
 
   <nav class="archive-nav" aria-label="Astory 页面目录">
-    <button class="nav-dot active" data-section="cover"><span>01</span>档案开启</button>
-    <button class="nav-dot" data-section="structure"><span>02</span>叙事结构</button>
-    <button class="nav-dot" data-section="choice"><span>03</span>选择机制</button>
-    <button class="nav-dot" data-section="android"><span>04</span>原生实现</button>
-    <button class="nav-dot" data-section="review"><span>05</span>项目复盘</button>
-    <button class="nav-dot special" data-section="demo"><span>EX</span>故事体验</button>
+    <button class="nav-dot active" data-section="cover"><span>01</span>项目概览</button>
+    <button class="nav-dot" data-section="overview"><span>02</span>产品定位</button>
+    <button class="nav-dot" data-section="loop"><span>03</span>核心循环</button>
+    <button class="nav-dot" data-section="system"><span>04</span>系统架构</button>
+    <button class="nav-dot" data-section="ai"><span>05</span>AI交涉</button>
+    <button class="nav-dot" data-section="android"><span>06</span>原生落地</button>
+    <button class="nav-dot" data-section="review"><span>07</span>复盘</button>
   </nav>
 
-  <main class="casefile">
-    <section class="panel hero active" id="cover" data-section="cover">
-      <div class="paper-stack" aria-hidden="true"></div>
+  <main class="scroll-page">
+    <section class="scroll-panel hero" id="cover" data-section="cover">
+      <div class="roller top"></div>
+      <div class="roller bottom"></div>
+
       <div class="hero-copy">
-        <p class="case-id">CASE 04 / INTERACTIVE NARRATIVE</p>
+        <p class="case-id">CASE 04 / AI NARRATIVE MOBILE EXPERIENCE</p>
         <h1>ASTORY</h1>
-        <h2>一个关于选择、分支与结局的叙事原型</h2>
+        <h2>一个围绕债务生存展开的 AI 叙事经营系统</h2>
         <p class="lead">
-          Astory 不是把故事拆成几个跳转页面，而是尝试让每一次选择都留下痕迹：
-          影响信息、关系、风险与结局倾向。这个项目记录了我从 UX 概念到 Android 原生开发落地的完整过程。
+          Astory 是一款 Android 移动游戏原型。玩家在债务压力、路线风险与有限资源中做选择，
+          通过跑商交易、地图探索、NPC 交涉、角色关系和轮回成长，推进“赎回爱人”的主线目标。
         </p>
+
         <div class="stamp-row">
-          <span>叙事交互</span>
-          <span>分支选择</span>
-          <span>状态变量</span>
-          <span>Android Studio</span>
+          <span>AI 辅助叙事</span>
+          <span>资源管理</span>
+          <span>动态经济</span>
+          <span>NPC 信任系统</span>
+          <span>轮回成长</span>
+          <span>Jetpack Compose</span>
         </div>
+
         <div class="hero-actions">
-          <button class="primary" data-section="demo">进入故事体验</button>
-          <button class="secondary" data-section="structure">查看项目解说</button>
+          <button class="primary" data-section="overview">查看项目概览</button>
+          <button class="secondary" data-section="system">查看系统架构</button>
         </div>
       </div>
 
-      <div class="evidence-board">
-        <img src="assets/astory_cover.svg" alt="Astory 项目封面占位图" class="cover-art" />
-        <div class="red-thread thread-1"></div>
-        <div class="red-thread thread-2"></div>
-        <div class="note note-a">选择不是按钮，<br>而是故事状态。</div>
-        <div class="note note-b">每个节点都应该<br>承担叙事后果。</div>
-      </div>
+      <figure class="hero-art">
+        <img src="gameasset/astory_cover.png" alt="Astory 封面占位图" />
+        <figcaption>
+          <b>Design Goal</b>
+          让复杂的经营、关系与 AI 对话系统，被组织成玩家能理解、能选择、能反馈的移动端体验。
+        </figcaption>
+      </figure>
     </section>
 
-    <section class="panel" id="structure" data-section="structure">
-      <div class="section-head">
-        <p>02 / STORY SYSTEM</p>
-        <h2>不是线性故事，而是状态系统。</h2>
-        <span>把剧情拆成节点、选择、变量与结局倾向。</span>
-      </div>
+    <section class="scroll-panel" id="overview" data-section="overview">
+      <header class="section-head">
+        <p>02 / PRODUCT OVERVIEW</p>
+        <h2>这不是单纯的文字冒险，而是一个状态驱动的叙事经营产品。</h2>
+        <span>项目重点不是“展示剧情”，而是让选择影响资源、关系、风险和长期成长。</span>
+      </header>
 
-      <div class="structure-layout">
-        <div class="flow-map">
-          <div class="node start">START<br><small>陌生短信</small></div>
-          <div class="path"></div>
-          <div class="node">A<br><small>继续追问</small></div>
-          <div class="node">B<br><small>暂时离开</small></div>
-          <div class="node danger">RISK +1<br><small>线索开启</small></div>
-          <div class="node trust">TRUST +1<br><small>关系保留</small></div>
-          <div class="node ending">ENDING<br><small>靠近真相 / 远离真相</small></div>
-        </div>
-
-        <div class="explain-card">
-          <h3>设计逻辑</h3>
-          <p>
-            我把 Astory 的剧情看成一套“状态系统”：用户点击选择后，页面不只是跳转，
-            而是更新信任、线索、风险等变量。变量继续影响后续文本与结局倾向，让用户感到“选择有重量”。
+      <div class="overview-grid">
+        <article class="parchment-card large">
+          <h3>一句话定位</h3>
+          <p class="big">
+            Astory 是一款将资源管理、路线决策、角色关系与轮回机制融合的 AI 叙事型移动产品。
           </p>
+        </article>
+
+        <article class="parchment-card">
+          <h3>目标用户</h3>
+          <p>
+            喜欢 roguelike、资源管理和 narrative game 的移动端玩家；尤其是喜欢在有限资源、
+            高风险选择和角色关系中推进故事的玩家。
+          </p>
+        </article>
+
+        <article class="parchment-card">
+          <h3>核心机制</h3>
           <ul>
-            <li>剧情节点：每段文本有独立 ID，便于后续扩展章节。</li>
-            <li>选择按钮：每个选项绑定变量变化，不只是换页。</li>
-            <li>反馈机制：选择后立即给出文字、状态与结局倾向反馈。</li>
+            <li>债务与赎身费制造长期目标。</li>
+            <li>旅行推进时间，引发事件和价格变化。</li>
+            <li>跑商交易提供主要经济来源。</li>
+            <li>NPC 交涉连接 AI 对话、技能和传闻。</li>
+            <li>轮回系统把失败转化为长期成长。</li>
           </ul>
+        </article>
+
+        <article class="parchment-card">
+          <h3>参考方向</h3>
+          <p>
+            Lifeline 的情绪叙事、Reigns 的高压选择、资源生存游戏的稀缺压力、
+            roguelike 的轮回成长，以及 dark fantasy / 乙女叙事中的关系动机。
+          </p>
+        </article>
+
+        <article class="parchment-card">
+          <h3>我想突出</h3>
+          <p>
+            从 0 到 1 的产品定义、复杂系统拆解、信息架构、游戏 UX、AI 交互嵌入，
+            以及 Android 原型开发落地能力。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="scroll-panel" id="loop" data-section="loop">
+      <header class="section-head">
+        <p>03 / CORE LOOP</p>
+        <h2>玩家每天都在权衡：赚钱、恢复、冒险，还是推进关系？</h2>
+        <span>核心体验来自“有限资源下的情感与生存决策”。</span>
+      </header>
+
+      <div class="loop-map">
+        <div class="loop-center">
+          <img src="gameasset/loop_compass.png" alt="核心循环罗盘占位图" />
+          <strong>核心循环</strong>
+          <small>选择 → 代价 → 反馈 → 成长</small>
+        </div>
+
+        <div class="loop-item i1"><b>旅途探索</b><p>选择目的地，推进时间，承担旅行风险。</p></div>
+        <div class="loop-item i2"><b>市场交易</b><p>根据城市与事件价格波动，低买高卖。</p></div>
+        <div class="loop-item i3"><b>人物交涉</b><p>与 NPC、女主和主线爱人互动，推进关系。</p></div>
+        <div class="loop-item i4"><b>能力成长</b><p>工作、小游戏与交涉会提升技能经验。</p></div>
+        <div class="loop-item i5"><b>轮回重生</b><p>胜利或失败后选择前世记忆，开启新局。</p></div>
+      </div>
+
+      <div class="screen-strip">
+        <figure><img src="gameasset/screen_home.png" alt="旅途首页占位图"><figcaption>旅途：当前压力与目标</figcaption></figure>
+        <figure><img src="gameasset/screen_market.png" alt="市场页占位图"><figcaption>市场：动态价格与仓库</figcaption></figure>
+        <figure><img src="gameasset/screen_people.png" alt="人物页占位图"><figcaption>人物：交涉、传闻与关系</figcaption></figure>
+        <figure><img src="gameasset/screen_rebirth.png" alt="轮回页占位图"><figcaption>轮回：结局与长期成长</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="scroll-panel" id="system" data-section="system">
+      <header class="section-head">
+        <p>04 / SYSTEM ARCHITECTURE</p>
+        <h2>用五个主入口，把复杂系统压缩成清晰的用户心智。</h2>
+        <span>旅途看状态，市场赚钱，地图移动，人物经营关系，轮回看长期成长。</span>
+      </header>
+
+      <div class="system-board">
+        <img src="gameasset/system_map.png" alt="Astory 系统架构占位图" class="system-image" />
+
+        <div class="system-notes">
+          <article>
+            <h3>旅途系统</h3>
+            <p>展示金币、行动点、健康、理智、仓库、保留费倒计时和事件日志，是玩家的状态中枢。</p>
+          </article>
+          <article>
+            <h3>地图系统</h3>
+            <p>节点之间通过路线连接。旅行推进天数，刷新事件、遭遇和市场价格。</p>
+          </article>
+          <article>
+            <h3>市场系统</h3>
+            <p>商品价格受城市、库存和世界事件影响，玩家通过仓库容量和路线规划获得利润。</p>
+          </article>
+          <article>
+            <h3>人物系统</h3>
+            <p>整合地点、NPC、女主、技能和传闻；把角色关系变成可被操作和反馈的系统。</p>
+          </article>
+          <article>
+            <h3>轮回系统</h3>
+            <p>结局、前世记忆和 Buff 让失败变成下一局的策略资产。</p>
+          </article>
         </div>
       </div>
-    </section>
 
-    <section class="panel" id="choice" data-section="choice">
-      <div class="section-head">
-        <p>03 / CORE INTERACTION</p>
-        <h2>阅读、选择、反馈，组成叙事交互闭环。</h2>
-        <span>用户需要相信：自己点击的选项真的改变了故事。</span>
-      </div>
-
-      <div class="choice-grid">
-        <article class="phone-card">
-          <img src="assets/astory_phone_read.svg" alt="阅读界面占位图" />
-          <h3>阅读界面</h3>
-          <p>用角色、背景与短文本建立情境，让用户先进入故事氛围。</p>
-        </article>
-        <article class="phone-card">
-          <img src="assets/astory_phone_choice.svg" alt="选择界面占位图" />
-          <h3>选择界面</h3>
-          <p>选项不做单纯对错，而是引导不同的信任、风险与线索方向。</p>
-        </article>
-        <article class="phone-card">
-          <img src="assets/astory_phone_result.svg" alt="反馈界面占位图" />
-          <h3>反馈界面</h3>
-          <p>选择后给出即时反馈，让用户意识到故事已经产生变化。</p>
-        </article>
+      <div class="tech-grid">
+        <article><b>Model</b><p>Player、Item、MapNode、NPC、Heroine、Skill、Rumor、Ending 等数据模型。</p></article>
+        <article><b>Data</b><p>世界生成、商品模板、城市、VIP、事件链和随机遭遇内容。</p></article>
+        <article><b>Core</b><p>GameEngine 处理旅行、交易、工作、恢复、结局、技能和交涉结果。</p></article>
+        <article><b>UI</b><p>Compose Screens + Components + Theme + Assets，支撑完整移动端界面。</p></article>
       </div>
     </section>
 
-    <section class="panel" id="android" data-section="android">
-      <div class="section-head">
-        <p>04 / ANDROID IMPLEMENTATION</p>
-        <h2>从 UX 原型，到 Android Studio 原生实现。</h2>
-        <span>这一页用来说明：项目不是停留在视觉稿。</span>
+    <section class="scroll-panel" id="ai" data-section="ai">
+      <header class="section-head">
+        <p>05 / AI NEGOTIATION SYSTEM</p>
+        <h2>AI 不是聊天入口，而是进入玩法闭环的叙事层。</h2>
+        <span>AI 负责自然语言，系统负责数值结算，避免玩法失控。</span>
+      </header>
+
+      <div class="ai-layout">
+        <div class="parchment-card">
+          <h3>NPC 交涉闭环</h3>
+          <ol>
+            <li>玩家选择交涉方式：诚恳、交易、诱导、施压或观察。</li>
+            <li>系统读取对应技能等级和装备传闻。</li>
+            <li>AI 根据 NPC 身份、性格、信任、疑心、技能和传闻生成回复。</li>
+            <li>GameEngine 结算信任、疑心、情报解锁和技能经验。</li>
+          </ol>
+        </div>
+
+        <div class="negotiation-table">
+          <div><b>诚恳交涉</b><span>谈判</span><p>稳定提升信任，低风险。</p></div>
+          <div><b>利益交换</b><span>鉴定</span><p>适合商人和贵族，强调筹码。</p></div>
+          <div><b>套话诱导</b><span>诱导</span><p>更容易解锁秘密，但疑心上升。</p></div>
+          <div><b>威胁施压</b><span>力量</span><p>短期有效，长期风险更高。</p></div>
+          <div><b>观察试探</b><span>敏捷</span><p>低风险识别身份、职业和破绽。</p></div>
+        </div>
       </div>
+
+      <div class="rumor-board">
+        <article>
+          <h3>技能 = 玩家能做什么</h3>
+          <p>技能影响工作收益、角色解锁、小游戏结果、交涉方式、信任变化、疑心变化与情报解锁概率。</p>
+        </article>
+        <article>
+          <h3>传闻 = 他人怎么看你</h3>
+          <p>传闻是社会标签。黑市传闻会让罪犯更愿意试探，也让官方更警惕；可靠行商会提升商人信任。</p>
+        </article>
+        <article>
+          <h3>情感结晶</h3>
+          <p>主线探视会生成爱意、恨意、怀念、希望四类情绪数值，并转化为可出售的资源。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="scroll-panel" id="android" data-section="android">
+      <header class="section-head">
+        <p>06 / ANDROID IMPLEMENTATION</p>
+        <h2>从 UX 结构，到 Android Studio 原生实现。</h2>
+        <span>项目不是停留在视觉稿，而是一个可运行的 Android 原型。</span>
+      </header>
 
       <div class="android-layout">
-        <div class="android-shot">
-          <img src="assets/astory_android.svg" alt="Android Studio 或代码结构占位图" />
-        </div>
+        <figure class="android-shot">
+          <img src="gameasset/android_structure.png" alt="Android 代码结构占位图" />
+          <figcaption>Jetpack Compose + ViewModel + GameEngine + 本地存档 + AI Client</figcaption>
+        </figure>
+
         <div class="layer-list">
-          <div class="layer">
-            <b>界面层</b>
-            <p>阅读文本、角色名、选择按钮与反馈状态。</p>
-          </div>
-          <div class="layer">
-            <b>逻辑层</b>
-            <p>剧情节点跳转、选择判断、变量更新与结局倾向计算。</p>
-          </div>
-          <div class="layer">
-            <b>数据层</b>
-            <p>故事文本、节点 ID、选择关系与存档状态。</p>
-          </div>
+          <div class="layer"><b>界面层 / Compose</b><p>旅途、市场、地图、人物、聊天、小游戏、轮回和设置页面。</p></div>
+          <div class="layer"><b>状态层 / ViewModel</b><p>连接 UI 与核心逻辑，处理操作、AI 调用、聊天状态和存档保存。</p></div>
+          <div class="layer"><b>规则层 / GameEngine</b><p>处理旅行、买卖、事件、赎回、结局、NPC 交涉和小游戏结算。</p></div>
+          <div class="layer"><b>存档层 / SaveManager</b><p>本地保存当前局、结局收藏、前世记忆和玩家设置。</p></div>
+          <div class="layer"><b>资源层 / GameAssets</b><p>映射背景、头像、商品、地图节点、小游戏和买家素材。</p></div>
         </div>
       </div>
     </section>
 
-    <section class="panel" id="review" data-section="review">
-      <div class="section-head">
-        <p>05 / PROJECT REVIEW</p>
-        <h2>我学到的是：选择必须有重量。</h2>
-        <span>叙事交互的关键，不是让用户点按钮，而是让用户相信选择改变了什么。</span>
-      </div>
+    <section class="scroll-panel" id="review" data-section="review">
+      <header class="section-head">
+        <p>07 / PROJECT REVIEW</p>
+        <h2>复杂系统的关键，是让玩家始终知道下一步能做什么。</h2>
+        <span>这个项目的价值，不只是做出功能，而是把多系统组织成可理解的决策体验。</span>
+      </header>
 
       <div class="review-board">
-        <div class="review-card">
-          <h3>难点</h3>
-          <p>分支增多后，剧情内容容易变成混乱的跳转网络，后续维护成本上升。</p>
-        </div>
-        <div class="review-card">
-          <h3>处理方式</h3>
-          <p>用节点 ID、状态变量和结局倾向组织内容，把叙事逻辑拆成可维护结构。</p>
-        </div>
-        <div class="review-card">
+        <article>
+          <h3>挑战</h3>
+          <p>跑商、AI 对话、NPC 信任、角色关系、小游戏和轮回系统同时存在，容易造成认知负担。</p>
+        </article>
+        <article>
+          <h3>解决方式</h3>
+          <p>用五个主导航承载五类心智模型，并用卡片、状态条和反馈文本持续提示当前目标。</p>
+        </article>
+        <article>
+          <h3>设计收获</h3>
+          <p>AI 需要被嵌入玩法闭环。技能、传闻、信任和疑心让对话不只是表演，而是系统行为。</p>
+        </article>
+        <article>
           <h3>后续方向</h3>
-          <p>加入存档、多结局回看、角色关系图和章节编辑器，让叙事系统更完整。</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel demo-panel" id="demo" data-section="demo">
-      <div class="section-head compact">
-        <p>EX / PLAYABLE PROTOTYPE</p>
-        <h2>故事体验：一次选择，改变状态。</h2>
+          <p>补充新手引导、优化地图空间感、完善数量交易、降低 AI 设置门槛，并进行真实用户测试。</p>
+        </article>
       </div>
 
-      <div class="demo-layout">
-        <div class="story-window">
-          <div class="terminal-top">
-            <span></span><span></span><span></span>
-            <b>ASTORY_NODE_001</b>
-          </div>
-          <div class="story-text" id="storyText"></div>
-          <div class="choice-buttons" id="choiceButtons"></div>
-        </div>
-
-        <aside class="state-panel">
-          <h3>故事状态</h3>
-          <div class="state-row"><span>信任</span><div><i id="trustBar"></i></div><b id="trustValue">0</b></div>
-          <div class="state-row"><span>线索</span><div><i id="clueBar"></i></div><b id="clueValue">0</b></div>
-          <div class="state-row"><span>风险</span><div><i id="riskBar"></i></div><b id="riskValue">0</b></div>
-          <div class="ending-box">
-            <small>结局倾向</small>
-            <strong id="endingText">尚未确定</strong>
-          </div>
-          <button class="reset" id="resetStory">重置故事</button>
-        </aside>
+      <div class="final-statement">
+        <p>
+          Astory 对我来说是一次从产品定义、UX 架构、视觉系统到 Android 开发落地的完整练习。
+          它证明我能把一个复杂玩法概念拆解成模块、组织成路径，并做成可以运行的移动端原型。
+        </p>
       </div>
     </section>
   </main>

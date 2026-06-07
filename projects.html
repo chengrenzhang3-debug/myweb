@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>其他项目 | Other Works</title>
+  <style>
+    :root{
+      --ink:#111317;
+      --paper:#f7f2df;
+      --cream:#fff9df;
+      --red:#d43525;
+      --yellow:#f7d94d;
+      --blue:#5bb7ff;
+      --cyan:#8cf2e0;
+      --green:#c9ef71;
+      --pink:#f15f9c;
+      --dark:#171717;
+      --line:5px;
+      --shadow:12px 12px 0 #111317;
+      --softShadow:8px 8px 0 rgba(17,19,23,.18);
+    }
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#121212;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",system-ui,sans-serif;}
+    body::before{content:"";position:fixed;inset:0;background:
+      radial-gradient(circle at 10% 18%, rgba(247,217,77,.18), transparent 24%),
+      radial-gradient(circle at 90% 20%, rgba(241,95,156,.16), transparent 25%),
+      linear-gradient(135deg,#752315,#1d0c0a 42%,#090909 100%);z-index:-3;}
+    body::after{content:"";position:fixed;inset:0;background-image:radial-gradient(rgba(0,0,0,.22) 1px, transparent 1.5px);background-size:10px 10px;opacity:.35;z-index:-2;}
+    .page{width:100vw;height:100vh;padding:28px 36px;position:relative;overflow:hidden;}
+    .stage{height:calc(100vh - 56px);border:var(--line) solid var(--ink);box-shadow:var(--shadow);background:linear-gradient(115deg,#ffe7b3 0%,#fff4cd 28%,#f6ecda 60%,#f2dab0 100%);position:relative;overflow:hidden;border-radius:8px;}
+    .stage::before{content:"OTHER WORKS / OTHER WORKS / OTHER WORKS";position:absolute;left:-70px;top:42%;font-weight:1000;letter-spacing:18px;font-size:106px;color:rgba(17,19,23,.055);transform:rotate(-8deg);white-space:nowrap;pointer-events:none;}
+    .stage::after{content:"";position:absolute;right:-110px;top:-120px;width:360px;height:360px;background:var(--red);clip-path:polygon(0 15%,100% 0,82% 88%,14% 100%);opacity:.18;transform:rotate(18deg);}
+    .return{position:absolute;left:22px;top:18px;z-index:20;text-decoration:none;color:var(--ink);font-weight:1000;background:#fff6d7;border:4px solid var(--ink);padding:10px 18px;border-radius:999px;box-shadow:6px 6px 0 #28355e;transition:.2s ease;}
+    .return:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 #28355e;background:#fff08f;}
+    .titleBlock{position:absolute;left:62px;top:62px;z-index:5;}
+    .eyebrow{font-size:15px;letter-spacing:9px;font-weight:1000;margin-bottom:8px;}
+    .title{font-size:82px;line-height:.86;font-weight:1000;letter-spacing:-5px;color:var(--yellow);text-shadow:5px 5px 0 #000,9px 9px 0 var(--red);}
+    .subtitle{margin-top:22px;max-width:560px;font-weight:900;font-size:18px;line-height:1.65;background:#111;color:#fff2a5;padding:16px 22px;border:4px solid #000;box-shadow:8px 8px 0 var(--red);transform:rotate(-1deg);}
+    .layout{position:absolute;left:54px;right:46px;bottom:42px;top:255px;display:grid;grid-template-columns:minmax(720px,1fr) 620px;gap:28px;z-index:5;}
+    .cardWall{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:20px;min-height:0;}
+    .projectCard{position:relative;border:5px solid var(--ink);background:#fff9e6;box-shadow:9px 9px 0 #111;overflow:hidden;cursor:pointer;transition:.25s cubic-bezier(.2,.8,.2,1);padding:18px;display:flex;flex-direction:column;justify-content:space-between;}
+    .projectCard:hover,.projectCard.active{transform:translate(-5px,-5px) rotate(.2deg);box-shadow:15px 15px 0 #111;}
+    .projectCard.active::after{content:"SELECTED";position:absolute;right:-48px;top:24px;transform:rotate(35deg);background:var(--yellow);border:4px solid var(--ink);font-size:14px;font-weight:1000;padding:6px 54px;letter-spacing:2px;}
+    .projectCard .num{font-weight:1000;font-size:28px;color:var(--red);letter-spacing:2px;}
+    .projectCard h3{font-size:28px;line-height:1.08;margin:6px 0 10px;font-weight:1000;letter-spacing:-1px;}
+    .projectCard p{font-size:14px;line-height:1.5;margin:0;font-weight:800;color:#202020;}
+    .thumb{height:150px;border:4px solid var(--ink);background:#eee;overflow:hidden;margin:12px 0;position:relative;}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s ease;}
+    .projectCard:hover .thumb img{transform:scale(1.06);}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+    .tag{font-size:12px;font-weight:1000;background:#111;color:#ffe56b;border:2px solid #111;padding:4px 8px;}
+    .space{grid-column:1/4;grid-row:1/4;background:#f4ead7;transform:rotate(-1deg)}
+    .friction{grid-column:4/7;grid-row:1/4;background:#eaff00;transform:rotate(1deg)}
+    .language{grid-column:1/3;grid-row:4/7;background:#d7f5c6;transform:rotate(1.2deg)}
+    .driving{grid-column:3/5;grid-row:4/7;background:#cfe8ff;transform:rotate(-.7deg)}
+    .toyart{grid-column:5/7;grid-row:4/7;background:#ffe0f0;transform:rotate(.8deg)}
+    .friction .tag{background:#1e2a2a;color:#eaff00}.language .tag{background:#355f39;color:#d7ff7a}.driving .tag{background:#0d69db;color:#fff}.toyart .tag{background:#c61d63;color:#fff6d2}
+    .detailPanel{border:5px solid var(--ink);background:#fffaf0;box-shadow:12px 12px 0 #1c1c1c;min-height:0;display:grid;grid-template-rows:auto 1fr;position:relative;overflow:hidden;}
+    .detailPanel::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.03) 1px, transparent 1px),linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px);background-size:22px 22px;pointer-events:none;opacity:.5;}
+    .detailHead{position:relative;padding:24px 26px 18px;border-bottom:5px solid var(--ink);background:linear-gradient(90deg,#111 0 70px,var(--yellow) 70px 100%);color:#111;}
+    .detailHead .index{position:absolute;left:18px;top:22px;color:var(--yellow);font-size:28px;font-weight:1000;}
+    .detailHead h2{font-size:36px;line-height:1.12;margin:0 0 8px 82px;font-weight:1000;letter-spacing:-1px;}
+    .detailHead .en{margin-left:82px;font-weight:1000;letter-spacing:4px;font-size:13px;color:#4c4c4c;}
+    .detailBody{position:relative;min-height:0;overflow:auto;padding:22px 26px 26px;scrollbar-color:#111 #eddcae;scrollbar-width:thin;}
+    .detailBody::-webkit-scrollbar{width:10px}.detailBody::-webkit-scrollbar-track{background:#eddcae}.detailBody::-webkit-scrollbar-thumb{background:#111}
+    .heroBox{border:5px solid var(--ink);background:#eee;box-shadow:8px 8px 0 #d43525;min-height:310px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+    .heroBox img{max-width:100%;max-height:450px;object-fit:contain;display:block;}
+    .caption{font-size:14px;font-weight:900;padding:10px 0 0;color:#444;}
+    .miniStrip{display:flex;gap:10px;margin:16px 0 20px;overflow-x:auto;padding-bottom:8px;}
+    .miniStrip button{border:3px solid var(--ink);background:#fff;min-width:92px;height:68px;padding:0;cursor:pointer;box-shadow:4px 4px 0 #111;overflow:hidden;transition:.18s ease;}
+    .miniStrip button.active,.miniStrip button:hover{background:var(--yellow);transform:translateY(-3px)}
+    .miniStrip img{width:100%;height:100%;object-fit:cover;display:block;}
+    .infoGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+    .infoBox{border:4px solid var(--ink);background:#fff;box-shadow:6px 6px 0 rgba(0,0,0,.2);padding:16px;}
+    .infoBox h4{margin:0 0 8px;font-size:20px;font-weight:1000;color:var(--red)}
+    .infoBox p,.infoBox li{font-size:15px;line-height:1.75;font-weight:800;margin:0;color:#1d1d1d;}
+    .infoBox ul{padding-left:20px;margin:0}
+    .wide{grid-column:1/-1}
+    .detailTags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.detailTags span{font-size:13px;font-weight:1000;border:3px solid var(--ink);background:#111;color:#fff;padding:6px 10px;}
+    .dualBlock{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}.dualBlock .infoBox{background:#fff8fb}.dualBlock h4{color:#c61d63}
+    .galleryNote{position:absolute;right:18px;bottom:18px;z-index:2;background:#111;color:#ffe56b;border:3px solid #111;padding:8px 12px;font-weight:1000;font-size:13px;}
+    .corner{position:absolute;z-index:1;width:130px;height:130px;border:5px solid var(--ink);background:var(--red);transform:rotate(12deg);opacity:.15}.corner.c1{right:70px;top:60px}.corner.c2{left:540px;bottom:30px;background:var(--blue);transform:rotate(-18deg)}
+    .floatingDots{position:absolute;inset:0;pointer-events:none;z-index:1}.floatingDots i{position:absolute;width:13px;height:13px;border-radius:50%;background:#111;opacity:.12;animation:float 5s ease-in-out infinite}.floatingDots i:nth-child(1){left:22%;top:18%;background:#d43525}.floatingDots i:nth-child(2){left:78%;top:12%;animation-delay:1s}.floatingDots i:nth-child(3){left:66%;top:83%;background:#008cff;animation-delay:.5s}.floatingDots i:nth-child(4){left:41%;top:76%;background:#f15f9c;animation-delay:1.6s}.floatingDots i:nth-child(5){left:91%;top:61%;background:#eaff00;animation-delay:.9s}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+    @media(max-width:1200px){html,body{overflow:auto}.page{height:auto;min-height:100vh;overflow:visible}.stage{height:auto;min-height:100vh;overflow:visible}.titleBlock{position:relative;left:26px;top:70px;margin-right:50px}.layout{position:relative;left:auto;right:auto;top:auto;bottom:auto;margin:100px 24px 36px;grid-template-columns:1fr}.cardWall{min-height:820px}.detailPanel{height:900px}.title{font-size:60px}.subtitle{font-size:15px}.return{position:fixed}.infoGrid,.dualBlock{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="stage">
+      <a class="return" href="index.html">← 返回划船地图</a>
+      <div class="corner c1"></div><div class="corner c2"></div>
+      <div class="floatingDots"><i></i><i></i><i></i><i></i><i></i></div>
+      <header class="titleBlock">
+        <div class="eyebrow">ARCHIVE / MIXED PRACTICE</div>
+        <div class="title">其他项目<br>短档案</div>
+        <div class="subtitle">用一面项目档案墙补全能力面：空间、工程装置、儿童康复、移动端学习系统，以及玩具 / 艺术装置实验。</div>
+      </header>
+      <main class="layout">
+        <section class="cardWall" id="cardWall"></section>
+        <aside class="detailPanel">
+          <div class="detailHead">
+            <div class="index" id="detailIndex">01</div>
+            <h2 id="detailTitle">项目标题</h2>
+            <div class="en" id="detailEn">PROJECT FILE</div>
+          </div>
+          <div class="detailBody" id="detailBody"></div>
+        </aside>
+      </main>
+    </section>
+  </div>
+<script>
+const projects = [
+  {
+    id:'space', no:'01', cls:'space',
+    title:'城市微空间公共服务设计', en:'URBAN MICRO-SERVICE SPACE',
+    cover:'otherasset/space-01.png',
+    tags:['城市微空间','公共服务','多用户场景','空间整合'],
+    short:'以人为本激活城市街角，把休憩、展示、服务与社区连接压缩进小尺度公共空间。',
+    images:[
+      ['otherasset/space-01.png','空间总览：将等候、展示、休憩、服务节点组织在同一街角系统中。'],
+      ['otherasset/space-02.png','室内服务区：以曲线吧台与等候座椅回应骑手与行人的短暂停留需求。'],
+      ['otherasset/space-03.png','功能分区：外部展示与内部服务共同形成街角微枢纽。'],
+      ['otherasset/space-04.png','平面关系：梳理人流、展示、服务与监督之间的路径关系。']
+    ],
+    overview:'项目以城市街角为切入点，围绕外卖骑手、行人、商户与社区居民的复合需求，构建兼具休憩、信息展示、便民服务与社区监督的公共微空间。设计不以商业盈利为核心，而是强调共享、便民与共生，让小空间承担更高密度的城市服务价值。',
+    focus:['为外卖骑手提供短暂停留、取物与休息节点。','为行人和社区居民提供可见、可达、可监督的公共服务区。','为商户提供轻量展示与消费者连接窗口。','用功能集成回应城市生活中的细碎痛点。'],
+    role:'完成场景需求梳理、空间功能整合、动线推演、模型搭建与展示图输出。'
+  },
+  {
+    id:'friction', no:'02', cls:'friction',
+    title:'球盘销盘旋转摩擦磨损试验机', en:'FRICTION & WEAR TEST DEVICE',
+    cover:'otherasset/friction-01.png',
+    tags:['实验设备','结构模块','参数控制','工程原型'],
+    short:'围绕旋转摩擦磨损试验，整理设备结构、环境控制、运动模块与操作安全。',
+    images:[
+      ['otherasset/friction-01.png','设备效果：以观察窗、控制按钮与封闭外壳构成实验设备主形态。'],
+      ['otherasset/friction-02.png','功能需求：把球盘 / 销盘试验拆解为运动模块与摩擦件模块。'],
+      ['otherasset/friction-03.png','环境控制：温度、湿度、腐蚀性与运行参数共同决定材料选择。'],
+      ['otherasset/friction-04.png','结构模块：标注 Z 轴加载、XY 底座、观察窗、维护口和散热孔。'],
+      ['otherasset/friction-05.png','整体规格：以坐姿操作高度与设备总高控制人机尺度。'],
+      ['otherasset/friction-06.jpg','电路关系：以 Arduino 与逻辑电平转换连接多路传感与执行模块。']
+    ],
+    overview:'该项目围绕球盘、销盘旋转摩擦磨损试验需求展开，重点梳理设备结构与实验动作之间的关系。设计包含运动模块、摩擦件模块、环境控制系统、观察窗、电气维护口、按钮与外壳规格等内容，兼顾实验参数、操作安全和设备维护。',
+    focus:['将旋转、高频往复、球盘、销盘等需求拆分为清晰结构模块。','通过观察窗和维护口降低实验过程中的操作风险。','以温湿度、腐蚀性、转速、负载等参数反推材料与外壳设计。','用设备尺寸和按键位置控制坐姿操作的人机关系。'],
+    role:'完成需求拆解、结构模块划分、参数整理、设备外观与功能说明图表达。'
+  },
+  {
+    id:'language', no:'03', cls:'language',
+    title:'儿童语言障碍康复游戏设计', en:'LANGUAGE REHAB GAME CONCEPT',
+    cover:'otherasset/language-03.jpg',
+    tags:['儿童康复','AI 对话','游戏化训练','情景任务'],
+    short:'把语言训练拆成可游戏化任务，用角色、NPC 对话和情景选择降低训练枯燥感。',
+    images:[
+      ['otherasset/language-03.jpg','首页概念：以柔和游戏菜单建立低压力入口。'],
+      ['otherasset/language-01.png','训练节点：接受、表达、阅读、口肌与社交情境被拆为不同任务。'],
+      ['otherasset/language-02.png','方案逻辑：从痛点、陪伴、交流、认知和医疗知识层推导 AI 对话训练。']
+    ],
+    overview:'项目面向儿童语言发育障碍康复场景，将传统训练中的接受、表达、阅读、语音纠正与社交情境理解拆解为游戏任务。通过角色扮演、NPC 对话、排序选择与情境问答，让训练从单调重复变成更容易进入的互动过程。',
+    focus:['用游戏情境降低儿童对康复训练的抵触感。','通过 AI 对话与 NPC 任务模拟日常社交表达。','将复杂语言训练拆为可理解、可完成、可反馈的小任务。','以软萌视觉和低刺激界面降低认知负担。'],
+    role:'完成康复训练逻辑梳理、游戏任务拆解、首页概念和方案路径表达。'
+  },
+  {
+    id:'driving', no:'04', cls:'driving',
+    title:'假期学驾考 App 设计', en:'DRIVING LEARNING APP',
+    cover:'otherasset/driving-02.png',
+    tags:['移动端 App','学习系统','错题复盘','模拟考试'],
+    short:'整合刷题、模拟、错题、资讯和社区，把驾考压力转化为可追踪的学习路径。',
+    images:[
+      ['otherasset/driving-02.png','首页总览：考试倒计时、报名状态与四类核心入口集中呈现。'],
+      ['otherasset/driving-01.png','早期首页：练习、小游戏、直播课等模块形成学习聚合页。'],
+      ['otherasset/driving-03.png','模拟考试：通过历史模拟成绩分析反馈备考状态。'],
+      ['otherasset/driving-04.png','错题页：多次错题、近期错题、收藏与全部题目分层整理。'],
+      ['otherasset/driving-05.png','科目二：考试标准、预约、基础教学与报考帮助入口。'],
+      ['otherasset/driving-06.png','新闻资讯：将交规更新和热点问题作为学习内容补充。'],
+      ['otherasset/driving-07.png','社区动态：用户经验分享形成互助学习氛围。'],
+      ['otherasset/driving-08.png','消息列表：通知、教练和学员信息以列表组织。'],
+      ['otherasset/driving-09.png','小交警小游戏：用轻量游戏训练交通判断。'],
+      ['otherasset/driving-10.png','模拟驾驶：通过驾驶视角强化操作认知。']
+    ],
+    overview:'项目围绕驾考用户在备考过程中的高频需求展开：刷题、模拟考试、错题整理、考试预约提醒、课程学习与社区交流。界面通过顶部科目切换、练习 / 模拟 / 错题 / 收藏四类主入口，以及底部首页、消息、我的三栏结构，建立稳定的学习导航。',
+    focus:['用倒计时、报名状态和模拟成绩降低备考的不确定感。','将练习、模拟、错题、收藏组织成清晰的学习闭环。','通过资讯与社区补充正式课程之外的经验信息。','把小游戏和驾驶模拟作为低压力的认知训练入口。'],
+    role:'完成移动端信息架构、主界面布局、学习路径拆解、关键功能页与游戏化模块设计。'
+  },
+  {
+    id:'toyart', no:'05', cls:'toyart',
+    title:'童趣玩具与艺术装置实验', en:'TOY & INSTALLATION EXPERIMENTS',
+    cover:'otherasset/toy-01.png',
+    tags:['纸板原型','传感反馈','材料实验','艺术装置'],
+    short:'把内容较轻的玩具原型和艺术装置合并展示，突出材料、原型与互动实验能力。',
+    images:[
+      ['otherasset/toy-01.png','梦回童趣：以“让玩具回家”为主题的可折叠纸板玩具柜。'],
+      ['otherasset/toy-02.png','细节展示：底部磁力传感与背部压力传感分别对应玩具定位与画面联想。'],
+      ['otherasset/toy-03.png','迭代升级：从瓦楞纸快速模型推进到灰板与热熔胶定型。'],
+      ['otherasset/art-01.png','艺术说明：以铜钱、红线、铜网、砂土与透明底盘构成材料叙事。'],
+      ['otherasset/art-03.png','概念草图：将古钱、机械与生物形态结合成装置意象。'],
+      ['otherasset/art-02.png','机械结构：以连续框架与旋转机构模拟可运动的装置骨架。'],
+      ['otherasset/art-04.png','最终装置：红线、古钱、砂土和透明基座共同形成“束缚与流动”的视觉关系。']
+    ],
+    overview:'这一组将两个体量较轻但有实验价值的项目合并展示：前半部分是儿童玩具收纳与声音反馈原型，后半部分是围绕古钱、红线、铜网和透明材料展开的艺术装置实验。它们共同体现快速原型、材料选择、互动触发和概念表达能力。',
+    focus:['玩具部分关注儿童收纳行为，通过定位与压力反馈引导玩具归位。','原型从瓦楞纸快速试错推进到灰板结构，提高稳定性与完成度。','艺术装置部分用铜钱、红线、砂土和透明底盘建立材料隐喻。','机械结构与手工材料并置，形成“古老符号 + 可运动装置”的观看体验。'],
+    role:'完成玩具原型结构、传感反馈设想、迭代记录，以及艺术装置的材料说明、草图推演和模型呈现。',
+    dual:true
+  }
+];
+
+let activeProject = 0;
+let activeImage = 0;
+const wall = document.getElementById('cardWall');
+const detailIndex = document.getElementById('detailIndex');
+const detailTitle = document.getElementById('detailTitle');
+const detailEn = document.getElementById('detailEn');
+const detailBody = document.getElementById('detailBody');
+
+function renderCards(){
+  wall.innerHTML = projects.map((p,i)=>`
+    <article class="projectCard ${p.cls} ${i===activeProject?'active':''}" data-index="${i}">
+      <div>
+        <div class="num">${p.no}</div>
+        <h3>${p.title}</h3>
+        <p>${p.short}</p>
+      </div>
+      <div>
+        <div class="thumb"><img src="${p.cover}" alt="${p.title}"></div>
+        <div class="tags">${p.tags.slice(0,4).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </article>
+  `).join('');
+  document.querySelectorAll('.projectCard').forEach(card=>{
+    card.addEventListener('click',()=>{
+      activeProject = Number(card.dataset.index);
+      activeImage = 0;
+      renderCards();
+      renderDetail();
+    });
+  });
+}
+
+function renderDetail(){
+  const p = projects[activeProject];
+  const img = p.images[activeImage];
+  detailIndex.textContent = p.no;
+  detailTitle.textContent = p.title;
+  detailEn.textContent = p.en;
+  detailBody.innerHTML = `
+    <div class="heroBox">
+      <img id="heroImage" src="${img[0]}" alt="${p.title}">
+      <div class="galleryNote">${activeImage+1} / ${p.images.length}</div>
+    </div>
+    <div class="caption" id="caption">${img[1]}</div>
+    <div class="miniStrip">
+      ${p.images.map((item,i)=>`<button class="${i===activeImage?'active':''}" data-img="${i}" title="${item[1]}"><img src="${item[0]}" alt="图 ${i+1}"></button>`).join('')}
+    </div>
+    <div class="infoGrid">
+      <div class="infoBox wide">
+        <h4>项目概述</h4>
+        <p>${p.overview}</p>
+      </div>
+      <div class="infoBox">
+        <h4>设计重点</h4>
+        <ul>${p.focus.map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div class="infoBox">
+        <h4>我的工作</h4>
+        <p>${p.role}</p>
+        <div class="detailTags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      </div>
+      ${p.dual ? `
+      <div class="dualBlock wide">
+        <div class="infoBox">
+          <h4>梦回童趣</h4>
+          <p>以“孩子们的字典 / 第一节书 / 朋友 / 梦想之源”为叙事核心，采用灰板与可折叠开口结构。底部用磁力传感提示玩具归位，背部用压力传感触发声音或画面联想，把收纳动作转化为带反馈的游戏仪式。</p>
+        </div>
+        <div class="infoBox">
+          <h4>与古遥望</h4>
+          <p>装置以铜钱底色、密集铜网、青铜面具、红线、底部埋沙与透明底盘构成材料语言。红线像鳞片也像束缚，古钱与砂土带出“生与灭”的时间感，机械联动则让静态材料产生可观看的运动关系。</p>
+        </div>
+      </div>` : ''}
+    </div>
+  `;
+  detailBody.querySelectorAll('.miniStrip button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      activeImage = Number(btn.dataset.img);
+      renderDetail();
+    });
+  });
+  detailBody.scrollTop = 0;
+}
+
+renderCards();
+renderDetail();
+</script>
+</body>
+</html>

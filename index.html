@@ -20,11 +20,14 @@
     <button data-page="0">01 / &#23553;&#38754;</button>
     <button data-page="1">02 / &#31616;&#21382;</button>
     <button data-page="2">03 / &#21010;&#33337;&#22320;&#22270;</button>
+    <button data-page="3">04 / &#24037;&#20316;&#26041;&#24335;</button>
+    <button data-page="4">05 / &#32467;&#23614;</button>
     <a href="polar-rover.html">&#26497;&#22320;&#25151;&#36710; HMI</a>
     <a href="children-water.html">&#20799;&#31461;&#26234;&#33021;&#39278;&#27700;</a>
     <a href="ai-home.html">AI &#26234;&#33021;&#23478;&#23621;</a>
     <a href="astory.html">ASTORY</a>
     <a href="UIUX.html">UI/UX 交互演示</a>
+    <a href="projects.html">其他项目</a>
     <a href="experiments.html">更多实验</a>
   </aside>
 
@@ -194,37 +197,43 @@
         <div class="river-world" id="riverWorld">
           <div class="water-layer"></div>
 
-          <a class="island island-child" href="children-water.html">
+          <a class="island island-child" href="children-water.html" data-project="child" data-enter="bubble" data-title="儿童智能饮水">
             <img src="assets/island_child.png" alt="儿童智能饮水项目岛">
             <span>儿童智能饮水</span>
           </a>
 
-          <a class="island island-polar featured" href="polar-rover.html">
+          <a class="island island-polar featured" href="polar-rover.html" data-project="polar" data-enter="ice" data-title="极地房车 HMI">
             <img src="assets/island_polar.png" alt="极地房车 HMI 项目岛">
             <span>极地房车 HMI</span>
           </a>
 
-          <a class="island island-ai" href="ai-home.html">
-            <img src="assets/island_ai_home.png" alt="AI 智能家居项目岛">
-            <span>AI 智能家居</span>
-          </a>
-
-          <a class="island island-astory" href="astory.html">
+          <a class="island island-astory" href="astory.html" data-project="astory" data-enter="paper" data-title="ASTORY">
             <img src="assets/island_astory.png" alt="ASTORY 项目岛">
             <span>ASTORY</span>
           </a>
 
-          <a class="island island-uiux" href="UIUX.html">
+          <a class="island island-ai" href="ai-home.html" data-project="aihome" data-enter="grid" data-title="AI 智能家居">
+            <img src="assets/island_ai_home.png" alt="AI 智能家居项目岛">
+            <span>AI 智能家居</span>
+          </a>
+
+          <a class="island island-uiux" href="UIUX.html" data-project="uiux" data-enter="shape" data-title="UI/UX 交互演示">
             <img src="assets/island_uiux.png" alt="UI/UX 交互演示项目岛">
             <span>UI/UX 交互演示</span>
           </a>
 
-          <a class="island island-more" href="experiments.html">
+          <a class="island island-other" href="projects.html" data-project="other" data-enter="gray" data-title="其他项目">
+            <img src="assets/island_other.png" alt="其他项目岛">
+            <span>其他项目</span>
+          </a>
+
+          <a class="island island-more" href="experiments.html" data-project="experiments" data-enter="boom" data-title="更多实验">
             <img src="assets/island_more.png" alt="更多实验岛">
             <span>更多实验</span>
           </a>
 
           <div class="boat-wrap" id="boatWrap">
+            <div class="boat-speech" id="boatSpeech">按 A / D 划船，看到岛就点。</div>
             <img id="boatSprite" src="assets/boat_idle.png" alt="划船小人">
           </div>
         </div>
@@ -234,10 +243,107 @@
         <span id="mapProgressText">00%</span>
         <div><i id="mapProgressBar"></i></div>
       </div>
+      <div class="island-enter-flash" id="islandEnterFlash" aria-hidden="true">
+        <div class="enter-wipe"></div>
+        <div class="enter-title" id="enterTitle">ENTER</div>
+      </div>
     </section>
+
+
+    <!-- 04 METHOD / CAPABILITY SUMMARY -->
+    <section class="page method-page" id="method">
+      <div class="paper"></div>
+      <div class="method-red-block"></div>
+      <div class="method-yellow-strip"></div>
+      <div class="method-black-sun"></div>
+      <div class="page-index">04</div>
+
+      <header class="method-hero">
+        <p>HOW I DESIGN / SYSTEM TO EXPERIENCE</p>
+        <h2>工作方式</h2>
+        <span>把复杂问题拆开，把体验路径理顺，把想法推到可验证的原型里。</span>
+      </header>
+
+      <div class="method-flow" aria-label="设计流程">
+        <span>观察</span>
+        <i></i>
+        <span>拆解</span>
+        <i></i>
+        <span>原型</span>
+        <i></i>
+        <span>落地</span>
+      </div>
+
+      <section class="method-grid" aria-label="能力总结">
+        <article class="method-card card-system">
+          <div class="method-num">01</div>
+          <h3>系统拆解</h3>
+          <p>面对 HMI、AI Agent、儿童硬件或空间服务时，先找清楚角色、场景、约束与信息流，而不是急着画界面。</p>
+          <div class="method-tags"><span>复杂场景</span><span>流程结构</span><span>约束关系</span></div>
+        </article>
+
+        <article class="method-card card-interaction">
+          <div class="method-num">02</div>
+          <h3>交互策略</h3>
+          <p>把用户的真实行为转译成可操作路径：什么时候提醒、哪里给反馈、怎样降低理解成本，都要落到体验节奏里。</p>
+          <div class="method-tags"><span>行为路径</span><span>反馈机制</span><span>情绪节奏</span></div>
+        </article>
+
+        <article class="method-card card-prototype">
+          <div class="method-num">03</div>
+          <h3>原型验证</h3>
+          <p>不只停在概念图，会用 Figma、HTML、Android Studio、Blender 等工具把关键交互做出来，观察它是否真的成立。</p>
+          <div class="method-tags"><span>Figma</span><span>HTML</span><span>Android</span><span>Blender</span></div>
+        </article>
+
+        <article class="method-card card-delivery">
+          <div class="method-num">04</div>
+          <h3>跨界落地</h3>
+          <p>产品、空间、工程装置、游戏化、AI 与 HMI 并不是分散经验，而是同一种能力：把抽象系统变成能被使用的东西。</p>
+          <div class="method-tags"><span>产品体验</span><span>智能交互</span><span>空间服务</span><span>技术实现</span></div>
+        </article>
+      </section>
+
+      <aside class="method-side-note">
+        <b>DESIGN METHOD</b>
+        <p>系统不是为了显得复杂，而是为了让复杂变得清楚。</p>
+      </aside>
+    </section>
+
+    <!-- 05 ENDING -->
+    <section class="page ending-page" id="ending">
+      <div class="paper"></div>
+      <div class="ending-red"></div>
+      <div class="ending-yellow"></div>
+      <div class="ending-black"></div>
+      <div class="ending-dots"></div>
+      <div class="page-index">05</div>
+
+      <div class="ending-content">
+        <p class="ending-kicker">PORTFOLIO 2025 / ENDING</p>
+        <h2>继续探索</h2>
+        <blockquote>
+          设计不是把问题画漂亮，<br>
+          而是让复杂系统变得可以被理解、被使用、被感知。
+        </blockquote>
+        <cite>— 张长瑞</cite>
+        <div class="ending-actions">
+          <button data-page="2">回到项目地图</button>
+          <button data-page="0">回到封面</button>
+        </div>
+      </div>
+
+      <div class="ending-poster">
+        <span>SEE</span>
+        <span>THE</span>
+        <span>SYSTEM</span>
+      </div>
+    </section>
+
 
   </main>
 
   <script src="script.js"></script>
+<script src="loading-transition.js"></script>
 </body>
 </html>

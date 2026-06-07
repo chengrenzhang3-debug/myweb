@@ -57,7 +57,7 @@ window.addEventListener("wheel", function (event) {
   event.preventDefault();
 
   if (currentPage === 2) {
-    moveBoat(event.deltaY > 0 ? 1 : -1);
+    handleBoatPageWheel(event.deltaY);
     return;
   }
 
@@ -139,20 +139,90 @@ document.querySelectorAll("button, a").forEach(function (item) {
 const riverWorld = document.querySelector("#riverWorld");
 const boatWrap = document.querySelector("#boatWrap");
 const boatSprite = document.querySelector("#boatSprite");
+const boatSpeech = document.querySelector("#boatSpeech");
 const mapProgressText = document.querySelector("#mapProgressText");
 const mapProgressBar = document.querySelector("#mapProgressBar");
 const islands = document.querySelectorAll(".island");
+const islandEnterFlash = document.querySelector("#islandEnterFlash");
+const enterTitle = document.querySelector("#enterTitle");
 
 let boatX = 420;
 let boatFrame = 0;
 const boatMin = 320;
-const boatMax = 3360;
+const boatMax = 6100;
+let lastBoatSpeech = 0;
+let enteringIsland = false;
+let boatEdgeIntent = 0;
+
+const boatLines = [
+  "这片海怎么越划越长？算了，挺适合放作品。",
+  "按 D 往右，按 A 往左。别问，船就是这么开的。",
+  "前面好像有个岛，应该不是 bug。",
+  "如果看见岛，点它；如果没看见，继续划。",
+  "别急，后面还有岛。",
+  "船可以慢，但作品得有风格。",
+  "这个地图比普通目录有意思一点。",
+  "我负责划船，你负责别把路径写错。"
+];
+
+const islandLines = {
+  child: ["儿童饮水岛，风格要可爱一点。", "企鹅在等你。", "这里不是科技发布会，是儿童产品。"],
+  polar: ["前面有点冷，是极地房车 HMI。", "HMI 项目到了，记得看横向叙事。"],
+  astory: ["Astory 岛，像打开一份故事档案。", "每个选择都应该有后果。"],
+  aihome: ["AI Home 岛，控制台味儿很浓。", "别让大模型直接开空调。"],
+  uiux: ["UIUX 岛，新增的，不是替换更多实验。", "交互演示到了。"],
+  other: ["其他项目岛，后面可以继续加东西。", "这里先作为更多作品入口。"],
+  experiments: ["更多实验岛还在，没被删。", "实验区，危险但好玩。"]
+};
+
+function randomLine(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+
+function handleBoatPageWheel(deltaY) {
+  const dir = deltaY > 0 ? 1 : -1;
+  const atRightEdge = typeof boatX === "number" && boatX >= boatMax - 4;
+  const atLeftEdge = typeof boatX === "number" && boatX <= boatMin + 4;
+
+  if ((dir > 0 && atRightEdge) || (dir < 0 && atLeftEdge)) {
+    boatEdgeIntent += Math.min(240, Math.abs(deltaY));
+    if (boatEdgeIntent > 620) {
+      boatEdgeIntent = 0;
+      goToPage(dir > 0 ? 3 : 1);
+      return;
+    }
+    showBoatSpeech(dir > 0 ? "再往右划一点，就进入工作方式。" : "再往左划一点，就回到简历。");
+    return;
+  }
+
+  boatEdgeIntent = 0;
+  moveBoat(dir);
+}
+
+function showBoatSpeech(text) {
+  if (!boatSpeech) return;
+  boatSpeech.textContent = text;
+  boatSpeech.classList.add("show");
+  clearTimeout(showBoatSpeech.timer);
+  showBoatSpeech.timer = setTimeout(function () {
+    boatSpeech.classList.remove("show");
+  }, 2600);
+}
+
+function maybeBoatTalk(force, type) {
+  const now = Date.now();
+  if (!force && now - lastBoatSpeech < 5200) return;
+  lastBoatSpeech = now;
+  const lines = type && islandLines[type] ? islandLines[type] : boatLines;
+  showBoatSpeech(randomLine(lines));
+}
 
 function moveBoat(direction) {
-  if (!riverWorld || !boatWrap || !boatSprite) return;
+  if (!riverWorld || !boatWrap || !boatSprite || enteringIsland) return;
 
   boatFrame = boatFrame === 0 ? 1 : 0;
-  boatX += direction * 120;
+  boatX += direction * 140;
   boatX = Math.max(boatMin, Math.min(boatMax, boatX));
 
   const sprite = direction > 0
@@ -167,6 +237,7 @@ function moveBoat(direction) {
     boatSprite.src = "assets/boat_idle.png";
   }, 240);
 
+  maybeBoatTalk(false);
   updateBoatMap();
 }
 
@@ -175,7 +246,7 @@ function updateBoatMap() {
 
   const viewport = document.querySelector(".river-viewport");
   const viewWidth = viewport ? viewport.clientWidth : window.innerWidth;
-  const worldWidth = riverWorld.clientWidth || 3600;
+  const worldWidth = riverWorld.clientWidth || 6600;
 
   boatWrap.style.left = boatX + "px";
 
@@ -189,13 +260,73 @@ function updateBoatMap() {
 
   islands.forEach(function (island) {
     const left = parseFloat(getComputedStyle(island).left);
-    if (Math.abs(left - boatX) < 220) island.classList.add("near");
-    else island.classList.remove("near");
+    const near = Math.abs(left - boatX) < 230;
+    island.classList.toggle("near", near);
+    if (near && Math.random() > 0.94) maybeBoatTalk(false, island.dataset.project);
   });
 }
 
+function enterIsland(island, event) {
+  if (enteringIsland) return;
+  event.preventDefault();
+
+  const url = island.getAttribute("href");
+  const title = island.dataset.title || island.textContent.trim() || "ENTER";
+  const type = island.dataset.project || "other";
+
+  enteringIsland = true;
+  island.classList.add("entering");
+  maybeBoatTalk(true, type);
+
+  /*
+    v6: 遮板式页面切换。
+    先在当前页面播放“遮板盖住屏幕”的进入动画；
+    屏幕被遮住后再跳转；
+    新页面加载后由 loading-transition.js 继续播放同一块遮板的退场动画。
+    这样用户看到的是：动画发生 → 动画结束 → 新页面已经在眼前。
+  */
+  if (window.portfolioComicNavigate) {
+    window.portfolioComicNavigate(url, {
+      title: title,
+      type: type,
+      sub: "ENTER PROJECT"
+    });
+    return;
+  }
+
+  try {
+    sessionStorage.setItem("portfolioLoadingTransition", JSON.stringify({
+      title: title,
+      type: type,
+      sub: "ENTER PROJECT",
+      phase: "reveal",
+      createdAt: Date.now()
+    }));
+  } catch (error) {}
+
+  window.location.href = url;
+}
+
+if (boatWrap) {
+  boatWrap.addEventListener("click", function () {
+    maybeBoatTalk(true);
+  });
+}
+
+islands.forEach(function (island) {
+  island.addEventListener("click", function (event) {
+    enterIsland(island, event);
+  });
+});
+
 window.addEventListener("resize", updateBoatMap);
 updateBoatMap();
+setTimeout(function () {
+  showBoatSpeech("按 A / D 划船，看到岛就点。");
+}, 500);
+setTimeout(function () {
+  showBoatSpeech("第四个岛后面是 UIUX，再往后是其他项目和更多实验。");
+}, 3600);
 
 /* focus interaction for resume page modules */
 const resumeBoard = document.querySelector("#resume .resume-board");
