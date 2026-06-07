@@ -1,1 +1,199 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ASTORY</title><style>*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#3b0906,#d94b24,#f4dfaa);font-family:Impact,"Arial Black","Microsoft YaHei",Arial,sans-serif;color:#111}main{width:min(980px,88vw);padding:46px;background:#f4dfaa;border:7px solid #111;box-shadow:18px 18px 0 #111}h1{font-size:clamp(54px,8vw,120px);line-height:.9;color:#ffd21f;text-shadow:6px 6px 0 #111;margin-bottom:24px}p{font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900;font-size:22px;line-height:1.7;margin-bottom:28px}a{display:inline-block;padding:13px 18px;background:#111;color:#f4dfaa;text-decoration:none;font-family:"Microsoft YaHei",Arial,sans-serif;font-weight:900}</style></head><body><main><h1>ASTORY</h1><p>这里是后续项目占位页。之后可以把它改成独立项目页面。</p><a href="index.html?page=2">← 返回划船地图</a></main></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astory｜互动叙事档案</title>
+  <link rel="stylesheet" href="css/astory.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+
+  <a class="back-link" href="index.html?page=2">← 返回划船地图</a>
+
+  <nav class="archive-nav" aria-label="Astory 页面目录">
+    <button class="nav-dot active" data-section="cover"><span>01</span>档案开启</button>
+    <button class="nav-dot" data-section="structure"><span>02</span>叙事结构</button>
+    <button class="nav-dot" data-section="choice"><span>03</span>选择机制</button>
+    <button class="nav-dot" data-section="android"><span>04</span>原生实现</button>
+    <button class="nav-dot" data-section="review"><span>05</span>项目复盘</button>
+    <button class="nav-dot special" data-section="demo"><span>EX</span>故事体验</button>
+  </nav>
+
+  <main class="casefile">
+    <section class="panel hero active" id="cover" data-section="cover">
+      <div class="paper-stack" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="case-id">CASE 04 / INTERACTIVE NARRATIVE</p>
+        <h1>ASTORY</h1>
+        <h2>一个关于选择、分支与结局的叙事原型</h2>
+        <p class="lead">
+          Astory 不是把故事拆成几个跳转页面，而是尝试让每一次选择都留下痕迹：
+          影响信息、关系、风险与结局倾向。这个项目记录了我从 UX 概念到 Android 原生开发落地的完整过程。
+        </p>
+        <div class="stamp-row">
+          <span>叙事交互</span>
+          <span>分支选择</span>
+          <span>状态变量</span>
+          <span>Android Studio</span>
+        </div>
+        <div class="hero-actions">
+          <button class="primary" data-section="demo">进入故事体验</button>
+          <button class="secondary" data-section="structure">查看项目解说</button>
+        </div>
+      </div>
+
+      <div class="evidence-board">
+        <img src="assets/astory_cover.svg" alt="Astory 项目封面占位图" class="cover-art" />
+        <div class="red-thread thread-1"></div>
+        <div class="red-thread thread-2"></div>
+        <div class="note note-a">选择不是按钮，<br>而是故事状态。</div>
+        <div class="note note-b">每个节点都应该<br>承担叙事后果。</div>
+      </div>
+    </section>
+
+    <section class="panel" id="structure" data-section="structure">
+      <div class="section-head">
+        <p>02 / STORY SYSTEM</p>
+        <h2>不是线性故事，而是状态系统。</h2>
+        <span>把剧情拆成节点、选择、变量与结局倾向。</span>
+      </div>
+
+      <div class="structure-layout">
+        <div class="flow-map">
+          <div class="node start">START<br><small>陌生短信</small></div>
+          <div class="path"></div>
+          <div class="node">A<br><small>继续追问</small></div>
+          <div class="node">B<br><small>暂时离开</small></div>
+          <div class="node danger">RISK +1<br><small>线索开启</small></div>
+          <div class="node trust">TRUST +1<br><small>关系保留</small></div>
+          <div class="node ending">ENDING<br><small>靠近真相 / 远离真相</small></div>
+        </div>
+
+        <div class="explain-card">
+          <h3>设计逻辑</h3>
+          <p>
+            我把 Astory 的剧情看成一套“状态系统”：用户点击选择后，页面不只是跳转，
+            而是更新信任、线索、风险等变量。变量继续影响后续文本与结局倾向，让用户感到“选择有重量”。
+          </p>
+          <ul>
+            <li>剧情节点：每段文本有独立 ID，便于后续扩展章节。</li>
+            <li>选择按钮：每个选项绑定变量变化，不只是换页。</li>
+            <li>反馈机制：选择后立即给出文字、状态与结局倾向反馈。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="choice" data-section="choice">
+      <div class="section-head">
+        <p>03 / CORE INTERACTION</p>
+        <h2>阅读、选择、反馈，组成叙事交互闭环。</h2>
+        <span>用户需要相信：自己点击的选项真的改变了故事。</span>
+      </div>
+
+      <div class="choice-grid">
+        <article class="phone-card">
+          <img src="assets/astory_phone_read.svg" alt="阅读界面占位图" />
+          <h3>阅读界面</h3>
+          <p>用角色、背景与短文本建立情境，让用户先进入故事氛围。</p>
+        </article>
+        <article class="phone-card">
+          <img src="assets/astory_phone_choice.svg" alt="选择界面占位图" />
+          <h3>选择界面</h3>
+          <p>选项不做单纯对错，而是引导不同的信任、风险与线索方向。</p>
+        </article>
+        <article class="phone-card">
+          <img src="assets/astory_phone_result.svg" alt="反馈界面占位图" />
+          <h3>反馈界面</h3>
+          <p>选择后给出即时反馈，让用户意识到故事已经产生变化。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="android" data-section="android">
+      <div class="section-head">
+        <p>04 / ANDROID IMPLEMENTATION</p>
+        <h2>从 UX 原型，到 Android Studio 原生实现。</h2>
+        <span>这一页用来说明：项目不是停留在视觉稿。</span>
+      </div>
+
+      <div class="android-layout">
+        <div class="android-shot">
+          <img src="assets/astory_android.svg" alt="Android Studio 或代码结构占位图" />
+        </div>
+        <div class="layer-list">
+          <div class="layer">
+            <b>界面层</b>
+            <p>阅读文本、角色名、选择按钮与反馈状态。</p>
+          </div>
+          <div class="layer">
+            <b>逻辑层</b>
+            <p>剧情节点跳转、选择判断、变量更新与结局倾向计算。</p>
+          </div>
+          <div class="layer">
+            <b>数据层</b>
+            <p>故事文本、节点 ID、选择关系与存档状态。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="review" data-section="review">
+      <div class="section-head">
+        <p>05 / PROJECT REVIEW</p>
+        <h2>我学到的是：选择必须有重量。</h2>
+        <span>叙事交互的关键，不是让用户点按钮，而是让用户相信选择改变了什么。</span>
+      </div>
+
+      <div class="review-board">
+        <div class="review-card">
+          <h3>难点</h3>
+          <p>分支增多后，剧情内容容易变成混乱的跳转网络，后续维护成本上升。</p>
+        </div>
+        <div class="review-card">
+          <h3>处理方式</h3>
+          <p>用节点 ID、状态变量和结局倾向组织内容，把叙事逻辑拆成可维护结构。</p>
+        </div>
+        <div class="review-card">
+          <h3>后续方向</h3>
+          <p>加入存档、多结局回看、角色关系图和章节编辑器，让叙事系统更完整。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel demo-panel" id="demo" data-section="demo">
+      <div class="section-head compact">
+        <p>EX / PLAYABLE PROTOTYPE</p>
+        <h2>故事体验：一次选择，改变状态。</h2>
+      </div>
+
+      <div class="demo-layout">
+        <div class="story-window">
+          <div class="terminal-top">
+            <span></span><span></span><span></span>
+            <b>ASTORY_NODE_001</b>
+          </div>
+          <div class="story-text" id="storyText"></div>
+          <div class="choice-buttons" id="choiceButtons"></div>
+        </div>
+
+        <aside class="state-panel">
+          <h3>故事状态</h3>
+          <div class="state-row"><span>信任</span><div><i id="trustBar"></i></div><b id="trustValue">0</b></div>
+          <div class="state-row"><span>线索</span><div><i id="clueBar"></i></div><b id="clueValue">0</b></div>
+          <div class="state-row"><span>风险</span><div><i id="riskBar"></i></div><b id="riskValue">0</b></div>
+          <div class="ending-box">
+            <small>结局倾向</small>
+            <strong id="endingText">尚未确定</strong>
+          </div>
+          <button class="reset" id="resetStory">重置故事</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/astory.js"></script>
+</body>
+</html>

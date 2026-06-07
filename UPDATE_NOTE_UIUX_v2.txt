@@ -1,0 +1,7 @@
+本次更新：
+1. 保留“更多实验”岛屿，新增一个独立的“UI/UX 交互演示”岛屿，入口为 UIUX.html。
+2. UIUX.html 内图片统一从 UIasset/ 读取。
+3. 新增 assets/site-logo.png、assets/favicon.png、assets/apple-touch-icon.png。
+4. 首页顶部左侧加入个人 Logo，并把浏览器标签页图标设置为该 Logo。
+
+你说的“网站顶头那个小图标”通常叫 favicon / 网站图标 / 标签页图标。

@@ -4,23 +4,51 @@ const progressBar = document.querySelector("#progressBar");
 const edgeReturnHint = document.querySelector("#edgeReturnHint");
 const edgeReturnText = document.querySelector("#edgeReturnText");
 const edgeReturnBar = document.querySelector("#edgeReturnBar");
+const cards = Array.from(document.querySelectorAll(".polar-card"));
 
 let x = 0;
 let edgeScrollPower = 0;
+let rafId = null;
+let hintTimer = null;
 const EDGE_RETURN_THRESHOLD = 1900;
 
 function maxX() {
   return Math.max(0, stage.scrollWidth - window.innerWidth);
 }
 
+function revealCards() {
+  const leftEdge = x - 260;
+  const rightEdge = x + window.innerWidth + 260;
+
+  cards.forEach(function(card) {
+    if (card.classList.contains("is-visible")) return;
+
+    const left = parseFloat(card.style.left || "0");
+    const width = card.offsetWidth || 650;
+
+    if (left + width > leftEdge && left < rightEdge) {
+      card.classList.add("is-visible");
+    }
+  });
+}
+
 function update() {
   const max = maxX();
   x = Math.max(0, Math.min(max, x));
-  stage.style.transform = `translateX(${-x}px)`;
+  stage.style.transform = `translate3d(${-x}px, 0, 0)`;
 
   const progress = max ? Math.round((x / max) * 100) : 0;
   progressText.textContent = String(progress).padStart(2, "0") + "%";
   progressBar.style.width = progress + "%";
+
+  revealCards();
+  rafId = null;
+}
+
+function requestUpdate() {
+  if (!rafId) {
+    rafId = requestAnimationFrame(update);
+  }
 }
 
 function showEdgeHint(directionText) {
@@ -30,8 +58,8 @@ function showEdgeHint(directionText) {
   edgeReturnText.textContent = directionText + "，继续滚动返回划船地图";
   edgeReturnBar.style.width = percent + "%";
 
-  clearTimeout(showEdgeHint.timer);
-  showEdgeHint.timer = setTimeout(function () {
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(function () {
     edgeReturnHint.classList.remove("show");
     edgeScrollPower = 0;
     edgeReturnBar.style.width = "0%";
@@ -44,43 +72,65 @@ function returnToMapIfReady() {
   }
 }
 
+function hideEdgeHint() {
+  edgeScrollPower = 0;
+  if (edgeReturnHint) {
+    edgeReturnHint.classList.remove("show");
+    edgeReturnBar.style.width = "0%";
+  }
+}
+
 window.addEventListener("wheel", function(event) {
   event.preventDefault();
 
   const max = maxX();
-  const goingRight = event.deltaY > 0;
-  const goingLeft = event.deltaY < 0;
+  const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+  const goingRight = delta > 0;
+  const goingLeft = delta < 0;
 
   if (x <= 0 && goingLeft) {
-    edgeScrollPower += Math.abs(event.deltaY);
+    edgeScrollPower += Math.abs(delta);
     showEdgeHint("已经到最左边");
     returnToMapIfReady();
     return;
   }
 
   if (x >= max - 2 && goingRight) {
-    edgeScrollPower += Math.abs(event.deltaY);
+    edgeScrollPower += Math.abs(delta);
     showEdgeHint("已经到最右边");
     returnToMapIfReady();
     return;
   }
 
-  edgeScrollPower = 0;
-  if (edgeReturnHint) {
-    edgeReturnHint.classList.remove("show");
-    edgeReturnBar.style.width = "0%";
-  }
-
-  x += event.deltaY * 1.05;
-  update();
+  hideEdgeHint();
+  x += delta * 1.12;
+  requestUpdate();
 }, { passive:false });
 
 window.addEventListener("keydown", function(event) {
-  if (event.key === "ArrowRight" || event.key === "ArrowDown" || event.key === " ") x += 240;
-  if (event.key === "ArrowLeft" || event.key === "ArrowUp") x -= 240;
-  edgeScrollPower = 0;
-  update();
+  if (event.key === "ArrowRight" || event.key === "ArrowDown" || event.key === " ") {
+    x += 260;
+    hideEdgeHint();
+    requestUpdate();
+  }
+
+  if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    x -= 260;
+    hideEdgeHint();
+    requestUpdate();
+  }
 });
 
-window.addEventListener("resize", update);
+window.addEventListener("resize", requestUpdate);
+
+(function initMotionLayer() {
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) return;
+
+  const snow = document.createElement("div");
+  snow.className = "motion-snow";
+  snow.setAttribute("aria-hidden", "true");
+  document.body.appendChild(snow);
+})();
+
 update();

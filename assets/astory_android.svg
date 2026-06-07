@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#111315"/>
+  <rect x="34" y="34" width="1132" height="692" rx="12" fill="#20242a" stroke="#3a3f49" stroke-width="4"/>
+  <rect x="34" y="34" width="1132" height="56" fill="#15181d"/>
+  <circle cx="70" cy="62" r="9" fill="#d64637"/>
+  <circle cx="102" cy="62" r="9" fill="#d0aa58"/>
+  <circle cx="134" cy="62" r="9" fill="#8da48d"/>
+  <text x="178" y="70" fill="#efe6d1" font-family="monospace" font-size="18" font-weight="900">Android Studio · AstoryProject</text>
+  <rect x="62" y="118" width="260" height="574" fill="#171a20" stroke="#3a3f49"/>
+  <text x="86" y="158" fill="#d64637" font-family="monospace" font-size="20" font-weight="900">project / app</text>
+  <text x="92" y="210" fill="#efe6d1" font-family="monospace" font-size="18">StoryNode.kt</text>
+  <text x="92" y="250" fill="#efe6d1" font-family="monospace" font-size="18">ChoiceAdapter.kt</text>
+  <text x="92" y="290" fill="#efe6d1" font-family="monospace" font-size="18">StateManager.kt</text>
+  <text x="92" y="330" fill="#efe6d1" font-family="monospace" font-size="18">SaveRepository.kt</text>
+  <rect x="352" y="118" width="786" height="574" fill="#0f1115" stroke="#3a3f49"/>
+  <text x="390" y="168" fill="#8da48d" font-family="monospace" font-size="24" font-weight="900">data class StoryNode(</text>
+  <text x="430" y="218" fill="#efe6d1" font-family="monospace" font-size="21">val id: String,</text>
+  <text x="430" y="258" fill="#efe6d1" font-family="monospace" font-size="21">val text: String,</text>
+  <text x="430" y="298" fill="#efe6d1" font-family="monospace" font-size="21">val choices: List&lt;Choice&gt;,</text>
+  <text x="430" y="338" fill="#efe6d1" font-family="monospace" font-size="21">val stateEffect: StateEffect</text>
+  <text x="390" y="388" fill="#8da48d" font-family="monospace" font-size="24" font-weight="900">)</text>
+  <text x="390" y="470" fill="#d64637" font-family="monospace" font-size="24" font-weight="900">// UX → Logic → Native Implementation</text>
+  <path d="M390 525 H1020" stroke="#a7352c" stroke-width="4"/>
+  <text x="390" y="585" fill="#efe6d1" font-family="Georgia, serif" font-size="32" font-weight="900">占位图：替换为 Android Studio 截图</text>
+</svg>

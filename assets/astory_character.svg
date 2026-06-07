@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="600" height="600" fill="none"/>
+  <circle cx="300" cy="260" r="150" fill="#efe6d1" stroke="#2b2422" stroke-width="9"/>
+  <path d="M175 250 C190 120, 410 120, 425 250 C385 205, 335 196, 300 198 C254 200, 212 213, 175 250Z" fill="#171414"/>
+  <circle cx="245" cy="276" r="14" fill="#171414"/>
+  <circle cx="355" cy="276" r="14" fill="#171414"/>
+  <path d="M255 340 Q300 382 350 340" fill="none" stroke="#171414" stroke-width="8" stroke-linecap="round"/>
+  <rect x="172" y="428" width="256" height="98" rx="18" fill="#a7352c" stroke="#2b2422" stroke-width="8"/>
+  <text x="230" y="488" fill="#efe6d1" font-family="Georgia, serif" font-size="38" font-weight="900">角色占位</text>
+</svg>

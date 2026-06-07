@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="820" viewBox="0 0 520 820">
+  <rect width="520" height="820" rx="46" fill="#151211"/>
+  <rect x="34" y="42" width="452" height="736" rx="30" fill="#efe6d1"/>
+  <text x="70" y="115" fill="#a7352c" font-family="monospace" font-size="24" font-weight="900">STATE UPDATED</text>
+  <text x="70" y="185" fill="#2b2422" font-family="Georgia, serif" font-size="30" font-weight="900">选择结果</text>
+  <rect x="70" y="230" width="380" height="92" fill="#211d1a"/>
+  <text x="98" y="287" fill="#efe6d1" font-family="Georgia, serif" font-size="28" font-weight="900">线索 +1</text>
+  <rect x="70" y="348" width="380" height="92" fill="#211d1a"/>
+  <text x="98" y="405" fill="#efe6d1" font-family="Georgia, serif" font-size="28" font-weight="900">风险 +1</text>
+  <rect x="70" y="485" width="380" height="128" fill="none" stroke="#a7352c" stroke-width="5"/>
+  <text x="96" y="550" fill="#a7352c" font-family="Georgia, serif" font-size="28" font-weight="900">结局倾向：</text>
+  <text x="96" y="590" fill="#2b2422" font-family="Georgia, serif" font-size="24" font-weight="900">靠近真相</text>
+</svg>
