@@ -11,7 +11,31 @@
     <link rel="shortcut icon" type="image/png" href="./assets/site-logo.png?v=999">
     <link rel="apple-touch-icon" href="./assets/site-logo.png?v=999">
     <link rel="stylesheet" href="4style.css">
-  <!-- Style variant: 野蛮主义网页风 -->
+    <style>
+        .tool-entry-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            padding: 8px 14px;
+            border: 2px solid #111;
+            border-radius: 999px;
+            background: #ffd23f;
+            color: #111;
+            font-weight: 900;
+            line-height: 1;
+            text-decoration: none;
+            box-shadow: 3px 3px 0 #111;
+            transform: rotate(-1deg);
+            cursor: pointer;
+        }
+
+            .tool-entry-button:hover {
+                transform: translate(-1px, -1px) rotate(-1deg);
+                box-shadow: 5px 5px 0 #111;
+            }
+    </style>
+    <!-- Style variant: 野蛮主义网页风 -->
 </head>
 
 <body class="theme-brutal">
@@ -67,9 +91,10 @@
       <header class="nav brutal-v2-nav">
         <div class="nav-left">PORTFOLIO 2025 / RAW MODE</div>
         <nav>
-          <button data-page="0">01 封面</button>
-          <button data-page="1">02 简历</button>
-          <button data-page="2">03 看板</button>
+            <button data-page="0">01 封面</button>
+            <button data-page="1">02 简历</button>
+            <button data-page="2">03 看板</button>
+            <a class="tool-entry-button" href="tool.html">TOOL</a>
         </nav>
       </header>
 

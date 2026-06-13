@@ -1,0 +1,6538 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>设计师本地工具箱</title>
+    <style>
+        :root {
+            --bg: #0c1018;
+            --bg2: #101622;
+            --panel: #151c29;
+            --panel2: #1b2433;
+            --panel3: #222d40;
+            --line: #2d394e;
+            --text: #edf4ff;
+            --muted: #9aa9c2;
+            --muted2: #74839a;
+            --accent: #7c9cff;
+            --accent2: #59d6ff;
+            --ok: #57dd95;
+            --warn: #ffc75b;
+            --danger: #ff6b7a;
+            --radius: 18px;
+            --shadow: 0 18px 42px rgba(0,0,0,.32);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+            background: radial-gradient(circle at 20% 0%,rgba(124,156,255,.18),transparent 32%), radial-gradient(circle at 80% 20%,rgba(89,214,255,.12),transparent 30%), linear-gradient(135deg,#090d14,#111827 48%,#0b0f16);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+            button:disabled {
+                opacity: .45;
+                cursor: not-allowed;
+            }
+
+        a {
+            color: inherit;
+        }
+
+        .app {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 268px minmax(0,1fr);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background: rgba(15,21,33,.96);
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .brand {
+            padding: 18px 18px 15px;
+            border-bottom: 1px solid var(--line);
+        }
+
+            .brand h1 {
+                margin: 0 0 8px;
+                font-size: 22px;
+                letter-spacing: .2px;
+            }
+
+            .brand p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+        .nav {
+            padding: 14px;
+            display: grid;
+            gap: 10px;
+            overflow: auto;
+        }
+
+            .nav button {
+                width: 100%;
+                border: 1px solid var(--line);
+                border-radius: 16px;
+                background: linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+                color: var(--text);
+                padding: 12px 13px;
+                text-align: left;
+                display: grid;
+                gap: 4px;
+                transition: .14s;
+            }
+
+                .nav button:hover {
+                    transform: translateY(-1px);
+                    border-color: #45566f;
+                    background: rgba(124,156,255,.08);
+                }
+
+                .nav button.active {
+                    border-color: #6d8cff;
+                    background: linear-gradient(180deg,rgba(124,156,255,.20),rgba(124,156,255,.08));
+                    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+                }
+
+                .nav button b {
+                    font-size: 14px;
+                }
+
+                .nav button span {
+                    font-size: 12px;
+                    color: var(--muted);
+                    line-height: 1.4;
+                }
+
+        .sidebarFooter {
+            margin-top: auto;
+            padding: 14px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .main {
+            min-width: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            height: 68px;
+            flex: 0 0 auto;
+            border-bottom: 1px solid var(--line);
+            background: rgba(13,18,28,.72);
+            backdrop-filter: blur(14px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+            gap: 14px;
+        }
+
+            .topbar h2 {
+                margin: 0;
+                font-size: 21px;
+            }
+
+            .topbar .sub {
+                margin-top: 3px;
+                color: var(--muted);
+                font-size: 13px;
+            }
+
+        .topActions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .viewWrap {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .view {
+            position: absolute;
+            inset: 0;
+            display: none;
+            padding: 18px;
+            overflow: hidden;
+        }
+
+            .view.active {
+                display: block;
+            }
+
+        .homeGrid {
+            height: 100%;
+            display: grid;
+            grid-template-rows: auto minmax(0,1fr);
+            gap: 18px;
+        }
+
+        .hero {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 22px;
+            background: linear-gradient(135deg,rgba(124,156,255,.18),rgba(89,214,255,.08) 50%,rgba(255,255,255,.02));
+            box-shadow: var(--shadow);
+        }
+
+            .hero h3 {
+                margin: 0 0 10px;
+                font-size: 28px;
+            }
+
+            .hero p {
+                margin: 0;
+                color: #d9e5f8;
+                line-height: 1.7;
+                max-width: 980px;
+            }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(0,1fr));
+            gap: 16px;
+            overflow: auto;
+            padding-right: 4px;
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(21,28,41,.96);
+            box-shadow: var(--shadow);
+            padding: 18px;
+            display: grid;
+            gap: 10px;
+            align-content: start;
+            min-height: 158px;
+        }
+
+            .card h4 {
+                margin: 0;
+                font-size: 18px;
+            }
+
+            .card p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 13px;
+                line-height: 1.65;
+            }
+
+            .card button {
+                margin-top: auto;
+            }
+
+        .toolLayout {
+            height: 100%;
+            display: grid;
+            gap: 16px;
+            overflow: hidden;
+        }
+
+        .panel {
+            min-height: 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(21,28,41,.97);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panelHead {
+            flex: 0 0 auto;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: rgba(255,255,255,.025);
+        }
+
+            .panelHead h3 {
+                margin: 0;
+                font-size: 16px;
+            }
+
+        .panelBody {
+            padding: 15px;
+            overflow: auto;
+            min-height: 0;
+        }
+
+        .stack {
+            display: grid;
+            gap: 12px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+            .row.nowrap {
+                flex-wrap: nowrap;
+            }
+
+        .btn {
+            border: 1px solid var(--line);
+            background: #253046;
+            color: #eef4ff;
+            border-radius: 12px;
+            padding: 10px 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: .13s;
+        }
+
+            .btn:hover {
+                transform: translateY(-1px);
+                filter: brightness(1.05);
+            }
+
+            .btn.primary {
+                border-color: #7395ff;
+                background: linear-gradient(180deg,#89a7ff,#6e90fa);
+                color: #06101f;
+            }
+
+            .btn.ok {
+                border-color: #50c883;
+                background: linear-gradient(180deg,#76e6ae,#55d58d);
+                color: #042312;
+            }
+
+            .btn.warn {
+                border-color: #e0aa37;
+                background: linear-gradient(180deg,#ffd26f,#ffbd43);
+                color: #261800;
+            }
+
+            .btn.danger {
+                border-color: #e86371;
+                background: linear-gradient(180deg,#ff8792,#ff6878);
+                color: #2c060d;
+            }
+
+            .btn.ghost {
+                background: #101722;
+                color: #dfe8fb;
+            }
+
+            .btn.smallBtn {
+                padding: 7px 9px;
+                border-radius: 10px;
+                font-size: 12px;
+            }
+
+        .tag {
+            padding: 7px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: #0f141d;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .drop {
+            border: 1.5px dashed #485873;
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            background: rgba(124,156,255,.06);
+            transition: .15s;
+            cursor: pointer;
+        }
+
+            .drop.drag {
+                border-color: #7ea0ff;
+                background: rgba(124,156,255,.15);
+            }
+
+            .drop strong {
+                display: block;
+                font-size: 15px;
+                margin-bottom: 8px;
+            }
+
+            .drop small {
+                display: block;
+                color: var(--muted);
+                line-height: 1.55;
+            }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: #b8c7df;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="datetime-local"],
+        select,
+        textarea,
+        input[type="color"] {
+            width: 100%;
+            background: #0d121b;
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 10px 11px;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 118px;
+            resize: vertical;
+        }
+
+            input[type="text"]:focus,
+            input[type="number"]:focus,
+            input[type="datetime-local"]:focus,
+            select:focus,
+            textarea:focus {
+                border-color: #6e8df7;
+            }
+
+        input[type="checkbox"] {
+            accent-color: #7ea0ff;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #7ea0ff;
+        }
+
+        .small {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .notice {
+            padding: 12px 13px;
+            border-radius: 14px;
+            border-left: 4px solid var(--ok);
+            background: rgba(88,221,149,.09);
+            color: #defde9;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .warning {
+            padding: 12px 13px;
+            border-radius: 14px;
+            border-left: 4px solid var(--warn);
+            background: rgba(255,199,91,.10);
+            color: #fff3ce;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .kpis {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            font-size: 12px;
+            padding: 5px 9px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #0f141d;
+            color: var(--muted);
+        }
+
+        .fileList {
+            display: grid;
+            gap: 8px;
+            max-height: 238px;
+            overflow: auto;
+        }
+
+        .fileItem {
+            padding: 10px 11px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #0f141d;
+            display: grid;
+            gap: 4px;
+        }
+
+            .fileItem.active {
+                border-color: #7ea0ff;
+                background: rgba(124,156,255,.12);
+            }
+
+            .fileItem b,
+            .ellipsis {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .fileItem span {
+                font-size: 12px;
+                color: var(--muted);
+            }
+
+        .previewStage {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 10px;
+            background: repeating-conic-gradient(#141b26 0% 25%,#101721 0% 50%) 50% / 28px 28px;
+        }
+
+            .previewStage canvas,
+            .previewStage img {
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 18px;
+                background: #0a0d13;
+                box-shadow: 0 10px 34px rgba(0,0,0,.35);
+            }
+
+        .previewEmpty {
+            padding: 30px;
+            text-align: center;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .controlsScroll {
+            height: 100%;
+            overflow: auto;
+        }
+
+        .group {
+            border-bottom: 1px solid var(--line);
+        }
+
+            .group:last-child {
+                border-bottom: 0;
+            }
+
+            .group > .ghead {
+                position: sticky;
+                top: 0;
+                z-index: 2;
+                padding: 14px 16px;
+                background: #151c29;
+                border-bottom: 1px solid rgba(255,255,255,.04);
+                font-weight: 800;
+            }
+
+            .group > .gbody {
+                padding: 12px 16px;
+            }
+
+        .control {
+            display: grid;
+            grid-template-columns: 112px minmax(0,1fr) 54px;
+            gap: 10px;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+            .control label {
+                margin: 0;
+                color: #d7e3fb;
+            }
+
+            .control .val {
+                text-align: right;
+                color: var(--muted);
+                font-size: 12px;
+                font-variant-numeric: tabular-nums;
+            }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid3 {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+        }
+
+        .grid4 {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+        }
+
+        .presetGrid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 8px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 12px;
+            accent-color: #7ea0ff;
+        }
+
+        .tableWrap {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: auto;
+            max-height: 380px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th,
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: #182130;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .codeBox {
+            font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+            font-size: 12px;
+            background: #0c1018;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 10px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .mono {
+            font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+        }
+
+        .colors {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+        }
+
+        .swatch {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #10141c;
+        }
+
+        .swatchColor {
+            height: 54px;
+        }
+
+        .swatchInfo {
+            padding: 9px;
+        }
+
+            .swatchInfo b {
+                display: block;
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .swatchInfo span {
+                font-size: 11px;
+                color: var(--muted);
+            }
+
+        .base64Item {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px;
+            background: #0f141d;
+            display: grid;
+            gap: 8px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .tabBar {
+            display: flex;
+            gap: 6px;
+            padding: 8px;
+            border-bottom: 1px solid var(--line);
+            background: #111827;
+            overflow: auto;
+        }
+
+            .tabBar button {
+                border: 1px solid var(--line);
+                background: #0e1420;
+                color: var(--muted);
+                border-radius: 999px;
+                padding: 7px 10px;
+                white-space: nowrap;
+                font-size: 12px;
+            }
+
+                .tabBar button.active {
+                    background: rgba(124,156,255,.18);
+                    color: var(--text);
+                    border-color: #6e8df7;
+                }
+
+        .tabPane {
+            display: none;
+        }
+
+            .tabPane.active {
+                display: block;
+            }
+
+        .colorWheelBox {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .hashBox {
+            max-height: 320px;
+            overflow: auto;
+        }
+
+        @media (max-width:1280px) {
+            .cards {
+                grid-template-columns: repeat(2,minmax(0,1fr));
+            }
+
+            .control {
+                grid-template-columns: 98px minmax(0,1fr) 48px;
+            }
+        }
+
+        @media (max-width:980px) {
+            body {
+                height: auto;
+                overflow: auto;
+            }
+
+            .app {
+                height: auto;
+                min-height: 100vh;
+                display: block;
+            }
+
+            .sidebar {
+                max-height: none;
+            }
+
+            .main {
+                height: auto;
+            }
+
+            .topbar {
+                position: sticky;
+                top: 0;
+                z-index: 30;
+            }
+
+            .viewWrap {
+                height: auto;
+                overflow: visible;
+            }
+
+            .view {
+                position: static;
+                display: none;
+                overflow: visible;
+                padding: 14px;
+            }
+
+                .view.active {
+                    display: block;
+                }
+
+            .toolLayout {
+                height: auto;
+                overflow: visible;
+                grid-template-columns: 1fr !important;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .panelBody,
+            .controlsScroll,
+            .fileList,
+            .tableWrap {
+                max-height: none;
+                height: auto;
+            }
+
+            .previewStage {
+                min-height: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>设计师本地工具箱</h1>
+                <p>单文件 HTML，本地处理，不上传云端。适合部署到 Cloudflare Pages。</p>
+            </div>
+
+            <div class="nav" id="nav"></div>
+
+            <div class="sidebarFooter">
+                文件选择只是读取本地文件，不会自动上传。导出结果会在浏览器里生成并下载。
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div>
+                    <h2 id="pageTitle">首页</h2>
+                    <div class="sub" id="pageSub">选择一个工具开始使用。</div>
+                </div>
+
+                <div class="topActions">
+                    <span class="tag">本地处理</span>
+                    <button class="btn ghost" id="backHomeBtn" type="button">← 返回首页</button>
+                </div>
+            </header>
+
+            <div class="viewWrap">
+                <section class="view active" id="view-home">
+                    <div class="homeGrid">
+                        <div class="hero">
+                            <h3>一页式设计师工具站</h3>
+                            <p>
+                                集成批量图片修改、完整调色、批量重命名、图片转 PDF、图片转 Base64、文件清单生成、
+                                时间戳转换、多图拼接、颜色工具、文本工具、JSON 工具、图标工具、哈希校验等功能。
+                            </p>
+                        </div>
+
+                        <div class="cards" id="homeCards"></div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-image">
+                    <div class="toolLayout" style="grid-template-columns:300px minmax(0,1fr) 430px;">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>图片文件</h3>
+                                <div class="kpis">
+                                    <span class="pill" id="imgCount">0 张</span>
+                                </div>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="imgDrop">
+                                    <strong>拖入图片，或点击选择</strong>
+                                    <small>支持 JPG、PNG、WebP 等。所有处理都在浏览器本地完成。</small>
+                                </div>
+                                <input id="imgInput" type="file" accept="image/*" multiple />
+
+                                <div class="row">
+                                    <button class="btn ghost" id="imgClearBtn" type="button">清空</button>
+                                    <button class="btn ghost" id="imgPrevBtn" type="button">上一张</button>
+                                    <button class="btn ghost" id="imgNextBtn" type="button">下一张</button>
+                                    <button class="btn ghost" id="imgOriginalBtn" type="button">按住看原图</button>
+                                </div>
+
+                                <div class="notice">
+                                    右侧调色和导出设置是独立滚动区域，不会把整页撑长。
+                                </div>
+
+                                <div class="fileList" id="imgFileList">
+                                    <div class="previewEmpty">还没有选择图片</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3 id="imgPreviewTitle">图片预览</h3>
+                                <span class="small" id="imgStatus">准备就绪</span>
+                            </div>
+
+                            <div class="panelBody" style="padding:0;display:grid;grid-template-rows:minmax(0,1fr) auto;overflow:hidden;">
+                                <div class="previewStage">
+                                    <canvas id="imgCanvas"></canvas>
+                                    <div id="imgCanvasEmpty" class="previewEmpty">选择图片后在这里预览</div>
+                                </div>
+
+                                <div style="padding:14px 15px;border-top:1px solid var(--line);display:grid;gap:10px;">
+                                    <progress class="progress hidden" id="imgProgress" value="0" max="100"></progress>
+
+                                    <div class="row">
+                                        <button class="btn primary" id="imgExportBtn" type="button">导出处理后 ZIP</button>
+                                        <button class="btn ghost" id="imgResetBtn" type="button">重置参数</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>调色与导出设置</h3>
+                                <span class="small">独立滚动</span>
+                            </div>
+
+                            <div class="controlsScroll">
+                                <div class="tabBar" id="imageTabBar">
+                                    <button class="active" data-tab="preset" type="button">预设</button>
+                                    <button data-tab="basic" type="button">基础</button>
+                                    <button data-tab="hsl" type="button">HSL</button>
+                                    <button data-tab="grading" type="button">调色轮</button>
+                                    <button data-tab="curve" type="button">曲线/色阶</button>
+                                    <button data-tab="detail" type="button">细节</button>
+                                    <button data-tab="effect" type="button">效果</button>
+                                    <button data-tab="transform" type="button">变换</button>
+                                    <button data-tab="watermark" type="button">水印</button>
+                                    <button data-tab="export" type="button">导出</button>
+                                    <button data-tab="palette" type="button">取色</button>
+                                </div>
+
+                                <div class="group tabPane active" id="imgTab-preset">
+                                    <div class="ghead">风格预设</div>
+                                    <div class="gbody stack">
+                                        <div class="presetGrid" id="imgPresetGrid"></div>
+                                        <div class="small">预设只是快速填充参数，后续仍可继续手动微调。</div>
+                                    </div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-basic">
+                                    <div class="ghead">基础调色</div>
+                                    <div class="gbody" id="imgBasicControls"></div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-hsl">
+                                    <div class="ghead">HSL 颜色混合器</div>
+                                    <div class="gbody stack">
+                                        <div>
+                                            <div class="small">色相 Hue</div>
+                                            <div id="imgHslHueControls"></div>
+                                        </div>
+                                        <div>
+                                            <div class="small">饱和度 Saturation</div>
+                                            <div id="imgHslSatControls"></div>
+                                        </div>
+                                        <div>
+                                            <div class="small">明亮度 Luminance</div>
+                                            <div id="imgHslLumControls"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-grading">
+                                    <div class="ghead">调色轮 / 分离色调</div>
+                                    <div class="gbody stack" id="imgGradingControls"></div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-curve">
+                                    <div class="ghead">曲线 / 色阶</div>
+                                    <div class="gbody stack">
+                                        <div class="warning">
+                                            这里用滑杆版曲线和色阶，适合批量处理。不是 Photoshop 那种可拖拽曲线，但更适合单文件网页工具。
+                                        </div>
+                                        <div id="imgCurveControls"></div>
+                                    </div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-detail">
+                                    <div class="ghead">细节 / 锐化 / 降噪</div>
+                                    <div class="gbody" id="imgDetailControls"></div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-effect">
+                                    <div class="ghead">效果 / 暗角 / 颗粒</div>
+                                    <div class="gbody" id="imgEffectControls"></div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-transform">
+                                    <div class="ghead">变换 / 画布</div>
+                                    <div class="gbody stack">
+                                        <div class="grid2">
+                                            <div>
+                                                <label>旋转</label>
+                                                <select id="imgRotate">
+                                                    <option value="0">不旋转</option>
+                                                    <option value="90">顺时针 90°</option>
+                                                    <option value="180">180°</option>
+                                                    <option value="270">逆时针 90°</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label>翻转</label>
+                                                <select id="imgFlip">
+                                                    <option value="none">不翻转</option>
+                                                    <option value="x">左右翻转</option>
+                                                    <option value="y">上下翻转</option>
+                                                    <option value="xy">左右 + 上下</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>圆角 px</label>
+                                                <input id="imgRadius" type="number" min="0" value="0" />
+                                            </div>
+
+                                            <div>
+                                                <label>边距 px</label>
+                                                <input id="imgPadding" type="number" min="0" value="0" />
+                                            </div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>背景颜色</label>
+                                                <input id="imgBgColor" type="color" value="#ffffff" />
+                                            </div>
+
+                                            <div>
+                                                <label>背景模式</label>
+                                                <select id="imgBgMode">
+                                                    <option value="transparent">透明</option>
+                                                    <option value="color">填充颜色</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label>裁剪比例</label>
+                                            <select id="imgCropRatio">
+                                                <option value="none">不裁剪</option>
+                                                <option value="1:1">1:1 正方形</option>
+                                                <option value="4:5">4:5 小红书/社媒</option>
+                                                <option value="3:4">3:4</option>
+                                                <option value="16:9">16:9 横屏</option>
+                                                <option value="9:16">9:16 竖屏</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-watermark">
+                                    <div class="ghead">批量加水印</div>
+                                    <div class="gbody stack">
+                                        <label>
+                                            <input id="wmEnable" type="checkbox" />
+                                            启用水印
+                                        </label>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>水印文字</label>
+                                                <input id="wmText" type="text" placeholder="例如 © Studio" />
+                                            </div>
+
+                                            <div>
+                                                <label>位置</label>
+                                                <select id="wmPosition">
+                                                    <option value="br">右下</option>
+                                                    <option value="bl">左下</option>
+                                                    <option value="tr">右上</option>
+                                                    <option value="tl">左上</option>
+                                                    <option value="center">居中</option>
+                                                    <option value="tile">平铺</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>文字大小</label>
+                                                <input id="wmSize" type="number" min="8" value="36" />
+                                            </div>
+
+                                            <div>
+                                                <label>边距</label>
+                                                <input id="wmMargin" type="number" min="0" value="24" />
+                                            </div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>颜色</label>
+                                                <input id="wmColor" type="color" value="#ffffff" />
+                                            </div>
+
+                                            <div>
+                                                <label>透明度 0-100</label>
+                                                <input id="wmOpacity" type="number" min="0" max="100" value="48" />
+                                            </div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>旋转角度</label>
+                                                <input id="wmAngle" type="number" value="0" />
+                                            </div>
+
+                                            <div>
+                                                <label>平铺间距</label>
+                                                <input id="wmTileGap" type="number" min="20" value="220" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-export">
+                                    <div class="ghead">导出设置</div>
+                                    <div class="gbody stack">
+                                        <div class="grid2">
+                                            <div>
+                                                <label>输出格式</label>
+                                                <select id="imgFormat">
+                                                    <option value="image/jpeg">JPG</option>
+                                                    <option value="image/png">PNG</option>
+                                                    <option value="image/webp">WebP</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label>质量 JPG/WebP</label>
+                                                <input id="imgQuality" type="number" min="1" max="100" value="92" />
+                                            </div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>目标宽度</label>
+                                                <input id="imgOutWidth" type="number" min="1" placeholder="留空原宽" />
+                                            </div>
+
+                                            <div>
+                                                <label>目标高度</label>
+                                                <input id="imgOutHeight" type="number" min="1" placeholder="留空自动" />
+                                            </div>
+                                        </div>
+
+                                        <label>
+                                            <input id="imgFitInside" type="checkbox" checked />
+                                            保持比例，限制在目标宽高内
+                                        </label>
+
+                                        <div class="grid2">
+                                            <div>
+                                                <label>文件名前缀</label>
+                                                <input id="imgNamePrefix" type="text" placeholder="可选" />
+                                            </div>
+
+                                            <div>
+                                                <label>文件名后缀</label>
+                                                <input id="imgNameSuffix" type="text" placeholder="可选" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="group tabPane" id="imgTab-palette">
+                                    <div class="ghead">图片取色 / 配色板</div>
+                                    <div class="gbody stack">
+                                        <div class="row">
+                                            <button class="btn ghost" id="paletteExtractBtn" type="button">从当前图提取配色</button>
+                                            <button class="btn ghost" id="paletteSuggestBtn" type="button">生成推荐配色</button>
+                                            <button class="btn ghost" id="paletteCopyBtn" type="button">复制色值</button>
+                                        </div>
+
+                                        <div class="colors" id="paletteBox">
+                                            <div class="small">选择图片后可提取颜色。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-rename">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>批量重命名</h3>
+                                <span class="small">排序 / 预览 / ZIP</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="renameDrop">
+                                    <strong>拖入任意文件，或点击选择</strong>
+                                    <small>文件不会上传，重命名后会打包成 ZIP 下载。</small>
+                                </div>
+                                <input id="renameInput" type="file" multiple />
+
+                                <div class="kpis">
+                                    <span class="pill" id="renameCount">0 个文件</span>
+                                    <span class="pill" id="renameSelectedInfo">未选中</span>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>排序方式</label>
+                                        <select id="renameSort">
+                                            <option value="manual">手动顺序</option>
+                                            <option value="nameAsc">名称 A-Z</option>
+                                            <option value="nameDesc">名称 Z-A</option>
+                                            <option value="sizeAsc">文件大小 ↑</option>
+                                            <option value="sizeDesc">文件大小 ↓</option>
+                                            <option value="typeAsc">扩展名 A-Z</option>
+                                            <option value="typeDesc">扩展名 Z-A</option>
+                                            <option value="dateAsc">修改时间 ↑</option>
+                                            <option value="dateDesc">修改时间 ↓</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label>手动排序</label>
+                                        <div class="row">
+                                            <button class="btn ghost smallBtn" id="renameUpBtn" type="button">上移</button>
+                                            <button class="btn ghost smallBtn" id="renameDownBtn" type="button">下移</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn ghost" id="renameClearBtn" type="button">清空</button>
+                                    <button class="btn primary" id="renameDownloadBtn" type="button">下载重命名 ZIP</button>
+                                </div>
+
+                                <progress class="progress hidden" id="renameProgress" value="0" max="100"></progress>
+                                <div class="small" id="renameStatus">准备就绪。</div>
+
+                                <div class="fileList" id="renameFileList">
+                                    <div class="previewEmpty">还没有选择文件</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>命名规则与实时预览</h3>
+                                <span class="small">序号按当前排序生成</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div>
+                                    <label>命名模板</label>
+                                    <input id="renamePattern" type="text" value="{name}_{num}" />
+                                    <div class="small">
+                                        可用：{name} 原名、{num} 序号、{date} 日期、{w} 宽、{h} 高、{ext} 扩展名、{size} 文件大小
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>前缀</label>
+                                        <input id="renamePrefix" type="text" placeholder="可选" />
+                                    </div>
+
+                                    <div>
+                                        <label>后缀</label>
+                                        <input id="renameSuffix" type="text" placeholder="可选" />
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>查找</label>
+                                        <input id="renameFind" type="text" placeholder="要替换的文字" />
+                                    </div>
+
+                                    <div>
+                                        <label>替换为</label>
+                                        <input id="renameReplace" type="text" placeholder="替换后的文字" />
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>序号起始</label>
+                                        <input id="renameStart" type="number" value="1" />
+                                    </div>
+
+                                    <div>
+                                        <label>序号位数</label>
+                                        <input id="renameDigits" type="number" min="1" max="8" value="3" />
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>大小写</label>
+                                        <select id="renameCase">
+                                            <option value="keep">保持原样</option>
+                                            <option value="lower">全部小写</option>
+                                            <option value="upper">全部大写</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label>空格处理</label>
+                                        <select id="renameSpace">
+                                            <option value="keep">保持空格</option>
+                                            <option value="dash">空格转 -</option>
+                                            <option value="underscore">空格转 _</option>
+                                            <option value="remove">删除空格</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <label>
+                                    <input id="renameSanitize" type="checkbox" checked />
+                                    清理文件名特殊符号
+                                </label>
+
+                                <div class="tableWrap">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width:46px;">#</th>
+                                                <th>原文件名</th>
+                                                <th>新文件名</th>
+                                                <th style="width:120px;">大小</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="renamePreviewTable">
+                                            <tr>
+                                                <td colspan="4" class="small">选择文件后显示预览</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-pdf">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>图片转 PDF</h3>
+                                <span class="small">多图合成</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="pdfDrop">
+                                    <strong>拖入图片，或点击选择</strong>
+                                    <small>每张图片可生成 PDF 的一页。</small>
+                                </div>
+                                <input id="pdfInput" type="file" accept="image/*" multiple />
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>页面尺寸</label>
+                                        <select id="pdfPageSize">
+                                            <option value="a4">A4</option>
+                                            <option value="image">按图片比例</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label>页面方向</label>
+                                        <select id="pdfOrientation">
+                                            <option value="auto">自动</option>
+                                            <option value="portrait">竖向</option>
+                                            <option value="landscape">横向</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>边距 pt</label>
+                                        <input id="pdfMargin" type="number" value="24" min="0" />
+                                    </div>
+
+                                    <div>
+                                        <label>图片质量 1-100</label>
+                                        <input id="pdfQuality" type="number" value="92" min="1" max="100" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn ghost" id="pdfClearBtn" type="button">清空</button>
+                                    <button class="btn primary" id="pdfDownloadBtn" type="button">导出 PDF</button>
+                                </div>
+
+                                <div class="fileList" id="pdfFileList">
+                                    <div class="previewEmpty">还没有选择图片</div>
+                                </div>
+
+                                <div class="small" id="pdfStatus">准备就绪。</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>PDF 预览清单</h3>
+                                <span class="small">按当前顺序导出</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="notice">
+                                    生成 PDF 仍然是在浏览器本地完成。图片较大或数量很多时，处理会比较慢。
+                                </div>
+
+                                <div class="tableWrap">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width:46px;">#</th>
+                                                <th>图片</th>
+                                                <th>尺寸</th>
+                                                <th>大小</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pdfTable">
+                                            <tr>
+                                                <td colspan="4" class="small">选择图片后显示</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-base64">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>图片转 Base64</h3>
+                                <span class="small">Data URL</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="b64Drop">
+                                    <strong>拖入图片，或点击选择</strong>
+                                    <small>转换为 Base64 Data URL，可复制或导出 TXT。</small>
+                                </div>
+                                <input id="b64Input" type="file" accept="image/*" multiple />
+
+                                <div class="row">
+                                    <button class="btn ghost" id="b64ClearBtn" type="button">清空</button>
+                                    <button class="btn primary" id="b64ExportTxtBtn" type="button">导出 TXT</button>
+                                </div>
+
+                                <div class="small" id="b64Status">准备就绪。</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>Base64 结果</h3>
+                                <span class="small">可单独复制</span>
+                            </div>
+
+                            <div class="panelBody stack" id="b64Results">
+                                <div class="previewEmpty">选择图片后显示结果</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-filelist">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>文件清单生成</h3>
+                                <span class="small">TXT / CSV</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="listDrop">
+                                    <strong>拖入任意文件，或点击选择</strong>
+                                    <small>生成文件名、大小、类型、修改时间等清单。</small>
+                                </div>
+                                <input id="listInput" type="file" multiple />
+
+                                <div class="row">
+                                    <button class="btn ghost" id="listClearBtn" type="button">清空</button>
+                                    <button class="btn primary" id="listCopyBtn" type="button">复制文本</button>
+                                    <button class="btn ok" id="listCsvBtn" type="button">导出 CSV</button>
+                                    <button class="btn warn" id="listTxtBtn" type="button">导出 TXT</button>
+                                </div>
+
+                                <div class="small" id="listStatus">准备就绪。</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>清单预览</h3>
+                                <span class="small">交付清单 / 素材清单</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="tableWrap">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width:46px;">#</th>
+                                                <th>文件名</th>
+                                                <th>类型</th>
+                                                <th>大小</th>
+                                                <th>修改时间</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTable">
+                                            <tr>
+                                                <td colspan="5" class="small">选择文件后显示</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div>
+                                    <label>TXT 文本</label>
+                                    <textarea id="listText" class="mono" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-time">
+                    <div class="toolLayout" style="grid-template-columns:1fr 1fr;">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>时间戳 → 日期</h3>
+                                <span class="small">秒 / 毫秒</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div>
+                                    <label>输入时间戳</label>
+                                    <input id="tsInput" type="text" placeholder="例如 1718193456 或 1718193456000" />
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn primary" id="tsParseBtn" type="button">转换</button>
+                                    <button class="btn ghost" id="tsNowBtn" type="button">填入当前时间戳</button>
+                                </div>
+
+                                <div class="codeBox" id="tsResult">等待输入</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>日期 → 时间戳</h3>
+                                <span class="small">本地时间</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div>
+                                    <label>日期时间</label>
+                                    <input id="dateInput" type="datetime-local" />
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn primary" id="dateParseBtn" type="button">转换</button>
+                                    <button class="btn ghost" id="dateNowBtn" type="button">填入现在</button>
+                                </div>
+
+                                <div class="codeBox" id="dateResult">等待输入</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-stitch">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>多图拼接成长图</h3>
+                                <span class="small">竖向 / 横向</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="stitchDrop">
+                                    <strong>拖入图片，或点击选择</strong>
+                                    <small>适合做详情长图、作品展示、社媒长图。</small>
+                                </div>
+                                <input id="stitchInput" type="file" accept="image/*" multiple />
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>方向</label>
+                                        <select id="stitchDirection">
+                                            <option value="vertical">竖向长图</option>
+                                            <option value="horizontal">横向拼接</option>
+                                            <option value="grid">网格拼图</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label>间距 px</label>
+                                        <input id="stitchGap" type="number" min="0" value="0" />
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>背景颜色</label>
+                                        <input id="stitchBg" type="color" value="#ffffff" />
+                                    </div>
+
+                                    <div>
+                                        <label>统一宽度 / 高度</label>
+                                        <input id="stitchSize" type="number" min="1" placeholder="可选" />
+                                    </div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>网格列数</label>
+                                        <input id="stitchCols" type="number" min="1" value="3" />
+                                    </div>
+
+                                    <div>
+                                        <label>导出格式</label>
+                                        <select id="stitchFormat">
+                                            <option value="image/png">PNG</option>
+                                            <option value="image/jpeg">JPG</option>
+                                            <option value="image/webp">WebP</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn ghost" id="stitchBuildBtn" type="button">生成预览</button>
+                                    <button class="btn primary" id="stitchDownloadBtn" type="button">下载拼接图</button>
+                                    <button class="btn ghost" id="stitchClearBtn" type="button">清空</button>
+                                </div>
+
+                                <div class="fileList" id="stitchFileList">
+                                    <div class="previewEmpty">还没有选择图片</div>
+                                </div>
+
+                                <div class="small" id="stitchStatus">准备就绪。</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>拼接预览</h3>
+                                <span class="small">生成后可下载</span>
+                            </div>
+
+                            <div class="panelBody" style="padding:0;display:grid;grid-template-rows:minmax(0,1fr) auto;overflow:hidden;">
+                                <div class="previewStage">
+                                    <canvas id="stitchCanvas"></canvas>
+                                    <div id="stitchCanvasEmpty" class="previewEmpty">生成后在这里预览</div>
+                                </div>
+
+                                <div style="padding:12px 14px;border-top:1px solid var(--line);" class="small">
+                                    图片数量多或尺寸很大时，拼接图会占用更多内存。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-color">
+                    <div class="toolLayout" style="grid-template-columns:360px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>颜色工具</h3>
+                                <span class="small">转换 / 对比 / 渐变</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="grid2">
+                                    <div>
+                                        <label>颜色</label>
+                                        <input id="colorInput" type="color" value="#7c9cff" />
+                                    </div>
+
+                                    <div>
+                                        <label>HEX</label>
+                                        <input id="hexInput" type="text" value="#7C9CFF" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn primary" id="colorConvertBtn" type="button">转换颜色</button>
+                                    <button class="btn ghost" id="colorCopyBtn" type="button">复制结果</button>
+                                </div>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>前景色</label>
+                                        <input id="contrastFg" type="color" value="#ffffff" />
+                                    </div>
+
+                                    <div>
+                                        <label>背景色</label>
+                                        <input id="contrastBg" type="color" value="#111827" />
+                                    </div>
+                                </div>
+
+                                <button class="btn ghost" id="contrastCheckBtn" type="button">检查文字对比度</button>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>渐变起始</label>
+                                        <input id="gradA" type="color" value="#7c9cff" />
+                                    </div>
+
+                                    <div>
+                                        <label>渐变结束</label>
+                                        <input id="gradB" type="color" value="#59d6ff" />
+                                    </div>
+                                </div>
+
+                                <button class="btn ghost" id="gradientBtn" type="button">生成 CSS 渐变</button>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>颜色结果</h3>
+                                <span class="small">可复制</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="colors" id="colorPreviewBox"></div>
+                                <div class="codeBox" id="colorResult">等待转换</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-text">
+                    <div class="toolLayout" style="grid-template-columns:1fr 1fr;">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>文本工具</h3>
+                                <span class="small">去重 / 排序 / 替换</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <textarea id="textInput" class="mono" placeholder="在这里粘贴文本，一行一个项目"></textarea>
+
+                                <div class="grid2">
+                                    <div>
+                                        <label>查找</label>
+                                        <input id="textFind" type="text" placeholder="要替换的文字" />
+                                    </div>
+
+                                    <div>
+                                        <label>替换为</label>
+                                        <input id="textReplace" type="text" placeholder="替换后的文字" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn ghost" id="textUniqueBtn" type="button">去重</button>
+                                    <button class="btn ghost" id="textSortBtn" type="button">排序</button>
+                                    <button class="btn ghost" id="textTrimBtn" type="button">去首尾空格</button>
+                                    <button class="btn ghost" id="textReplaceBtn" type="button">替换</button>
+                                    <button class="btn ghost" id="textLowerBtn" type="button">小写</button>
+                                    <button class="btn ghost" id="textUpperBtn" type="button">大写</button>
+                                    <button class="btn primary" id="textCopyBtn" type="button">复制结果</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>文本结果</h3>
+                                <span class="small" id="textStatus">准备就绪</span>
+                            </div>
+
+                            <div class="panelBody">
+                                <textarea id="textOutput" class="mono" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-json">
+                    <div class="toolLayout" style="grid-template-columns:1fr 1fr;">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>JSON / CSV 工具</h3>
+                                <span class="small">格式化 / 压缩 / 转换</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <textarea id="jsonInput" class="mono" placeholder="粘贴 JSON 或 CSV"></textarea>
+
+                                <div class="row">
+                                    <button class="btn ghost" id="jsonFormatBtn" type="button">JSON 格式化</button>
+                                    <button class="btn ghost" id="jsonMinifyBtn" type="button">JSON 压缩</button>
+                                    <button class="btn ghost" id="csvToJsonBtn" type="button">CSV 转 JSON</button>
+                                    <button class="btn primary" id="jsonCopyBtn" type="button">复制结果</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>结果</h3>
+                                <span class="small" id="jsonStatus">准备就绪</span>
+                            </div>
+
+                            <div class="panelBody">
+                                <textarea id="jsonOutput" class="mono" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-icon">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>图标 / Favicon 工具</h3>
+                                <span class="small">多尺寸导出</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="iconDrop">
+                                    <strong>拖入一张 PNG / JPG，或点击选择</strong>
+                                    <small>生成常用网站图标尺寸，打包 ZIP 下载。</small>
+                                </div>
+                                <input id="iconInput" type="file" accept="image/*" />
+
+                                <div>
+                                    <label>尺寸列表</label>
+                                    <input id="iconSizes" type="text" value="16,32,48,64,128,180,192,256,512" />
+                                    <div class="small">用英文逗号分隔。</div>
+                                </div>
+
+                                <div class="row">
+                                    <button class="btn primary" id="iconExportBtn" type="button">生成图标 ZIP</button>
+                                    <button class="btn ghost" id="iconClearBtn" type="button">清空</button>
+                                </div>
+
+                                <div class="small" id="iconStatus">准备就绪。</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>图标预览</h3>
+                                <span class="small">正方形输出</span>
+                            </div>
+
+                            <div class="panelBody" style="padding:0;">
+                                <div class="previewStage">
+                                    <canvas id="iconCanvas"></canvas>
+                                    <div id="iconCanvasEmpty" class="previewEmpty">选择图片后显示预览</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="view" id="view-hash">
+                    <div class="toolLayout" style="grid-template-columns:330px minmax(0,1fr);">
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>哈希 / 重复文件检查</h3>
+                                <span class="small">SHA-256</span>
+                            </div>
+
+                            <div class="panelBody stack">
+                                <div class="drop" id="hashDrop">
+                                    <strong>拖入任意文件，或点击选择</strong>
+                                    <small>计算 SHA-256，可用于检查重复文件。</small>
+                                </div>
+                                <input id="hashInput" type="file" multiple />
+
+                                <div class="row">
+                                    <button class="btn ghost" id="hashClearBtn" type="button">清空</button>
+                                    <button class="btn primary" id="hashRunBtn" type="button">计算哈希</button>
+                                    <button class="btn ghost" id="hashCopyBtn" type="button">复制结果</button>
+                                </div>
+
+                                <progress class="progress hidden" id="hashProgress" value="0" max="100"></progress>
+                                <div class="small" id="hashStatus">准备就绪。</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panelHead">
+                                <h3>哈希结果</h3>
+                                <span class="small">相同哈希代表内容相同</span>
+                            </div>
+
+                            <div class="panelBody">
+                                <div class="hashBox codeBox" id="hashResult">选择文件后计算</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+        const $ = (id) => document.getElementById(id);
+        const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+        const appTitle = $("pageTitle");
+        const appSub = $("pageSub");
+        const backHomeBtn = $("backHomeBtn");
+
+        const TOOLS = [
+        {
+        id:"home",
+        name:"首页",
+        sub:"工具总览与入口",
+        desc:"显示所有功能入口，快速切换到各个工具。"
+        },
+        {
+        id:"image",
+        name:"批量图片修改",
+        sub:"完整调色 / 压缩 / 尺寸 / 格式 / 水印 / 取色",
+        desc:"核心图片处理中心，包含基础调色、HSL、调色轮、曲线、细节、效果、水印和导出。"
+        },
+        {
+        id:"rename",
+        name:"批量重命名",
+        sub:"排序 / 手动排序 / 实时预览 / ZIP",
+        desc:"按当前排序生成序号，可预览新旧文件名，再打包下载。"
+        },
+        {
+        id:"pdf",
+        name:"图片转 PDF",
+        sub:"多图合成 PDF",
+        desc:"把多张图片合成 PDF，适合交付稿、参考图、作品集。"
+        },
+        {
+        id:"base64",
+        name:"图片转 Base64",
+        sub:"Data URL / 复制 / 导出 TXT",
+        desc:"把图片转成 Base64 Data URL，可复制给网页或临时嵌入。"
+        },
+        {
+        id:"filelist",
+        name:"文件清单生成",
+        sub:"TXT / CSV",
+        desc:"生成文件名、大小、类型、修改时间清单，适合素材交付。"
+        },
+        {
+        id:"time",
+        name:"时间戳转换",
+        sub:"秒 / 毫秒 / 日期",
+        desc:"时间戳和本地日期互相转换。"
+        },
+        {
+        id:"stitch",
+        name:"多图拼接成长图",
+        sub:"竖向 / 横向 / 网格",
+        desc:"适合详情长图、作品展示、九宫格和拼图。"
+        },
+        {
+        id:"color",
+        name:"颜色工具",
+        sub:"颜色转换 / 对比度 / 渐变",
+        desc:"HEX、RGB、HSL 转换，文字对比度检测，CSS 渐变生成。"
+        },
+        {
+        id:"text",
+        name:"文本工具",
+        sub:"去重 / 排序 / 替换",
+        desc:"处理文件名清单、文案列表、素材编号等文本。"
+        },
+        {
+        id:"json",
+        name:"JSON / CSV 工具",
+        sub:"格式化 / 压缩 / CSV 转 JSON",
+        desc:"常用数据文本处理工具。"
+        },
+        {
+        id:"icon",
+        name:"图标 / Favicon 工具",
+        sub:"多尺寸图标导出",
+        desc:"把一张图导出成 favicon 和常用 app icon 尺寸。"
+        },
+        {
+        id:"hash",
+        name:"哈希 / 重复检查",
+        sub:"SHA-256",
+        desc:"计算文件哈希，用来检查重复文件或校验文件。"
+        }
+        ];
+
+        function buildNavAndHome(){
+        const nav = $("nav");
+        const cards = $("homeCards");
+        nav.innerHTML = "";
+        cards.innerHTML = "";
+
+        TOOLS.forEach(tool => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.dataset.view = tool.id;
+        btn.innerHTML = `<b>${tool.name}</b><span>${tool.sub}</span>`;
+        btn.addEventListener("click", () => showView(tool.id));
+        nav.appendChild(btn);
+
+        if(tool.id !== "home"){
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+        <h4>${tool.name}</h4>
+        <p>${tool.desc}</p>
+        <button class="btn ghost" type="button">打开工具 →</button>
+        `;
+        card.querySelector("button").addEventListener("click", () => showView(tool.id));
+        cards.appendChild(card);
+        }
+        });
+        }
+
+        function showView(id){
+        $$(".view").forEach(view => view.classList.remove("active"));
+
+        const target = $("view-" + id);
+        if(target){
+        target.classList.add("active");
+        }
+
+        const tool = TOOLS.find(item => item.id === id) || TOOLS[0];
+        appTitle.textContent = tool.name;
+        appSub.textContent = tool.sub;
+
+        $$("#nav button").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.view === id);
+        });
+
+        backHomeBtn.style.visibility = id === "home" ? "hidden" : "visible";
+        }
+
+        backHomeBtn.addEventListener("click", () => showView("home"));
+
+        function escapeHtml(str){
+        return String(str).replace(/[&<>'"]/g, ch => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "'":"&#39;",
+        "\"":"&quot;"
+        }[ch]));
+        }
+
+        function formatBytes(bytes){
+        if(bytes < 1024) return bytes + " B";
+        if(bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        if(bytes < 1024 * 1024 * 1024) return (bytes / 1024 / 1024).toFixed(1) + " MB";
+        return (bytes / 1024 / 1024 / 1024).toFixed(1) + " GB";
+        }
+
+        function splitName(name){
+        const index = name.lastIndexOf(".");
+        if(index <= 0){
+        return {
+        base:name,
+        ext:""
+        };
+        }
+
+        return {
+        base:name.slice(0,index),
+        ext:name.slice(index + 1)
+        };
+        }
+
+        function cleanFileName(name){
+        return String(name)
+        .replace(/[\\/:*?"<>|]/g,"-")
+        .replace(/\s+/g," ")
+        .trim();
+        }
+
+        function todayString(){
+        const d = new Date();
+        return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}`;
+        }
+
+        function clamp(value,min = 0,max = 255){
+        return value < min ? min : value > max ? max : value;
+        }
+
+        function mix(a,b,t){
+        return a + (b - a) * t;
+        }
+
+        function isImage(file){
+        return file && file.type && file.type.startsWith("image/");
+        }
+
+        function extensionForMime(mime, fallback = "jpg"){
+        if(mime === "image/jpeg") return "jpg";
+        if(mime === "image/png") return "png";
+        if(mime === "image/webp") return "webp";
+        return fallback;
+        }
+
+        function triggerDownload(blob, filename){
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        setTimeout(() => {
+        URL.revokeObjectURL(a.href);
+        },1500);
+        }
+
+        function setDropZone(dropEl,inputEl,onFiles){
+        dropEl.addEventListener("click", () => inputEl.click());
+
+        inputEl.addEventListener("change", event => {
+        onFiles(Array.from(event.target.files || []));
+        });
+
+        ["dragenter","dragover"].forEach(type => {
+        dropEl.addEventListener(type, event => {
+        event.preventDefault();
+        dropEl.classList.add("drag");
+        });
+        });
+
+        ["dragleave","drop"].forEach(type => {
+        dropEl.addEventListener(type, event => {
+        event.preventDefault();
+        dropEl.classList.remove("drag");
+        });
+        });
+
+        dropEl.addEventListener("drop", event => {
+        onFiles(Array.from(event.dataTransfer.files || []));
+        });
+        }
+
+        function fileToDataURL(file){
+        return new Promise((resolve,reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error);
+
+        reader.readAsDataURL(file);
+        });
+        }
+
+        function loadImage(fileOrUrl){
+        return new Promise((resolve,reject) => {
+        const img = new Image();
+        img.decoding = "async";
+
+        if(fileOrUrl instanceof File){
+        const url = URL.createObjectURL(fileOrUrl);
+
+        img.onload = () => {
+        URL.revokeObjectURL(url);
+        resolve(img);
+        };
+
+        img.onerror = error => {
+        URL.revokeObjectURL(url);
+        reject(error);
+        };
+
+        img.src = url;
+        }else{
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = fileOrUrl;
+        }
+        });
+        }
+
+        function canvasToBlob(canvas,type = "image/png",quality = 0.92){
+        return new Promise(resolve => {
+        canvas.toBlob(blob => resolve(blob),type,quality);
+        });
+        }
+
+        function csvEscape(value){
+        return `"${String(value ?? "").replace(/"/g,'""')}"`;
+        }
+
+        function copyText(text){
+        if(navigator.clipboard){
+        return navigator.clipboard.writeText(text);
+        }
+
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+
+        return Promise.resolve();
+        }
+
+        const crcTable = (() => {
+        const table = new Uint32Array(256);
+
+        for(let n = 0;n < 256;n++){
+        let c = n;
+
+        for(let k = 0;k < 8;k++){
+        c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+        }
+
+        table[n] = c >>> 0;
+        }
+
+        return table;
+        })();
+
+        function crc32(data){
+        let c = 0xffffffff;
+
+        for(let i = 0;i < data.length;i++){
+        c = crcTable[(c ^ data[i]) & 0xff] ^ (c >>> 8);
+        }
+
+        return (c ^ 0xffffffff) >>> 0;
+        }
+
+        function dosDateTime(date = new Date()){
+        const time =
+        (date.getHours() << 11) |
+        (date.getMinutes() << 5) |
+        Math.floor(date.getSeconds() / 2);
+
+        const dosDate =
+        ((date.getFullYear() - 1980) << 9) |
+        ((date.getMonth() + 1) << 5) |
+        date.getDate();
+
+        return {
+        time,
+        date:dosDate
+        };
+        }
+
+        function u16(num){
+        const arr = new Uint8Array(2);
+        new DataView(arr.buffer).setUint16(0,num,true);
+        return arr;
+        }
+
+        function u32(num){
+        const arr = new Uint8Array(4);
+        new DataView(arr.buffer).setUint32(0,num,true);
+        return arr;
+        }
+
+        function makeZip(entries){
+        const encoder = new TextEncoder();
+        const parts = [];
+        const central = [];
+        let offset = 0;
+        const dt = dosDateTime();
+
+        for(const entry of entries){
+        const safeName = entry.name.replace(/^\/+/,"") || "file";
+        const nameBytes = encoder.encode(safeName);
+        const data = entry.data instanceof Uint8Array ? entry.data : new Uint8Array(entry.data);
+        const crc = crc32(data);
+
+        const local = [
+        u32(0x04034b50),
+        u16(20),
+        u16(0x0800),
+        u16(0),
+        u16(dt.time),
+        u16(dt.date),
+        u32(crc),
+        u32(data.length),
+        u32(data.length),
+        u16(nameBytes.length),
+        u16(0),
+        nameBytes
+        ];
+
+        parts.push(...local,data);
+
+        const localSize = local.reduce((sum,item) => sum + item.length,0) + data.length;
+
+        const center = [
+        u32(0x02014b50),
+        u16(20),
+        u16(20),
+        u16(0x0800),
+        u16(0),
+        u16(dt.time),
+        u16(dt.date),
+        u32(crc),
+        u32(data.length),
+        u32(data.length),
+        u16(nameBytes.length),
+        u16(0),
+        u16(0),
+        u16(0),
+        u16(0),
+        u32(0),
+        u32(offset),
+        nameBytes
+        ];
+
+        central.push(...center);
+        offset += localSize;
+        }
+
+        const centralSize = central.reduce((sum,item) => sum + item.length,0);
+
+        const end = [
+        u32(0x06054b50),
+        u16(0),
+        u16(0),
+        u16(entries.length),
+        u16(entries.length),
+        u32(centralSize),
+        u32(offset),
+        u16(0)
+        ];
+
+        return new Blob([...parts,...central,...end],{
+        type:"application/zip"
+        });
+        }
+
+        function renderSimpleFileList(box,files,activeIndex,onClick){
+        box.innerHTML = "";
+
+        if(!files.length){
+        box.innerHTML = `<div class="previewEmpty">还没有选择文件</div>`;
+        return;
+        }
+
+        files.forEach((file,index) => {
+        const item = document.createElement("div");
+        item.className = "fileItem" + (index === activeIndex ? " active" : "");
+        item.innerHTML = `
+        <b class="ellipsis">${escapeHtml(file.name)}</b>
+        <span>${formatBytes(file.size)} · ${escapeHtml(file.type || "未知类型")}</span>
+        `;
+
+        if(onClick){
+        item.addEventListener("click",() => onClick(index));
+        }
+
+        box.appendChild(item);
+        });
+        }
+
+        function pad2(num){
+        return String(num).padStart(2,"0");
+        }
+
+        function setNowDateInput(input){
+        const d = new Date();
+
+        input.value =
+        `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}` +
+        `T${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+        }
+
+        buildNavAndHome();
+        showView("home");
+        const imgCanvas = $("imgCanvas");
+        const imgCtx = imgCanvas.getContext("2d",{
+        willReadFrequently:true
+        });
+
+        let imgFiles = [];
+        let imgIndex = 0;
+        let imgOriginal = false;
+        let imgPreviewTimer = null;
+        let imgPaletteData = [];
+
+        const IMAGE_BASIC_CONTROLS = {
+        temperature:{
+        label:"色温",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        tint:{
+        label:"色调 Tint",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        exposure:{
+        label:"曝光",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        brightness:{
+        label:"亮度",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        contrast:{
+        label:"对比度",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        highlights:{
+        label:"高光",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        shadows:{
+        label:"阴影",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        whites:{
+        label:"白场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        blacks:{
+        label:"黑场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        gamma:{
+        label:"Gamma",
+        min:0.2,
+        max:3,
+        step:0.01,
+        value:1
+        },
+        saturation:{
+        label:"饱和度",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        vibrance:{
+        label:"鲜艳度",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        hue:{
+        label:"整体色相",
+        min:-180,
+        max:180,
+        step:1,
+        value:0
+        }
+        };
+
+        const IMAGE_DETAIL_CONTROLS = {
+        texture:{
+        label:"纹理",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        clarity:{
+        label:"清晰度",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        dehaze:{
+        label:"去朦胧",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        sharpenAmount:{
+        label:"锐化数量",
+        min:0,
+        max:150,
+        step:1,
+        value:0
+        },
+        sharpenRadius:{
+        label:"锐化半径",
+        min:0.5,
+        max:3,
+        step:0.1,
+        value:1
+        },
+        sharpenDetail:{
+        label:"锐化细节",
+        min:0,
+        max:100,
+        step:1,
+        value:25
+        },
+        sharpenMask:{
+        label:"锐化蒙版",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        noiseLuminance:{
+        label:"明度降噪",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        noiseDetail:{
+        label:"明度细节",
+        min:0,
+        max:100,
+        step:1,
+        value:50
+        },
+        noiseContrast:{
+        label:"明度对比",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        noiseColor:{
+        label:"颜色降噪",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        noiseColorDetail:{
+        label:"颜色细节",
+        min:0,
+        max:100,
+        step:1,
+        value:50
+        },
+        noiseColorSmooth:{
+        label:"颜色平滑",
+        min:0,
+        max:100,
+        step:1,
+        value:50
+        }
+        };
+
+        const IMAGE_EFFECT_CONTROLS = {
+        vignetteAmount:{
+        label:"暗角数量",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        vignetteMidpoint:{
+        label:"暗角中点",
+        min:0,
+        max:100,
+        step:1,
+        value:50
+        },
+        vignetteRoundness:{
+        label:"暗角圆度",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        vignetteFeather:{
+        label:"暗角羽化",
+        min:0,
+        max:100,
+        step:1,
+        value:60
+        },
+        vignetteHighlights:{
+        label:"暗角高光",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        grainAmount:{
+        label:"颗粒数量",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        grainSize:{
+        label:"颗粒大小",
+        min:1,
+        max:5,
+        step:1,
+        value:1
+        },
+        grainRoughness:{
+        label:"颗粒粗糙度",
+        min:0,
+        max:100,
+        step:1,
+        value:50
+        },
+        fade:{
+        label:"褪色感",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        softGlow:{
+        label:"柔光",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        }
+        };
+
+        const IMAGE_CURVE_CONTROLS = {
+        inputBlack:{
+        label:"输入黑场",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        inputWhite:{
+        label:"输入白场",
+        min:0,
+        max:100,
+        step:1,
+        value:100
+        },
+        midtone:{
+        label:"中间调",
+        min:0.2,
+        max:3,
+        step:0.01,
+        value:1
+        },
+        outputBlack:{
+        label:"输出黑场",
+        min:0,
+        max:100,
+        step:1,
+        value:0
+        },
+        outputWhite:{
+        label:"输出白场",
+        min:0,
+        max:100,
+        step:1,
+        value:100
+        },
+        curveContrast:{
+        label:"曲线对比",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        redBlack:{
+        label:"红通道黑场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        redWhite:{
+        label:"红通道白场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        greenBlack:{
+        label:"绿通道黑场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        greenWhite:{
+        label:"绿通道白场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        blueBlack:{
+        label:"蓝通道黑场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        },
+        blueWhite:{
+        label:"蓝通道白场",
+        min:-100,
+        max:100,
+        step:1,
+        value:0
+        }
+        };
+
+        const HSL_COLORS = {
+        red:{
+        label:"红色",
+        center:0
+        },
+        orange:{
+        label:"橙色",
+        center:32
+        },
+        yellow:{
+        label:"黄色",
+        center:58
+        },
+        green:{
+        label:"绿色",
+        center:118
+        },
+        aqua:{
+        label:"浅绿色",
+        center:175
+        },
+        blue:{
+        label:"蓝色",
+        center:220
+        },
+        purple:{
+        label:"紫色",
+        center:270
+        },
+        magenta:{
+        label:"洋红",
+        center:320
+        }
+        };
+
+        const GRADING_ZONES = {
+        shadow:{
+        label:"阴影"
+        },
+        midtone:{
+        label:"中间调"
+        },
+        highlight:{
+        label:"高光"
+        },
+        global:{
+        label:"全局"
+        }
+        };
+
+        const IMAGE_PRESETS = {
+        clean:{
+        name:"清爽增强",
+        values:{
+        brightness:8,
+        exposure:6,
+        contrast:12,
+        highlights:-8,
+        shadows:10,
+        whites:5,
+        blacks:-4,
+        saturation:6,
+        vibrance:18,
+        sharpenAmount:20,
+        clarity:8
+        }
+        },
+        warm:{
+        name:"暖调",
+        values:{
+        temperature:30,
+        tint:5,
+        exposure:4,
+        contrast:8,
+        saturation:8,
+        vibrance:14,
+        shadows:8,
+        highlights:-6
+        }
+        },
+        cool:{
+        name:"冷调",
+        values:{
+        temperature:-30,
+        tint:-4,
+        exposure:3,
+        contrast:12,
+        saturation:3,
+        vibrance:10,
+        highlights:-8,
+        blueWhite:10
+        }
+        },
+        bw:{
+        name:"黑白",
+        values:{
+        saturation:-100,
+        contrast:22,
+        blacks:-16,
+        whites:12,
+        clarity:18,
+        sharpenAmount:20,
+        grainAmount:8
+        }
+        },
+        film:{
+        name:"胶片感",
+        values:{
+        contrast:-10,
+        saturation:-12,
+        vibrance:10,
+        temperature:12,
+        fade:28,
+        grainAmount:18,
+        grainSize:2,
+        vignetteAmount:-18,
+        sepia:0
+        },
+        hsl:{
+        green:{
+        sat:-18,
+        lum:-8
+        },
+        blue:{
+        sat:-18,
+        lum:-6
+        },
+        orange:{
+        lum:8
+        }
+        }
+        },
+        soft:{
+        name:"柔和",
+        values:{
+        brightness:8,
+        contrast:-12,
+        saturation:-4,
+        highlights:-14,
+        shadows:14,
+        softGlow:20,
+        fade:12
+        }
+        },
+        cyberpunk:{
+        name:"赛博朋克风",
+        values:{
+        temperature:-18,
+        tint:34,
+        exposure:12,
+        contrast:24,
+        highlights:-8,
+        shadows:16,
+        whites:8,
+        blacks:-20,
+        saturation:24,
+        vibrance:42,
+        clarity:10,
+        dehaze:14,
+        vignetteAmount:-18,
+        grainAmount:6,
+        blueWhite:18,
+        redWhite:12
+        },
+        hsl:{
+        red:{
+        hue:24,
+        sat:24,
+        lum:-8
+        },
+        orange:{
+        hue:-15,
+        sat:10,
+        lum:4
+        },
+        yellow:{
+        hue:-28,
+        sat:-20,
+        lum:-10
+        },
+        green:{
+        hue:-45,
+        sat:-25,
+        lum:-16
+        },
+        aqua:{
+        hue:-35,
+        sat:35,
+        lum:-8
+        },
+        blue:{
+        hue:-18,
+        sat:45,
+        lum:-12
+        },
+        purple:{
+        hue:-12,
+        sat:35,
+        lum:0
+        },
+        magenta:{
+        hue:-22,
+        sat:45,
+        lum:4
+        }
+        },
+        grading:{
+        shadow:{
+        hue:225,
+        sat:22,
+        lum:-8
+        },
+        midtone:{
+        hue:285,
+        sat:10,
+        lum:0
+        },
+        highlight:{
+        hue:195,
+        sat:16,
+        lum:6
+        },
+        global:{
+        hue:300,
+        sat:4,
+        lum:0
+        },
+        blend:52,
+        balance:18
+        }
+        },
+        tealOrange:{
+        name:"电影青橙",
+        values:{
+        temperature:8,
+        contrast:18,
+        highlights:-12,
+        shadows:12,
+        blacks:-14,
+        saturation:8,
+        vibrance:22,
+        clarity:8,
+        vignetteAmount:-12
+        },
+        hsl:{
+        orange:{
+        hue:-8,
+        sat:18,
+        lum:6
+        },
+        yellow:{
+        hue:-18,
+        sat:-12,
+        lum:0
+        },
+        aqua:{
+        hue:-25,
+        sat:22,
+        lum:-6
+        },
+        blue:{
+        hue:-18,
+        sat:28,
+        lum:-10
+        }
+        },
+        grading:{
+        shadow:{
+        hue:205,
+        sat:16,
+        lum:-6
+        },
+        midtone:{
+        hue:32,
+        sat:6,
+        lum:0
+        },
+        highlight:{
+        hue:38,
+        sat:16,
+        lum:6
+        },
+        global:{
+        hue:0,
+        sat:0,
+        lum:0
+        },
+        blend:55,
+        balance:12
+        }
+        },
+        japan:{
+        name:"日系清透",
+        values:{
+        brightness:12,
+        exposure:8,
+        contrast:-10,
+        highlights:-18,
+        shadows:18,
+        whites:12,
+        blacks:8,
+        temperature:5,
+        tint:8,
+        saturation:-8,
+        vibrance:20,
+        fade:12
+        },
+        hsl:{
+        green:{
+        hue:-12,
+        sat:-16,
+        lum:14
+        },
+        aqua:{
+        sat:-10,
+        lum:10
+        },
+        blue:{
+        sat:-22,
+        lum:12
+        },
+        orange:{
+        sat:8,
+        lum:8
+        }
+        }
+        },
+        blackGold:{
+        name:"黑金高反差",
+        values:{
+        exposure:-4,
+        contrast:34,
+        highlights:10,
+        shadows:-12,
+        blacks:-34,
+        whites:14,
+        temperature:24,
+        saturation:-18,
+        vibrance:18,
+        clarity:18,
+        dehaze:20,
+        vignetteAmount:-24
+        },
+        hsl:{
+        orange:{
+        hue:-8,
+        sat:28,
+        lum:8
+        },
+        yellow:{
+        hue:-22,
+        sat:18,
+        lum:4
+        },
+        green:{
+        sat:-80,
+        lum:-20
+        },
+        aqua:{
+        sat:-80,
+        lum:-20
+        },
+        blue:{
+        sat:-70,
+        lum:-25
+        },
+        purple:{
+        sat:-60,
+        lum:-20
+        },
+        magenta:{
+        sat:-60,
+        lum:-20
+        }
+        }
+        },
+        vintageBrown:{
+        name:"复古棕调",
+        values:{
+        temperature:22,
+        tint:8,
+        contrast:-4,
+        saturation:-18,
+        vibrance:6,
+        fade:22,
+        grainAmount:18,
+        vignetteAmount:-16,
+        redWhite:8,
+        blueWhite:-12
+        },
+        hsl:{
+        orange:{
+        sat:12,
+        lum:6
+        },
+        yellow:{
+        hue:-20,
+        sat:-12,
+        lum:-4
+        },
+        green:{
+        sat:-42,
+        lum:-12
+        },
+        blue:{
+        sat:-35,
+        lum:-10
+        }
+        }
+        },
+        highKey:{
+        name:"高调明亮",
+        values:{
+        exposure:18,
+        brightness:12,
+        contrast:-8,
+        highlights:-18,
+        shadows:20,
+        whites:18,
+        blacks:10,
+        saturation:-4,
+        vibrance:14,
+        softGlow:12
+        }
+        },
+        lowKey:{
+        name:"低调暗黑",
+        values:{
+        exposure:-16,
+        contrast:24,
+        highlights:-8,
+        shadows:-12,
+        whites:8,
+        blacks:-30,
+        saturation:-6,
+        dehaze:14,
+        vignetteAmount:-28
+        }
+        }
+        };
+
+        function rgbToHsl(r,g,b){
+        r /= 255;
+        g /= 255;
+        b /= 255;
+
+        const max = Math.max(r,g,b);
+        const min = Math.min(r,g,b);
+
+        let h = 0;
+        let s = 0;
+        const l = (max + min) / 2;
+
+        if(max !== min){
+        const d = max - min;
+
+        s = l > 0.5
+        ? d / (2 - max - min)
+        : d / (max + min);
+
+        switch(max){
+        case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+        case g:
+        h = (b - r) / d + 2;
+        break;
+        case b:
+        h = (r - g) / d + 4;
+        break;
+        }
+
+        h /= 6;
+        }
+
+        return [h,s,l];
+        }
+
+        function hslToRgb(h,s,l){
+        let r;
+        let g;
+        let b;
+
+        if(s === 0){
+        r = g = b = l;
+        }else{
+        const hue2rgb = (p,q,t) => {
+        if(t < 0) t += 1;
+        if(t > 1) t -= 1;
+        if(t < 1 / 6) return p + (q - p) * 6 * t;
+        if(t < 1 / 2) return q;
+        if(t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+        };
+
+        const q = l < 0.5
+        ? l * (1 + s)
+        : l + s - l * s;
+
+        const p = 2 * l - q;
+
+        r = hue2rgb(p,q,h + 1 / 3);
+        g = hue2rgb(p,q,h);
+        b = hue2rgb(p,q,h - 1 / 3);
+        }
+
+        return [
+        r * 255,
+        g * 255,
+        b * 255
+        ];
+        }
+
+        function hexToRgb(hex){
+        let value = String(hex).trim().replace("#","");
+
+        if(value.length === 3){
+        value = value.split("").map(ch => ch + ch).join("");
+        }
+
+        const num = parseInt(value,16);
+
+        return [
+        (num >> 16) & 255,
+        (num >> 8) & 255,
+        num & 255
+        ];
+        }
+
+        function rgbToHex(rgb){
+        return "#" + rgb
+        .map(value => clamp(Math.round(value),0,255).toString(16).padStart(2,"0"))
+        .join("")
+        .toUpperCase();
+        }
+
+        function hueDistanceDeg(a,b){
+        const d = Math.abs(a - b) % 360;
+        return Math.min(d,360 - d);
+        }
+
+        function applyHslMixer(h,s,l,hslSettings){
+        if(!hslSettings){
+        return [h,s,l];
+        }
+
+        let hh = h;
+        let ss = s;
+        let ll = l;
+        const degree = h * 360;
+
+        Object.entries(HSL_COLORS).forEach(([key,meta]) => {
+        const item = hslSettings[key];
+
+        if(!item){
+        return;
+        }
+
+        const distance = hueDistanceDeg(degree,meta.center);
+        const weightRaw = Math.max(0,1 - distance / 42);
+
+        if(weightRaw <= 0){
+        return;
+        }
+
+        const weight = weightRaw * weightRaw;
+
+        hh = (hh + ((item.hue || 0) / 360) * weight + 1) % 1;
+        ss = Math.max(0,Math.min(1,ss * (1 + ((item.sat || 0) / 100) * weight)));
+        ll = Math.max(0,Math.min(1,ll + ((item.lum || 0) / 100) * 0.42 * weight));
+        });
+
+        return [hh,ss,ll];
+        }
+
+        function colorizeByHue(r,g,b,hueDeg,saturationAmount,luminanceAmount,weight){
+        if(weight <= 0 || saturationAmount === 0 && luminanceAmount === 0){
+        return [r,g,b];
+        }
+
+        const target = hslToRgb((hueDeg % 360) / 360,1,0.5);
+        const satWeight = saturationAmount / 100 * weight;
+        const lumWeight = luminanceAmount / 100 * weight;
+
+        r = mix(r,target[0],Math.max(0,satWeight) * 0.25);
+        g = mix(g,target[1],Math.max(0,satWeight) * 0.25);
+        b = mix(b,target[2],Math.max(0,satWeight) * 0.25);
+
+        r += lumWeight * 70;
+        g += lumWeight * 70;
+        b += lumWeight * 70;
+
+        return [r,g,b];
+        }
+
+        function applyColorGrading(r,g,b,luminance,grading){
+        if(!grading){
+        return [r,g,b];
+        }
+
+        const shadowWeight = Math.max(0,1 - luminance / 150);
+        const highlightWeight = Math.max(0,(luminance - 105) / 150);
+        const midtoneWeight = Math.max(0,1 - Math.abs(luminance - 128) / 128);
+
+        const blend = (grading.blend ?? 50) / 100;
+        const balance = (grading.balance ?? 0) / 100;
+
+        const shadow = grading.shadow || {};
+        const midtone = grading.midtone || {};
+        const highlight = grading.highlight || {};
+        const global = grading.global || {};
+
+        const sw = shadowWeight * (1 - Math.max(0,balance)) * (0.5 + blend * 0.7);
+        const hw = highlightWeight * (1 + Math.max(0,balance)) * (0.5 + blend * 0.7);
+        const mw = midtoneWeight * (0.35 + blend * 0.5);
+
+        [r,g,b] = colorizeByHue(
+        r,
+        g,
+        b,
+        shadow.hue || 0,
+        shadow.sat || 0,
+        shadow.lum || 0,
+        sw
+        );
+
+        [r,g,b] = colorizeByHue(
+        r,
+        g,
+        b,
+        midtone.hue || 0,
+        midtone.sat || 0,
+        midtone.lum || 0,
+        mw
+        );
+
+        [r,g,b] = colorizeByHue(
+        r,
+        g,
+        b,
+        highlight.hue || 0,
+        highlight.sat || 0,
+        highlight.lum || 0,
+        hw
+        );
+
+        [r,g,b] = colorizeByHue(
+        r,
+        g,
+        b,
+        global.hue || 0,
+        global.sat || 0,
+        global.lum || 0,
+        Math.abs(global.sat || 0) > 0 || Math.abs(global.lum || 0) > 0 ? 0.35 : 0
+        );
+
+        return [r,g,b];
+        }
+
+        function applyLevels(value,settings,channelPrefix = ""){
+        const inputBlack = settings.inputBlack ?? 0;
+        const inputWhite = settings.inputWhite ?? 100;
+        const outputBlack = settings.outputBlack ?? 0;
+        const outputWhite = settings.outputWhite ?? 100;
+        const midtone = settings.midtone ?? 1;
+
+        const extraBlack = settings[channelPrefix + "Black"] || 0;
+        const extraWhite = settings[channelPrefix + "White"] || 0;
+
+        let inB = inputBlack * 2.55 + extraBlack * 0.6;
+        let inW = inputWhite * 2.55 + extraWhite * 0.6;
+
+        if(inW <= inB + 1){
+        inW = inB + 1;
+        }
+
+        let normalized = (value - inB) / (inW - inB);
+        normalized = Math.max(0,Math.min(1,normalized));
+
+        normalized = Math.pow(normalized,1 / Math.max(0.05,midtone));
+
+        const curveContrast = settings.curveContrast || 0;
+
+        if(curveContrast !== 0){
+        const c = curveContrast / 100;
+        normalized = normalized + (normalized - 0.5) * c * (1 - Math.abs(normalized - 0.5));
+        normalized = Math.max(0,Math.min(1,normalized));
+        }
+
+        const outB = outputBlack * 2.55;
+        const outW = outputWhite * 2.55;
+
+        return outB + normalized * (outW - outB);
+        }
+
+        function renderRangeControl(container,key,config,prefix,onChange){
+        const row = document.createElement("div");
+        row.className = "control";
+
+        const id = prefix + key;
+
+        row.innerHTML = `
+        <label for="${id}">${config.label}</label>
+        <input
+        id="${id}"
+        type="range"
+        min="${config.min}"
+        max="${config.max}"
+        step="${config.step}"
+        value="${config.value}"
+        />
+        <div class="val" id="${id}_value">${config.value}</div>
+        `;
+
+        container.appendChild(row);
+
+        const input = $(id);
+        const value = $(id + "_value");
+
+        input.addEventListener("input",() => {
+        value.textContent = input.value;
+        onChange();
+        });
+        }
+
+        function readControlGroup(schema,prefix){
+        const data = {};
+
+        Object.keys(schema).forEach(key => {
+        data[key] = Number($(prefix + key).value);
+        });
+
+        return data;
+        }
+
+        function writeControlGroup(schema,prefix,values = {}){
+        Object.entries(schema).forEach(([key,config]) => {
+        const value = values[key] ?? config.value;
+        const input = $(prefix + key);
+        const label = $(prefix + key + "_value");
+
+        input.value = value;
+        label.textContent = value;
+        });
+        }
+
+        function createImageControls(){
+        Object.entries(IMAGE_BASIC_CONTROLS).forEach(([key,config]) => {
+        renderRangeControl($("imgBasicControls"),key,config,"imgBasic_",scheduleImagePreview);
+        });
+
+        Object.entries(IMAGE_DETAIL_CONTROLS).forEach(([key,config]) => {
+        renderRangeControl($("imgDetailControls"),key,config,"imgDetail_",scheduleImagePreview);
+        });
+
+        Object.entries(IMAGE_EFFECT_CONTROLS).forEach(([key,config]) => {
+        renderRangeControl($("imgEffectControls"),key,config,"imgEffect_",scheduleImagePreview);
+        });
+
+        Object.entries(IMAGE_CURVE_CONTROLS).forEach(([key,config]) => {
+        renderRangeControl($("imgCurveControls"),key,config,"imgCurve_",scheduleImagePreview);
+        });
+
+        createHslControls();
+        createGradingControls();
+        createPresetButtons();
+        }
+
+        function createHslControls(){
+        const maps = [
+        {
+        key:"hue",
+        box:$("imgHslHueControls"),
+        min:-100,
+        max:100
+        },
+        {
+        key:"sat",
+        box:$("imgHslSatControls"),
+        min:-100,
+        max:100
+        },
+        {
+        key:"lum",
+        box:$("imgHslLumControls"),
+        min:-100,
+        max:100
+        }
+        ];
+
+        maps.forEach(map => {
+        Object.entries(HSL_COLORS).forEach(([key,meta]) => {
+        const id = `imgHsl_${map.key}_${key}`;
+
+        const row = document.createElement("div");
+        row.className = "control";
+
+        row.innerHTML = `
+        <label for="${id}">${meta.label}</label>
+        <input
+        id="${id}"
+        type="range"
+        min="${map.min}"
+        max="${map.max}"
+        step="1"
+        value="0"
+        />
+        <div class="val" id="${id}_value">0</div>
+        `;
+
+        map.box.appendChild(row);
+
+        const input = $(id);
+        const value = $(id + "_value");
+
+        input.addEventListener("input",() => {
+        value.textContent = input.value;
+        scheduleImagePreview();
+        });
+        });
+        });
+        }
+
+        function createGradingControls(){
+        const box = $("imgGradingControls");
+
+        Object.entries(GRADING_ZONES).forEach(([zone,meta]) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "stack";
+
+        wrapper.innerHTML = `
+        <div class="small">${meta.label}</div>
+        <div class="control">
+        <label for="grade_${zone}_hue">色相</label>
+        <input id="grade_${zone}_hue" type="range" min="0" max="360" step="1" value="0" />
+        <div class="val" id="grade_${zone}_hue_value">0</div>
+        </div>
+        <div class="control">
+        <label for="grade_${zone}_sat">饱和度</label>
+        <input id="grade_${zone}_sat" type="range" min="0" max="100" step="1" value="0" />
+        <div class="val" id="grade_${zone}_sat_value">0</div>
+        </div>
+        <div class="control">
+        <label for="grade_${zone}_lum">亮度</label>
+        <input id="grade_${zone}_lum" type="range" min="-100" max="100" step="1" value="0" />
+        <div class="val" id="grade_${zone}_lum_value">0</div>
+        </div>
+        `;
+
+        box.appendChild(wrapper);
+
+        ["hue","sat","lum"].forEach(kind => {
+        const id = `grade_${zone}_${kind}`;
+        $(id).addEventListener("input",() => {
+        $(id + "_value").textContent = $(id).value;
+        scheduleImagePreview();
+        });
+        });
+        });
+
+        const extra = document.createElement("div");
+        extra.className = "stack";
+        extra.innerHTML = `
+        <div class="small">混合和平衡</div>
+        <div class="control">
+        <label for="grade_blend">混合</label>
+        <input id="grade_blend" type="range" min="0" max="100" step="1" value="50" />
+        <div class="val" id="grade_blend_value">50</div>
+        </div>
+        <div class="control">
+        <label for="grade_balance">平衡</label>
+        <input id="grade_balance" type="range" min="-100" max="100" step="1" value="0" />
+        <div class="val" id="grade_balance_value">0</div>
+        </div>
+        `;
+
+        box.appendChild(extra);
+
+        ["grade_blend","grade_balance"].forEach(id => {
+        $(id).addEventListener("input",() => {
+        $(id + "_value").textContent = $(id).value;
+        scheduleImagePreview();
+        });
+        });
+        }
+
+        function createPresetButtons(){
+        const box = $("imgPresetGrid");
+        box.innerHTML = "";
+
+        Object.entries(IMAGE_PRESETS).forEach(([key,preset]) => {
+        const button = document.createElement("button");
+        button.className = "btn ghost";
+        button.type = "button";
+        button.dataset.preset = key;
+        button.textContent = preset.name;
+
+        button.addEventListener("click",() => applyImagePreset(key));
+
+        box.appendChild(button);
+        });
+        }
+
+        function readHslSettings(){
+        const data = {};
+
+        Object.keys(HSL_COLORS).forEach(color => {
+        data[color] = {
+        hue:Number($(`imgHsl_hue_${color}`).value),
+        sat:Number($(`imgHsl_sat_${color}`).value),
+        lum:Number($(`imgHsl_lum_${color}`).value)
+        };
+        });
+
+        return data;
+        }
+
+        function writeHslSettings(values = {}){
+        Object.keys(HSL_COLORS).forEach(color => {
+        ["hue","sat","lum"].forEach(kind => {
+        const id = `imgHsl_${kind}_${color}`;
+        const value = values[color]?.[kind] ?? 0;
+
+        $(id).value = value;
+        $(id + "_value").textContent = value;
+        });
+        });
+        }
+
+        function readGradingSettings(){
+        const data = {};
+
+        Object.keys(GRADING_ZONES).forEach(zone => {
+        data[zone] = {
+        hue:Number($(`grade_${zone}_hue`).value),
+        sat:Number($(`grade_${zone}_sat`).value),
+        lum:Number($(`grade_${zone}_lum`).value)
+        };
+        });
+
+        data.blend = Number($("grade_blend").value);
+        data.balance = Number($("grade_balance").value);
+
+        return data;
+        }
+
+        function writeGradingSettings(values = {}){
+        Object.keys(GRADING_ZONES).forEach(zone => {
+        ["hue","sat","lum"].forEach(kind => {
+        const id = `grade_${zone}_${kind}`;
+        const value = values[zone]?.[kind] ?? 0;
+
+        $(id).value = value;
+        $(id + "_value").textContent = value;
+        });
+        });
+
+        $("grade_blend").value = values.blend ?? 50;
+        $("grade_blend_value").textContent = values.blend ?? 50;
+
+        $("grade_balance").value = values.balance ?? 0;
+        $("grade_balance_value").textContent = values.balance ?? 0;
+        }
+
+        function readImageSettings(){
+        return {
+        basic:readControlGroup(IMAGE_BASIC_CONTROLS,"imgBasic_"),
+        detail:readControlGroup(IMAGE_DETAIL_CONTROLS,"imgDetail_"),
+        effect:readControlGroup(IMAGE_EFFECT_CONTROLS,"imgEffect_"),
+        curve:readControlGroup(IMAGE_CURVE_CONTROLS,"imgCurve_"),
+        hsl:readHslSettings(),
+        grading:readGradingSettings(),
+        transform:{
+        rotate:Number($("imgRotate").value),
+        flip:$("imgFlip").value,
+        radius:Number($("imgRadius").value) || 0,
+        padding:Number($("imgPadding").value) || 0,
+        bgColor:$("imgBgColor").value,
+        bgMode:$("imgBgMode").value,
+        cropRatio:$("imgCropRatio").value
+        },
+        watermark:{
+        enable:$("wmEnable").checked,
+        text:$("wmText").value,
+        position:$("wmPosition").value,
+        size:Number($("wmSize").value) || 36,
+        margin:Number($("wmMargin").value) || 24,
+        color:$("wmColor").value,
+        opacity:(Number($("wmOpacity").value) || 48) / 100,
+        angle:Number($("wmAngle").value) || 0,
+        tileGap:Number($("wmTileGap").value) || 220
+        },
+        export:{
+        format:$("imgFormat").value,
+        quality:Math.max(0.01,Math.min(1,(Number($("imgQuality").value) || 92) / 100)),
+        width:Number($("imgOutWidth").value) || 0,
+        height:Number($("imgOutHeight").value) || 0,
+        fitInside:$("imgFitInside").checked,
+        prefix:$("imgNamePrefix").value || "",
+        suffix:$("imgNameSuffix").value || ""
+        }
+        };
+        }
+
+        function writeImageSettings(values = {}){
+        writeControlGroup(IMAGE_BASIC_CONTROLS,"imgBasic_",values);
+        writeControlGroup(IMAGE_DETAIL_CONTROLS,"imgDetail_",values);
+        writeControlGroup(IMAGE_EFFECT_CONTROLS,"imgEffect_",values);
+        writeControlGroup(IMAGE_CURVE_CONTROLS,"imgCurve_",values);
+
+        writeHslSettings(values.hsl || {});
+        writeGradingSettings(values.grading || {});
+
+        scheduleImagePreview();
+        }
+
+        function resetImageSettings(){
+        writeImageSettings({});
+        }
+
+        function applyImagePreset(key){
+        const preset = IMAGE_PRESETS[key];
+
+        if(!preset){
+        return;
+        }
+
+        const values = {
+        ...(preset.values || {}),
+        hsl:preset.hsl || {},
+        grading:preset.grading || {}
+        };
+
+        writeImageSettings(values);
+        }
+
+        function getOutputSize(w,h,settings){
+        const targetW = settings.export.width;
+        const targetH = settings.export.height;
+
+        if(!targetW && !targetH){
+        return {
+        w,
+        h
+        };
+        }
+
+        if(settings.export.fitInside){
+        const maxW = targetW || Infinity;
+        const maxH = targetH || Infinity;
+        const scale = Math.min(maxW / w,maxH / h);
+
+        return {
+        w:Math.max(1,Math.round(w * scale)),
+        h:Math.max(1,Math.round(h * scale))
+        };
+        }
+
+        if(targetW && targetH){
+        return {
+        w:targetW,
+        h:targetH
+        };
+        }
+
+        if(targetW){
+        return {
+        w:targetW,
+        h:Math.round(h * targetW / w)
+        };
+        }
+
+        return {
+        w:Math.round(w * targetH / h),
+        h:targetH
+        };
+        }
+
+        function parseCropRatio(value){
+        if(!value || value === "none"){
+        return null;
+        }
+
+        const parts = value.split(":").map(Number);
+
+        if(parts.length !== 2 || !parts[0] || !parts[1]){
+        return null;
+        }
+
+        return parts[0] / parts[1];
+        }
+
+        function getCropRect(w,h,ratioValue){
+        const ratio = parseCropRatio(ratioValue);
+
+        if(!ratio){
+        return {
+        x:0,
+        y:0,
+        w,
+        h
+        };
+        }
+
+        const current = w / h;
+
+        if(current > ratio){
+        const newW = h * ratio;
+        return {
+        x:(w - newW) / 2,
+        y:0,
+        w:newW,
+        h
+        };
+        }
+
+        const newH = w / ratio;
+
+        return {
+        x:0,
+        y:(h - newH) / 2,
+        w,
+        h:newH
+        };
+        }
+
+        async function drawBaseTransformedImage(file,targetCanvas,settings){
+        const img = await loadImage(file);
+
+        const naturalW = img.naturalWidth || img.width;
+        const naturalH = img.naturalHeight || img.height;
+
+        const crop = getCropRect(
+        naturalW,
+        naturalH,
+        settings.transform.cropRatio
+        );
+
+        let drawW = crop.w;
+        let drawH = crop.h;
+
+        const rotate = settings.transform.rotate;
+
+        if(rotate === 90 || rotate === 270){
+        [drawW,drawH] = [drawH,drawW];
+        }
+
+        const size = getOutputSize(drawW,drawH,settings);
+        const padding = Math.max(0,settings.transform.padding || 0);
+
+        targetCanvas.width = Math.max(1,size.w + padding * 2);
+        targetCanvas.height = Math.max(1,size.h + padding * 2);
+
+        const ctx = targetCanvas.getContext("2d",{
+        willReadFrequently:true
+        });
+
+        ctx.clearRect(0,0,targetCanvas.width,targetCanvas.height);
+
+        if(settings.transform.bgMode === "color"){
+        ctx.fillStyle = settings.transform.bgColor || "#ffffff";
+        ctx.fillRect(0,0,targetCanvas.width,targetCanvas.height);
+        }
+
+        ctx.save();
+
+        ctx.translate(
+        padding + size.w / 2,
+        padding + size.h / 2
+        );
+
+        ctx.rotate(rotate * Math.PI / 180);
+
+        const flip = settings.transform.flip;
+
+        ctx.scale(
+        flip === "x" || flip === "xy" ? -1 : 1,
+        flip === "y" || flip === "xy" ? -1 : 1
+        );
+
+        const renderW = rotate === 90 || rotate === 270 ? size.h : size.w;
+        const renderH = rotate === 90 || rotate === 270 ? size.w : size.h;
+
+        ctx.drawImage(
+        img,
+        crop.x,
+        crop.y,
+        crop.w,
+        crop.h,
+        -renderW / 2,
+        -renderH / 2,
+        renderW,
+        renderH
+        );
+
+        ctx.restore();
+
+        return {
+        w:targetCanvas.width,
+        h:targetCanvas.height
+        };
+        }
+
+        function applyPixelAdjustments(ctx,w,h,settings){
+        const imageData = ctx.getImageData(0,0,w,h);
+        const data = imageData.data;
+
+        const basic = settings.basic;
+        const detail = settings.detail;
+        const effect = settings.effect;
+        const curve = settings.curve;
+
+        const bright = basic.brightness * 2.55;
+        const contrastFactor =
+        (259 * (basic.contrast + 255)) /
+        (255 * (259 - basic.contrast));
+
+        const exposure = Math.pow(2,basic.exposure / 100);
+        const temperature = basic.temperature * 0.82;
+        const tint = basic.tint * 0.72;
+        const globalHue = basic.hue / 360;
+        const globalSat = 1 + basic.saturation / 100;
+        const vibrance = basic.vibrance / 100;
+        const gamma = Math.max(0.05,basic.gamma);
+
+        const cx = w / 2;
+        const cy = h / 2;
+        const maxDistance = Math.sqrt(cx * cx + cy * cy);
+
+        for(let y = 0;y < h;y++){
+        for(let x = 0;x < w;x++){
+        const index = (y * w + x) * 4;
+
+        let r = data[index];
+        let g = data[index + 1];
+        let b = data[index + 2];
+        const a = data[index + 3];
+
+        if(a === 0){
+        continue;
+        }
+
+        r = r * exposure + bright + temperature;
+        g = g * exposure + bright - Math.abs(temperature) * 0.12 + tint;
+        b = b * exposure + bright - temperature;
+
+        r = contrastFactor * (r - 128) + 128;
+        g = contrastFactor * (g - 128) + 128;
+        b = contrastFactor * (b - 128) + 128;
+
+        r = applyLevels(clamp(r),curve,"red");
+        g = applyLevels(clamp(g),curve,"green");
+        b = applyLevels(clamp(b),curve,"blue");
+
+        r = 255 * Math.pow(clamp(r) / 255,1 / gamma);
+        g = 255 * Math.pow(clamp(g) / 255,1 / gamma);
+        b = 255 * Math.pow(clamp(b) / 255,1 / gamma);
+
+        let hsl = rgbToHsl(
+        clamp(r),
+        clamp(g),
+        clamp(b)
+        );
+
+        let hh = (hsl[0] + globalHue + 1) % 1;
+        let ss = Math.max(0,Math.min(1,hsl[1] * globalSat));
+        let ll = hsl[2];
+
+        if(vibrance !== 0){
+        const mutedBoost = 1 - ss;
+        ss = Math.max(0,Math.min(1,ss * (1 + vibrance * mutedBoost * 1.35)));
+        }
+
+        [hh,ss,ll] = applyHslMixer(
+        hh,
+        ss,
+        ll,
+        settings.hsl
+        );
+
+        [r,g,b] = hslToRgb(
+        hh,
+        ss,
+        ll
+        );
+
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+        const shadowMask = Math.max(0,1 - luminance / 150);
+        const highlightMask = Math.max(0,(luminance - 105) / 150);
+        const blackMask = Math.max(0,1 - luminance / 110);
+        const whiteMask = Math.max(0,(luminance - 145) / 110);
+
+        r += basic.shadows * 1.45 * shadowMask;
+        g += basic.shadows * 1.45 * shadowMask;
+        b += basic.shadows * 1.45 * shadowMask;
+
+        r += basic.highlights * 1.45 * highlightMask;
+        g += basic.highlights * 1.45 * highlightMask;
+        b += basic.highlights * 1.45 * highlightMask;
+
+        r += basic.blacks * 1.25 * blackMask;
+        g += basic.blacks * 1.25 * blackMask;
+        b += basic.blacks * 1.25 * blackMask;
+
+        r += basic.whites * 1.25 * whiteMask;
+        g += basic.whites * 1.25 * whiteMask;
+        b += basic.whites * 1.25 * whiteMask;
+
+        if(detail.clarity || detail.dehaze){
+        const localContrast =
+        1 +
+        detail.clarity / 100 * 0.32 +
+        detail.dehaze / 100 * 0.42;
+
+        r = (r - 128) * localContrast + 128 - detail.dehaze * 0.06;
+        g = (g - 128) * localContrast + 128 - detail.dehaze * 0.06;
+        b = (b - 128) * localContrast + 128 - detail.dehaze * 0.06;
+        }
+
+        if(effect.fade){
+        const fadeT = effect.fade / 100;
+
+        r = mix(r,128 + (r - 128) * 0.78,fadeT);
+        g = mix(g,128 + (g - 128) * 0.78,fadeT);
+        b = mix(b,128 + (b - 128) * 0.78,fadeT);
+        }
+
+        [r,g,b] = applyColorGrading(
+        r,
+        g,
+        b,
+        luminance,
+        settings.grading
+        );
+
+        if(effect.vignetteAmount !== 0){
+        const dx = x - cx;
+        const dy = y - cy;
+
+        const roundness = effect.vignetteRoundness / 100;
+        const dist = Math.sqrt(
+        dx * dx * (1 + Math.max(0,-roundness)) +
+        dy * dy * (1 + Math.max(0,roundness))
+        ) / maxDistance;
+
+        const midpoint = effect.vignetteMidpoint / 100;
+        const feather = Math.max(0.05,effect.vignetteFeather / 100);
+
+        let v = Math.max(0,(dist - midpoint * 0.65) / feather);
+        v = Math.min(1,v);
+
+        const amount = effect.vignetteAmount / 100;
+
+        if(amount < 0){
+        const dark = 1 + amount * v * 1.15;
+        const protect = effect.vignetteHighlights / 100 * highlightMask;
+
+        r *= mix(dark,1,protect);
+        g *= mix(dark,1,protect);
+        b *= mix(dark,1,protect);
+        }else{
+        r += amount * v * 80;
+        g += amount * v * 80;
+        b += amount * v * 80;
+        }
+        }
+
+        if(effect.grainAmount){
+        const size = Math.max(1,effect.grainSize || 1);
+        const rough = 0.4 + effect.grainRoughness / 100 * 1.4;
+        const seed =
+        Math.floor(x / size) * 12.9898 +
+        Math.floor(y / size) * 78.233;
+
+        const noise = ((Math.sin(seed) * 43758.5453) % 1) * effect.grainAmount * rough;
+
+        r += noise;
+        g += noise;
+        b += noise;
+        }
+
+        data[index] = clamp(r);
+        data[index + 1] = clamp(g);
+        data[index + 2] = clamp(b);
+        }
+        }
+
+        ctx.putImageData(imageData,0,0);
+
+        if(detail.noiseLuminance > 0 || detail.noiseColor > 0){
+        applySimpleNoiseReduction(
+        ctx,
+        w,
+        h,
+        detail.noiseLuminance / 100,
+        detail.noiseColor / 100
+        );
+        }
+
+        const sharpenTotal =
+        detail.sharpenAmount / 100 +
+        Math.max(0,detail.texture / 100) * 0.55;
+
+        if(sharpenTotal > 0){
+        sharpenCanvas(
+        ctx,
+        w,
+        h,
+        sharpenTotal,
+        detail.sharpenRadius,
+        detail.sharpenMask / 100
+        );
+        }
+
+        if(effect.softGlow > 0){
+        applySoftGlow(
+        ctx,
+        w,
+        h,
+        effect.softGlow / 100
+        );
+        }
+
+        if(settings.transform.radius > 0){
+        applyRoundCornerMask(
+        ctx,
+        w,
+        h,
+        settings.transform.radius
+        );
+        }
+        }
+
+        function applySimpleNoiseReduction(ctx,w,h,lumaAmount,colorAmount){
+        const src = ctx.getImageData(0,0,w,h);
+        const out = ctx.createImageData(w,h);
+        const s = src.data;
+        const d = out.data;
+
+        for(let y = 0;y < h;y++){
+        for(let x = 0;x < w;x++){
+        const i = (y * w + x) * 4;
+
+        let r = 0;
+        let g = 0;
+        let b = 0;
+        let count = 0;
+
+        for(let yy = -1;yy <= 1;yy++){
+        for(let xx = -1;xx <= 1;xx++){
+        const nx = Math.max(0,Math.min(w - 1,x + xx));
+        const ny = Math.max(0,Math.min(h - 1,y + yy));
+        const ni = (ny * w + nx) * 4;
+
+        r += s[ni];
+        g += s[ni + 1];
+        b += s[ni + 2];
+        count++;
+        }
+        }
+
+        r /= count;
+        g /= count;
+        b /= count;
+
+        const originalR = s[i];
+        const originalG = s[i + 1];
+        const originalB = s[i + 2];
+
+        const originalLum = 0.299 * originalR + 0.587 * originalG + 0.114 * originalB;
+        const blurLum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        const finalLum = mix(originalLum,blurLum,lumaAmount);
+
+        d[i] = clamp(mix(originalR,r,colorAmount * 0.55) + (finalLum - originalLum) * lumaAmount);
+        d[i + 1] = clamp(mix(originalG,g,colorAmount * 0.55) + (finalLum - originalLum) * lumaAmount);
+        d[i + 2] = clamp(mix(originalB,b,colorAmount * 0.55) + (finalLum - originalLum) * lumaAmount);
+        d[i + 3] = s[i + 3];
+        }
+        }
+
+        ctx.putImageData(out,0,0);
+        }
+
+        function sharpenCanvas(ctx,w,h,amount,radius = 1,maskAmount = 0){
+        const src = ctx.getImageData(0,0,w,h);
+        const out = ctx.createImageData(w,h);
+
+        const s = src.data;
+        const d = out.data;
+
+        const a = amount * Math.max(0.5,Math.min(3,radius));
+        const center = 1 + 4 * a;
+        const side = -a;
+
+        for(let y = 0;y < h;y++){
+        for(let x = 0;x < w;x++){
+        const i = (y * w + x) * 4;
+
+        const lum =
+        0.299 * s[i] +
+        0.587 * s[i + 1] +
+        0.114 * s[i + 2];
+
+        const mask = Math.max(0,1 - maskAmount * (1 - Math.abs(lum - 128) / 128));
+
+        for(let channel = 0;channel < 3;channel++){
+        const here = s[i + channel] * center;
+        const left = s[(y * w + Math.max(0,x - 1)) * 4 + channel] * side;
+        const right = s[(y * w + Math.min(w - 1,x + 1)) * 4 + channel] * side;
+        const up = s[(Math.max(0,y - 1) * w + x) * 4 + channel] * side;
+        const down = s[(Math.min(h - 1,y + 1) * w + x) * 4 + channel] * side;
+
+        const sharpened = here + left + right + up + down;
+
+        d[i + channel] = clamp(mix(s[i + channel],sharpened,mask));
+        }
+
+        d[i + 3] = s[i + 3];
+        }
+        }
+
+        ctx.putImageData(out,0,0);
+        }
+
+        function applySoftGlow(ctx,w,h,amount){
+        const copy = document.createElement("canvas");
+        copy.width = w;
+        copy.height = h;
+
+        const c = copy.getContext("2d");
+        c.drawImage(ctx.canvas,0,0);
+
+        ctx.save();
+        ctx.globalAlpha = amount * 0.35;
+        ctx.filter = "blur(12px)";
+        ctx.globalCompositeOperation = "screen";
+        ctx.drawImage(copy,0,0);
+        ctx.restore();
+        ctx.filter = "none";
+        ctx.globalCompositeOperation = "source-over";
+        }
+
+        function applyRoundCornerMask(ctx,w,h,radius){
+        const copy = document.createElement("canvas");
+        copy.width = w;
+        copy.height = h;
+        copy.getContext("2d").drawImage(ctx.canvas,0,0);
+
+        ctx.clearRect(0,0,w,h);
+        ctx.save();
+
+        const r = Math.min(radius,w / 2,h / 2);
+
+        ctx.beginPath();
+        ctx.moveTo(r,0);
+        ctx.lineTo(w - r,0);
+        ctx.quadraticCurveTo(w,0,w,r);
+        ctx.lineTo(w,h - r);
+        ctx.quadraticCurveTo(w,h,w - r,h);
+        ctx.lineTo(r,h);
+        ctx.quadraticCurveTo(0,h,0,h - r);
+        ctx.lineTo(0,r);
+        ctx.quadraticCurveTo(0,0,r,0);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(copy,0,0);
+        ctx.restore();
+        }
+
+        function drawWatermark(ctx,w,h,settings){
+        const wm = settings.watermark;
+
+        if(!wm.enable || !wm.text.trim()){
+        return;
+        }
+
+        const text = wm.text.trim();
+
+        ctx.save();
+
+        ctx.fillStyle = wm.color;
+        ctx.globalAlpha = Math.max(0,Math.min(1,wm.opacity));
+        ctx.font = `700 ${wm.size}px system-ui, sans-serif`;
+        ctx.textBaseline = "alphabetic";
+        ctx.shadowColor = "rgba(0,0,0,.35)";
+        ctx.shadowBlur = wm.size * 0.12;
+
+        const measure = ctx.measureText(text);
+        const margin = wm.margin;
+
+        function drawAt(x,y){
+        ctx.save();
+        ctx.translate(x,y);
+        ctx.rotate(wm.angle * Math.PI / 180);
+        ctx.fillText(text,0,0);
+        ctx.restore();
+        }
+
+        if(wm.position === "tile"){
+        const gap = Math.max(40,wm.tileGap);
+
+        for(let y = -gap;y < h + gap;y += gap){
+        for(let x = -gap;x < w + gap;x += gap){
+        drawAt(x,y);
+        }
+        }
+        }else{
+        let x = margin;
+        let y = h - margin;
+
+        if(wm.position === "br"){
+        x = w - measure.width - margin;
+        y = h - margin;
+        }
+
+        if(wm.position === "bl"){
+        x = margin;
+        y = h - margin;
+        }
+
+        if(wm.position === "tr"){
+        x = w - measure.width - margin;
+        y = wm.size + margin * 0.3;
+        }
+
+        if(wm.position === "tl"){
+        x = margin;
+        y = wm.size + margin * 0.3;
+        }
+
+        if(wm.position === "center"){
+        x = (w - measure.width) / 2;
+        y = h / 2;
+        }
+
+        drawAt(x,y);
+        }
+
+        ctx.restore();
+        }
+
+        async function drawProcessedImage(file,targetCanvas,showOriginal = false){
+        const settings = readImageSettings();
+
+        const base = document.createElement("canvas");
+
+        await drawBaseTransformedImage(
+        file,
+        base,
+        settings
+        );
+
+        targetCanvas.width = base.width;
+        targetCanvas.height = base.height;
+
+        const ctx = targetCanvas.getContext("2d",{
+        willReadFrequently:true
+        });
+
+        ctx.clearRect(0,0,targetCanvas.width,targetCanvas.height);
+        ctx.drawImage(base,0,0);
+
+        if(!showOriginal){
+        applyPixelAdjustments(
+        ctx,
+        targetCanvas.width,
+        targetCanvas.height,
+        settings
+        );
+
+        drawWatermark(
+        ctx,
+        targetCanvas.width,
+        targetCanvas.height,
+        settings
+        );
+        }
+
+        return {
+        w:targetCanvas.width,
+        h:targetCanvas.height
+        };
+        }
+
+        function scheduleImagePreview(){
+        clearTimeout(imgPreviewTimer);
+        imgPreviewTimer = setTimeout(renderImagePreview,120);
+        }
+
+        async function renderImagePreview(){
+        if(!imgFiles.length){
+        imgCanvas.style.display = "none";
+        $("imgCanvasEmpty").style.display = "block";
+        $("imgPreviewTitle").textContent = "图片预览";
+        $("imgStatus").textContent = "准备就绪";
+        return;
+        }
+
+        const file = imgFiles[imgIndex] || imgFiles[0];
+
+        imgCanvas.style.display = "block";
+        $("imgCanvasEmpty").style.display = "none";
+        $("imgPreviewTitle").textContent = `${imgIndex + 1}/${imgFiles.length} · ${file.name}`;
+
+        try{
+        await drawProcessedImage(
+        file,
+        imgCanvas,
+        imgOriginal
+        );
+
+        $("imgStatus").textContent = "预览已更新";
+        }catch(error){
+        console.error(error);
+        $("imgStatus").textContent = "预览失败";
+        }
+        }
+        function renderImageFileList(){
+        $("imgCount").textContent = `${imgFiles.length} 张`;
+
+        renderSimpleFileList(
+        $("imgFileList"),
+        imgFiles,
+        imgIndex,
+        index => {
+        imgIndex = index;
+        renderImageFileList();
+        renderImagePreview();
+        }
+        );
+        }
+
+        function imageOutputName(file,index,settings,ext){
+        const {base} = splitName(file.name);
+
+        const prefix = settings.export.prefix || "";
+        const suffix = settings.export.suffix || "";
+
+        const name = cleanFileName(`${prefix}${base}${suffix}`);
+
+        return `${name || "image_" + String(index + 1).padStart(3,"0")}.${ext}`;
+        }
+
+        async function exportProcessedImages(){
+        if(!imgFiles.length){
+        alert("请先选择图片。");
+        return;
+        }
+
+        const settings = readImageSettings();
+        const tempCanvas = document.createElement("canvas");
+        const entries = [];
+
+        $("imgExportBtn").disabled = true;
+        $("imgResetBtn").disabled = true;
+        $("imgProgress").classList.remove("hidden");
+
+        try{
+        for(let i = 0;i < imgFiles.length;i++){
+        const file = imgFiles[i];
+
+        $("imgProgress").value = Math.round(i / imgFiles.length * 100);
+        $("imgStatus").textContent = `正在处理 ${i + 1}/${imgFiles.length}：${file.name}`;
+
+        await drawProcessedImage(
+        file,
+        tempCanvas,
+        false
+        );
+
+        let blob = await canvasToBlob(
+        tempCanvas,
+        settings.export.format,
+        settings.export.quality
+        );
+
+        if(!blob){
+        blob = await canvasToBlob(
+        tempCanvas,
+        "image/png",
+        1
+        );
+        }
+
+        const ext = extensionForMime(
+        blob.type || settings.export.format,
+        "png"
+        );
+
+        const array = new Uint8Array(
+        await blob.arrayBuffer()
+        );
+
+        entries.push({
+        name:imageOutputName(
+        file,
+        i,
+        settings,
+        ext
+        ),
+        data:array
+        });
+
+        await new Promise(resolve => setTimeout(resolve,0));
+        }
+
+        $("imgProgress").value = 100;
+
+        triggerDownload(
+        makeZip(entries),
+        `processed_images_${todayString()}.zip`
+        );
+
+        $("imgStatus").textContent = `完成：已导出 ${entries.length} 张图片。`;
+        }catch(error){
+        console.error(error);
+        $("imgStatus").textContent = "导出失败。";
+        alert("导出失败：" + error.message);
+        }finally{
+        $("imgExportBtn").disabled = false;
+        $("imgResetBtn").disabled = false;
+
+        setTimeout(() => {
+        $("imgProgress").classList.add("hidden");
+        $("imgProgress").value = 0;
+        },600);
+        }
+        }
+
+        async function extractPaletteFromCurrentImage(){
+        if(!imgFiles.length){
+        alert("请先选择图片。");
+        return;
+        }
+
+        const file = imgFiles[imgIndex] || imgFiles[0];
+        const img = await loadImage(file);
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const max = 140;
+        const scale = Math.min(
+        max / (img.naturalWidth || img.width),
+        max / (img.naturalHeight || img.height),
+        1
+        );
+
+        canvas.width = Math.max(1,Math.round((img.naturalWidth || img.width) * scale));
+        canvas.height = Math.max(1,Math.round((img.naturalHeight || img.height) * scale));
+
+        ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+        );
+
+        const data = ctx.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+        ).data;
+
+        const bins = new Map();
+
+        for(let i = 0;i < data.length;i += 16){
+        const alpha = data[i + 3];
+
+        if(alpha < 128){
+        continue;
+        }
+
+        const r = Math.round(data[i] / 32) * 32;
+        const g = Math.round(data[i + 1] / 32) * 32;
+        const b = Math.round(data[i + 2] / 32) * 32;
+
+        const key = `${r},${g},${b}`;
+
+        bins.set(
+        key,
+        (bins.get(key) || 0) + 1
+        );
+        }
+
+        imgPaletteData = [...bins.entries()]
+        .sort((a,b) => b[1] - a[1])
+        .slice(0,9)
+        .map(([key]) => key.split(",").map(Number));
+
+        renderPalette(imgPaletteData);
+        }
+
+        function renderPalette(colors){
+        const box = $("paletteBox");
+        box.innerHTML = "";
+
+        if(!colors.length){
+        box.innerHTML = `<div class="small">暂无颜色。</div>`;
+        return;
+        }
+
+        colors.forEach(rgb => {
+        const hex = rgbToHex(rgb);
+
+        const item = document.createElement("div");
+        item.className = "swatch";
+
+        item.innerHTML = `
+        <div class="swatchColor" style="background:${hex};"></div>
+        <div class="swatchInfo">
+        <b>${hex}</b>
+        <span>RGB(${rgb.join(", ")})</span>
+        </div>
+        `;
+
+        item.addEventListener("click",() => {
+        copyText(hex);
+        });
+
+        box.appendChild(item);
+        });
+        }
+
+        function suggestPaletteFromCurrent(){
+        let base = imgPaletteData[0] || [124,156,255];
+
+        const [h,s,l] = rgbToHsl(
+        base[0],
+        base[1],
+        base[2]
+        );
+
+        const palette = [
+        [h,s,l],
+        [(h + 0.08) % 1,s * 0.92,Math.min(1,l + 0.08)],
+        [(h + 0.5) % 1,s * 0.95,l],
+        [(h + 0.92) % 1,s * 0.85,Math.max(0,l - 0.08)],
+        [h,Math.max(0.12,s * 0.35),Math.min(1,l + 0.2)],
+        [h,Math.min(1,s * 1.1),Math.max(0,l - 0.18)],
+        [(h + 0.33) % 1,s * 0.75,l],
+        [(h + 0.66) % 1,s * 0.75,l],
+        [(h + 0.02) % 1,Math.min(1,s * 1.2),Math.min(1,l + 0.12)]
+        ].map(item => hslToRgb(
+        item[0],
+        item[1],
+        item[2]
+        ).map(value => Math.round(value)));
+
+        imgPaletteData = palette;
+        renderPalette(palette);
+        }
+
+        function copyPalette(){
+        if(!imgPaletteData.length){
+        return;
+        }
+
+        const text = imgPaletteData
+        .map(rgb => {
+        const hex = rgbToHex(rgb);
+        return `${hex}  RGB(${rgb.join(", ")})`;
+        })
+        .join("\n");
+
+        copyText(text);
+        }
+
+        function bindImageToolEvents(){
+        setDropZone(
+        $("imgDrop"),
+        $("imgInput"),
+        files => {
+        imgFiles = files.filter(isImage);
+        imgIndex = 0;
+        renderImageFileList();
+        renderImagePreview();
+        }
+        );
+
+        $("imgClearBtn").addEventListener("click",() => {
+        imgFiles = [];
+        imgIndex = 0;
+        $("imgInput").value = "";
+        renderImageFileList();
+        renderImagePreview();
+        renderPalette([]);
+        });
+
+        $("imgPrevBtn").addEventListener("click",() => {
+        if(!imgFiles.length){
+        return;
+        }
+
+        imgIndex = (imgIndex - 1 + imgFiles.length) % imgFiles.length;
+        renderImageFileList();
+        renderImagePreview();
+        });
+
+        $("imgNextBtn").addEventListener("click",() => {
+        if(!imgFiles.length){
+        return;
+        }
+
+        imgIndex = (imgIndex + 1) % imgFiles.length;
+        renderImageFileList();
+        renderImagePreview();
+        });
+
+        $("imgOriginalBtn").addEventListener("mousedown",() => {
+        imgOriginal = true;
+        renderImagePreview();
+        });
+
+        $("imgOriginalBtn").addEventListener("mouseup",() => {
+        imgOriginal = false;
+        renderImagePreview();
+        });
+
+        $("imgOriginalBtn").addEventListener("mouseleave",() => {
+        imgOriginal = false;
+        renderImagePreview();
+        });
+
+        $("imgOriginalBtn").addEventListener("touchstart",event => {
+        event.preventDefault();
+        imgOriginal = true;
+        renderImagePreview();
+        },{
+        passive:false
+        });
+
+        $("imgOriginalBtn").addEventListener("touchend",() => {
+        imgOriginal = false;
+        renderImagePreview();
+        });
+
+        $("imgResetBtn").addEventListener("click",resetImageSettings);
+        $("imgExportBtn").addEventListener("click",exportProcessedImages);
+
+        [
+        "imgRotate",
+        "imgFlip",
+        "imgRadius",
+        "imgPadding",
+        "imgBgColor",
+        "imgBgMode",
+        "imgCropRatio",
+        "imgFormat",
+        "imgQuality",
+        "imgOutWidth",
+        "imgOutHeight",
+        "imgFitInside",
+        "imgNamePrefix",
+        "imgNameSuffix",
+        "wmEnable",
+        "wmText",
+        "wmPosition",
+        "wmSize",
+        "wmMargin",
+        "wmColor",
+        "wmOpacity",
+        "wmAngle",
+        "wmTileGap"
+        ].forEach(id => {
+        $(id).addEventListener("input",scheduleImagePreview);
+        });
+
+        $$("#imageTabBar button").forEach(button => {
+        button.addEventListener("click",() => {
+        const tab = button.dataset.tab;
+
+        $$("#imageTabBar button").forEach(item => {
+        item.classList.toggle("active",item === button);
+        });
+
+        $$(".tabPane").forEach(pane => {
+        pane.classList.toggle("active",pane.id === "imgTab-" + tab);
+        });
+        });
+        });
+
+        $("paletteExtractBtn").addEventListener("click",extractPaletteFromCurrentImage);
+        $("paletteSuggestBtn").addEventListener("click",suggestPaletteFromCurrent);
+        $("paletteCopyBtn").addEventListener("click",copyPalette);
+        }
+
+        let renameFiles = [];
+        let renameSelected = 0;
+
+        function buildRenameName(file,index,dims = {},options = {}){
+        const {base,ext} = splitName(file.name);
+
+        const digits = Math.max(
+        1,
+        Number($("renameDigits").value) || 3
+        );
+
+        const start = Number($("renameStart").value) || 1;
+        const num = String(start + index).padStart(digits,"0");
+
+        let nameBase = base;
+        const find = $("renameFind").value;
+
+        if(find){
+        nameBase = nameBase.split(find).join($("renameReplace").value || "");
+        }
+
+        const finalExt = options.ext || ext;
+        const sizeText = formatBytes(file.size).replace(/\s+/g,"");
+
+        let output = ($("renamePattern").value || "{name}_{num}")
+        .replaceAll("{name}",nameBase)
+        .replaceAll("{num}",num)
+        .replaceAll("{date}",todayString())
+        .replaceAll("{w}",dims.w || "")
+        .replaceAll("{h}",dims.h || "")
+        .replaceAll("{ext}",finalExt)
+        .replaceAll("{size}",sizeText);
+
+        output = `${$("renamePrefix").value || ""}${output}${$("renameSuffix").value || ""}`;
+
+        const caseMode = $("renameCase").value;
+
+        if(caseMode === "lower"){
+        output = output.toLowerCase();
+        }
+
+        if(caseMode === "upper"){
+        output = output.toUpperCase();
+        }
+
+        const spaceMode = $("renameSpace").value;
+
+        if(spaceMode === "dash"){
+        output = output.replace(/\s+/g,"-");
+        }
+
+        if(spaceMode === "underscore"){
+        output = output.replace(/\s+/g,"_");
+        }
+
+        if(spaceMode === "remove"){
+        output = output.replace(/\s+/g,"");
+        }
+
+        if($("renameSanitize").checked){
+        output = cleanFileName(output);
+        }
+
+        if(!output){
+        output = `file_${num}`;
+        }
+
+        return `${output}.${finalExt}`;
+        }
+
+        function renderRenameFiles(){
+        $("renameCount").textContent = `${renameFiles.length} 个文件`;
+
+        $("renameSelectedInfo").textContent = renameFiles.length
+        ? `选中：${renameSelected + 1}`
+        : "未选中";
+
+        const box = $("renameFileList");
+        box.innerHTML = "";
+
+        if(!renameFiles.length){
+        box.innerHTML = `<div class="previewEmpty">还没有选择文件</div>`;
+        $("renamePreviewTable").innerHTML = `
+        <tr>
+        <td colspan="4" class="small">选择文件后显示预览</td>
+        </tr>
+        `;
+        return;
+        }
+
+        renameFiles.forEach((file,index) => {
+        const item = document.createElement("div");
+        item.className = "fileItem" + (index === renameSelected ? " active" : "");
+
+        item.innerHTML = `
+        <b class="ellipsis">${escapeHtml(file.name)}</b>
+        <span>${formatBytes(file.size)} · ${escapeHtml(file.type || "未知类型")}</span>
+        `;
+
+        item.addEventListener("click",() => {
+        renameSelected = index;
+        renderRenameFiles();
+        });
+
+        box.appendChild(item);
+        });
+
+        renderRenamePreview();
+        }
+
+        function renderRenamePreview(){
+        const tbody = $("renamePreviewTable");
+        tbody.innerHTML = "";
+
+        if(!renameFiles.length){
+        tbody.innerHTML = `
+        <tr>
+        <td colspan="4" class="small">选择文件后显示预览</td>
+        </tr>
+        `;
+        return;
+        }
+
+        renameFiles.forEach((file,index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+        <td>${index + 1}</td>
+        <td class="ellipsis">${escapeHtml(file.name)}</td>
+        <td class="mono">${escapeHtml(buildRenameName(file,index))}</td>
+        <td>${formatBytes(file.size)}</td>
+        `;
+
+        tbody.appendChild(row);
+        });
+        }
+
+        function sortRenameFiles(mode){
+        if(mode === "manual"){
+        renderRenameFiles();
+        return;
+        }
+
+        const collator = new Intl.Collator("zh-CN",{
+        numeric:true,
+        sensitivity:"base"
+        });
+
+        renameFiles.sort((a,b) => {
+        const extA = splitName(a.name).ext || "";
+        const extB = splitName(b.name).ext || "";
+
+        if(mode === "nameAsc") return collator.compare(a.name,b.name);
+        if(mode === "nameDesc") return collator.compare(b.name,a.name);
+        if(mode === "sizeAsc") return a.size - b.size;
+        if(mode === "sizeDesc") return b.size - a.size;
+        if(mode === "typeAsc") return collator.compare(extA,extB) || collator.compare(a.name,b.name);
+        if(mode === "typeDesc") return collator.compare(extB,extA) || collator.compare(a.name,b.name);
+        if(mode === "dateAsc") return (a.lastModified || 0) - (b.lastModified || 0);
+        if(mode === "dateDesc") return (b.lastModified || 0) - (a.lastModified || 0);
+
+        return 0;
+        });
+
+        renameSelected = 0;
+        renderRenameFiles();
+        }
+
+        async function downloadRenamedZip(){
+        if(!renameFiles.length){
+        alert("请先选择文件。");
+        return;
+        }
+
+        $("renameDownloadBtn").disabled = true;
+        $("renameProgress").classList.remove("hidden");
+
+        const entries = [];
+
+        try{
+        for(let i = 0;i < renameFiles.length;i++){
+        const file = renameFiles[i];
+        const ext = splitName(file.name).ext;
+
+        $("renameProgress").value = Math.round(i / renameFiles.length * 100);
+        $("renameStatus").textContent = `正在读取 ${i + 1}/${renameFiles.length}：${file.name}`;
+
+        entries.push({
+        name:buildRenameName(
+        file,
+        i,
+        {},
+        {
+        ext
+        }
+        ),
+        data:new Uint8Array(await file.arrayBuffer())
+        });
+
+        await new Promise(resolve => setTimeout(resolve,0));
+        }
+
+        triggerDownload(
+        makeZip(entries),
+        `renamed_${todayString()}.zip`
+        );
+
+        $("renameStatus").textContent = `完成：已打包 ${entries.length} 个文件。`;
+        }catch(error){
+        console.error(error);
+        $("renameStatus").textContent = "打包失败。";
+        alert("打包失败：" + error.message);
+        }finally{
+        $("renameDownloadBtn").disabled = false;
+        $("renameProgress").classList.add("hidden");
+        $("renameProgress").value = 0;
+        }
+        }
+
+        function bindRenameToolEvents(){
+        setDropZone(
+        $("renameDrop"),
+        $("renameInput"),
+        files => {
+        renameFiles = [...files];
+        renameSelected = 0;
+        $("renameSort").value = "manual";
+        renderRenameFiles();
+        }
+        );
+
+        $("renameSort").addEventListener("change",event => {
+        sortRenameFiles(event.target.value);
+        });
+
+        $("renameUpBtn").addEventListener("click",() => {
+        if(renameSelected <= 0){
+        return;
+        }
+
+        [
+        renameFiles[renameSelected - 1],
+        renameFiles[renameSelected]
+        ] = [
+        renameFiles[renameSelected],
+        renameFiles[renameSelected - 1]
+        ];
+
+        renameSelected--;
+        $("renameSort").value = "manual";
+        renderRenameFiles();
+        });
+
+        $("renameDownBtn").addEventListener("click",() => {
+        if(renameSelected >= renameFiles.length - 1){
+        return;
+        }
+
+        [
+        renameFiles[renameSelected + 1],
+        renameFiles[renameSelected]
+        ] = [
+        renameFiles[renameSelected],
+        renameFiles[renameSelected + 1]
+        ];
+
+        renameSelected++;
+        $("renameSort").value = "manual";
+        renderRenameFiles();
+        });
+
+        $("renameClearBtn").addEventListener("click",() => {
+        renameFiles = [];
+        renameSelected = 0;
+        $("renameInput").value = "";
+        renderRenameFiles();
+        $("renameStatus").textContent = "准备就绪。";
+        });
+
+        $("renameDownloadBtn").addEventListener("click",downloadRenamedZip);
+
+        [
+        "renamePattern",
+        "renamePrefix",
+        "renameSuffix",
+        "renameFind",
+        "renameReplace",
+        "renameStart",
+        "renameDigits",
+        "renameCase",
+        "renameSpace",
+        "renameSanitize"
+        ].forEach(id => {
+        $(id).addEventListener("input",renderRenamePreview);
+        });
+        }
+
+        let pdfFiles = [];
+
+        function renderPdfFiles(){
+        const list = $("pdfFileList");
+        const table = $("pdfTable");
+
+        list.innerHTML = "";
+        table.innerHTML = "";
+
+        if(!pdfFiles.length){
+        list.innerHTML = `<div class="previewEmpty">还没有选择图片</div>`;
+        table.innerHTML = `
+        <tr>
+        <td colspan="4" class="small">选择图片后显示</td>
+        </tr>
+        `;
+        return;
+        }
+
+        pdfFiles.forEach((file,index) => {
+        const item = document.createElement("div");
+        item.className = "fileItem";
+        item.innerHTML = `
+        <b class="ellipsis">${escapeHtml(file.name)}</b>
+        <span>${formatBytes(file.size)}</span>
+        `;
+        list.appendChild(item);
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${escapeHtml(file.name)}</td>
+        <td class="mono">读取中…</td>
+        <td>${formatBytes(file.size)}</td>
+        `;
+        table.appendChild(row);
+
+        loadImage(file).then(img => {
+        row.children[2].textContent = `${img.naturalWidth || img.width}×${img.naturalHeight || img.height}`;
+        });
+        });
+        }
+
+        function encodePdfString(str){
+        return new TextEncoder().encode(str);
+        }
+
+        function makeSimplePdf(pages){
+        const chunks = [];
+        const offsets = [0];
+        let length = 0;
+
+        function push(part){
+        if(typeof part === "string"){
+        part = encodePdfString(part);
+        }
+
+        chunks.push(part);
+        length += part.length;
+        }
+
+        function object(id,parts){
+        offsets[id] = length;
+        push(`${id} 0 obj\n`);
+
+        parts.forEach(part => push(part));
+
+        push(`\nendobj\n`);
+        }
+
+        const totalObjects = 2 + pages.length * 3;
+
+        push("%PDF-1.4\n%âãÏÓ\n");
+
+        object(1,[
+        `<< /Type /Catalog /Pages 2 0 R >>`
+        ]);
+
+        const kids = pages.map((_,index) => `${3 + index * 3} 0 R`).join(" ");
+
+        object(2,[
+        `<< /Type /Pages /Count ${pages.length} /Kids [ ${kids} ] >>`
+        ]);
+
+        pages.forEach((page,index) => {
+        const pageObj = 3 + index * 3;
+        const imgObj = pageObj + 1;
+        const contentObj = pageObj + 2;
+        const imageName = `Im${index + 1}`;
+
+        object(pageObj,[
+        `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${page.pageW.toFixed(2)} ${page.pageH.toFixed(2)}] `,
+        `/Resources << /XObject << /${imageName} ${imgObj} 0 R >> >> `,
+        `/Contents ${contentObj} 0 R >>`
+        ]);
+
+        object(imgObj,[
+        `<< /Type /XObject /Subtype /Image /Width ${page.imgW} /Height ${page.imgH} `,
+        `/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${page.data.length} >>\nstream\n`,
+        page.data,
+        `\nendstream`
+        ]);
+
+        const content =
+        `q\n${page.drawW.toFixed(2)} 0 0 ${page.drawH.toFixed(2)} ${page.x.toFixed(2)} ${page.y.toFixed(2)} cm\n/${imageName} Do\nQ\n`;
+
+        object(contentObj,[
+        `<< /Length ${encodePdfString(content).length} >>\nstream\n`,
+        content,
+        `endstream`
+        ]);
+        });
+
+        const xrefOffset = length;
+
+        push(`xref\n0 ${totalObjects + 1}\n`);
+        push(`0000000000 65535 f \n`);
+
+        for(let i = 1;i <= totalObjects;i++){
+        push(`${String(offsets[i]).padStart(10,"0")} 00000 n \n`);
+        }
+
+        push(`trailer\n<< /Size ${totalObjects + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`);
+
+        return new Blob(chunks,{
+        type:"application/pdf"
+        });
+        }
+
+        async function exportPdf(){
+        if(!pdfFiles.length){
+        alert("请先选择图片。");
+        return;
+        }
+
+        $("pdfDownloadBtn").disabled = true;
+        $("pdfStatus").textContent = "正在生成 PDF…";
+
+        try{
+        const pages = [];
+        const pageMode = $("pdfPageSize").value;
+        const orientation = $("pdfOrientation").value;
+        const margin = Math.max(0,Number($("pdfMargin").value) || 0);
+        const quality = Math.max(0.01,Math.min(1,(Number($("pdfQuality").value) || 92) / 100));
+
+        for(let i = 0;i < pdfFiles.length;i++){
+        const img = await loadImage(pdfFiles[i]);
+
+        const iw = img.naturalWidth || img.width;
+        const ih = img.naturalHeight || img.height;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = iw;
+        canvas.height = ih;
+
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0,0,iw,ih);
+        ctx.drawImage(img,0,0);
+
+        const dataUrl = canvas.toDataURL("image/jpeg",quality);
+        const data = dataURLToUint8(dataUrl);
+
+        let pageW;
+        let pageH;
+
+        if(pageMode === "image"){
+        pageW = iw * 0.75;
+        pageH = ih * 0.75;
+        }else{
+        const portrait = {
+        w:595.28,
+        h:841.89
+        };
+
+        const landscape = {
+        w:841.89,
+        h:595.28
+        };
+
+        let useLandscape = false;
+
+        if(orientation === "landscape"){
+        useLandscape = true;
+        }
+
+        if(orientation === "auto"){
+        useLandscape = iw > ih;
+        }
+
+        pageW = useLandscape ? landscape.w : portrait.w;
+        pageH = useLandscape ? landscape.h : portrait.h;
+        }
+
+        const maxW = pageW - margin * 2;
+        const maxH = pageH - margin * 2;
+
+        const scale = Math.min(
+        maxW / iw,
+        maxH / ih
+        );
+
+        const drawW = iw * scale;
+        const drawH = ih * scale;
+
+        pages.push({
+        pageW,
+        pageH,
+        imgW:iw,
+        imgH:ih,
+        drawW,
+        drawH,
+        x:(pageW - drawW) / 2,
+        y:(pageH - drawH) / 2,
+        data
+        });
+
+        $("pdfStatus").textContent = `正在生成 PDF：${i + 1}/${pdfFiles.length}`;
+        await new Promise(resolve => setTimeout(resolve,0));
+        }
+
+        const pdf = makeSimplePdf(pages);
+
+        triggerDownload(
+        pdf,
+        `images_${todayString()}.pdf`
+        );
+
+        $("pdfStatus").textContent = `完成：已生成 ${pdfFiles.length} 页 PDF。`;
+        }catch(error){
+        console.error(error);
+        $("pdfStatus").textContent = "PDF 生成失败。";
+        alert("PDF 生成失败：" + error.message);
+        }finally{
+        $("pdfDownloadBtn").disabled = false;
+        }
+        }
+
+        function bindPdfToolEvents(){
+        setDropZone(
+        $("pdfDrop"),
+        $("pdfInput"),
+        files => {
+        pdfFiles = files.filter(isImage);
+        renderPdfFiles();
+        }
+        );
+
+        $("pdfClearBtn").addEventListener("click",() => {
+        pdfFiles = [];
+        $("pdfInput").value = "";
+        renderPdfFiles();
+        $("pdfStatus").textContent = "准备就绪。";
+        });
+
+        $("pdfDownloadBtn").addEventListener("click",exportPdf);
+        }
+
+        function dataURLToUint8(dataUrl){
+        const base64 = dataUrl.split(",")[1];
+        const binary = atob(base64);
+        const data = new Uint8Array(binary.length);
+
+        for(let i = 0;i < binary.length;i++){
+        data[i] = binary.charCodeAt(i);
+        }
+
+        return data;
+        }
+
+        let b64Files = [];
+
+        async function renderBase64Results(){
+        const box = $("b64Results");
+        box.innerHTML = "";
+
+        if(!b64Files.length){
+        box.innerHTML = `<div class="previewEmpty">选择图片后显示结果</div>`;
+        $("b64Status").textContent = "准备就绪。";
+        return;
+        }
+
+        for(const file of b64Files){
+        const dataUrl = await fileToDataURL(file);
+
+        const item = document.createElement("div");
+        item.className = "base64Item";
+
+        item.innerHTML = `
+        <b>${escapeHtml(file.name)}</b>
+        <div class="small">长度：${dataUrl.length.toLocaleString()}</div>
+        <textarea class="mono" readonly>${dataUrl}</textarea>
+        <div class="row">
+        <button class="btn ghost smallBtn" type="button">复制</button>
+        </div>
+        `;
+
+        item.querySelector("button").addEventListener("click",() => {
+        copyText(dataUrl);
+        });
+
+        box.appendChild(item);
+        }
+
+        $("b64Status").textContent = `已生成 ${b64Files.length} 个 Base64。`;
+        }
+
+        async function exportBase64Txt(){
+        if(!b64Files.length){
+        alert("请先选择图片。");
+        return;
+        }
+
+        let text = "";
+
+        for(const file of b64Files){
+        text += `## ${file.name}\n${await fileToDataURL(file)}\n\n`;
+        }
+
+        triggerDownload(
+        new Blob([text],{
+        type:"text/plain;charset=utf-8"
+        }),
+        `base64_${todayString()}.txt`
+        );
+        }
+
+        function bindBase64ToolEvents(){
+        setDropZone(
+        $("b64Drop"),
+        $("b64Input"),
+        files => {
+        b64Files = files.filter(isImage);
+        renderBase64Results();
+        }
+        );
+
+        $("b64ClearBtn").addEventListener("click",() => {
+        b64Files = [];
+        $("b64Input").value = "";
+        renderBase64Results();
+        });
+
+        $("b64ExportTxtBtn").addEventListener("click",exportBase64Txt);
+        }
+
+        let listFiles = [];
+
+        function buildListText(){
+        return listFiles.map((file,index) => {
+        return `${index + 1}. ${file.name} | ${file.type || "未知类型"} | ${formatBytes(file.size)} | ${new Date(file.lastModified).toLocaleString()}`;
+        }).join("\n");
+        }
+
+        function renderFileListTool(){
+        const table = $("listTable");
+        table.innerHTML = "";
+
+        if(!listFiles.length){
+        table.innerHTML = `
+        <tr>
+        <td colspan="5" class="small">选择文件后显示</td>
+        </tr>
+        `;
+        $("listText").value = "";
+        $("listStatus").textContent = "准备就绪。";
+        return;
+        }
+
+        listFiles.forEach((file,index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${escapeHtml(file.name)}</td>
+        <td>${escapeHtml(file.type || "未知类型")}</td>
+        <td>${formatBytes(file.size)}</td>
+        <td>${new Date(file.lastModified).toLocaleString()}</td>
+        `;
+
+        table.appendChild(row);
+        });
+
+        $("listText").value = buildListText();
+        $("listStatus").textContent = `已生成 ${listFiles.length} 条文件记录。`;
+        }
+
+        function exportListTxt(){
+        if(!listFiles.length){
+        alert("请先选择文件。");
+        return;
+        }
+
+        triggerDownload(
+        new Blob([buildListText()],{
+        type:"text/plain;charset=utf-8"
+        }),
+        `file-list_${todayString()}.txt`
+        );
+        }
+
+        function exportListCsv(){
+        if(!listFiles.length){
+        alert("请先选择文件。");
+        return;
+        }
+
+        const rows = [
+        ["序号","文件名","类型","大小(bytes)","大小(可读)","修改时间"]
+        ].concat(
+        listFiles.map((file,index) => [
+        index + 1,
+        file.name,
+        file.type || "未知类型",
+        file.size,
+        formatBytes(file.size),
+        new Date(file.lastModified).toLocaleString()
+        ])
+        );
+
+        const csv = rows
+        .map(row => row.map(csvEscape).join(","))
+        .join("\n");
+
+        triggerDownload(
+        new Blob([csv],{
+        type:"text/csv;charset=utf-8"
+        }),
+        `file-list_${todayString()}.csv`
+        );
+        }
+
+        function bindFileListToolEvents(){
+        setDropZone(
+        $("listDrop"),
+        $("listInput"),
+        files => {
+        listFiles = [...files];
+        renderFileListTool();
+        }
+        );
+
+        $("listClearBtn").addEventListener("click",() => {
+        listFiles = [];
+        $("listInput").value = "";
+        renderFileListTool();
+        });
+
+        $("listCopyBtn").addEventListener("click",() => {
+        copyText(buildListText());
+        });
+
+        $("listCsvBtn").addEventListener("click",exportListCsv);
+        $("listTxtBtn").addEventListener("click",exportListTxt);
+        }
+        function bindTimeToolEvents(){
+        function parseTimestamp(){
+        const raw = $("tsInput").value.trim();
+
+        if(!raw){
+        $("tsResult").textContent = "请输入时间戳";
+        return;
+        }
+
+        let num = Number(raw);
+
+        if(!Number.isFinite(num)){
+        $("tsResult").textContent = "无效时间戳";
+        return;
+        }
+
+        if(raw.length <= 10){
+        num *= 1000;
+        }
+
+        const date = new Date(num);
+
+        if(Number.isNaN(date.getTime())){
+        $("tsResult").textContent = "无法解析该时间戳";
+        return;
+        }
+
+        $("tsResult").textContent =
+        `本地时间：${date.toLocaleString()}\n` +
+        `ISO：${date.toISOString()}\n` +
+        `秒时间戳：${Math.floor(date.getTime() / 1000)}\n` +
+        `毫秒时间戳：${date.getTime()}`;
+        }
+
+        function parseDate(){
+        const raw = $("dateInput").value;
+
+        if(!raw){
+        $("dateResult").textContent = "请选择日期时间";
+        return;
+        }
+
+        const date = new Date(raw);
+
+        if(Number.isNaN(date.getTime())){
+        $("dateResult").textContent = "无法解析该日期";
+        return;
+        }
+
+        $("dateResult").textContent =
+        `本地时间：${date.toLocaleString()}\n` +
+        `ISO：${date.toISOString()}\n` +
+        `秒时间戳：${Math.floor(date.getTime() / 1000)}\n` +
+        `毫秒时间戳：${date.getTime()}`;
+        }
+
+        $("tsParseBtn").addEventListener("click",parseTimestamp);
+
+        $("tsNowBtn").addEventListener("click",() => {
+        $("tsInput").value = String(Date.now());
+        parseTimestamp();
+        });
+
+        $("dateParseBtn").addEventListener("click",parseDate);
+
+        $("dateNowBtn").addEventListener("click",() => {
+        setNowDateInput($("dateInput"));
+        parseDate();
+        });
+
+        setNowDateInput($("dateInput"));
+        }
+
+        let stitchFiles = [];
+        const stitchCanvas = $("stitchCanvas");
+
+        function renderStitchList(){
+        renderSimpleFileList(
+        $("stitchFileList"),
+        stitchFiles,
+        -1,
+        null
+        );
+        }
+
+        async function buildStitchImage(){
+        if(!stitchFiles.length){
+        alert("请先选择图片。");
+        return;
+        }
+
+        $("stitchStatus").textContent = "正在生成拼接图…";
+
+        const images = [];
+
+        for(const file of stitchFiles){
+        images.push(await loadImage(file));
+        }
+
+        const direction = $("stitchDirection").value;
+        const gap = Math.max(0,Number($("stitchGap").value) || 0);
+        const bg = $("stitchBg").value || "#ffffff";
+        const fixedSize = Number($("stitchSize").value) || 0;
+        const cols = Math.max(1,Number($("stitchCols").value) || 3);
+
+        const sizes = images.map(img => {
+        let w = img.naturalWidth || img.width;
+        let h = img.naturalHeight || img.height;
+
+        if(fixedSize){
+        if(direction === "horizontal"){
+        const scale = fixedSize / h;
+        h = fixedSize;
+        w = Math.round(w * scale);
+        }else{
+        const scale = fixedSize / w;
+        w = fixedSize;
+        h = Math.round(h * scale);
+        }
+        }
+
+        return {
+        w,
+        h
+        };
+        });
+
+        let canvasW = 0;
+        let canvasH = 0;
+
+        if(direction === "vertical"){
+        canvasW = Math.max(...sizes.map(item => item.w));
+        canvasH = sizes.reduce((sum,item) => sum + item.h,0) + gap * (sizes.length - 1);
+        }
+
+        if(direction === "horizontal"){
+        canvasW = sizes.reduce((sum,item) => sum + item.w,0) + gap * (sizes.length - 1);
+        canvasH = Math.max(...sizes.map(item => item.h));
+        }
+
+        if(direction === "grid"){
+        const rows = Math.ceil(sizes.length / cols);
+        const cellW = Math.max(...sizes.map(item => item.w));
+        const cellH = Math.max(...sizes.map(item => item.h));
+
+        canvasW = cols * cellW + gap * (cols - 1);
+        canvasH = rows * cellH + gap * (rows - 1);
+        }
+
+        stitchCanvas.width = Math.max(1,canvasW);
+        stitchCanvas.height = Math.max(1,canvasH);
+
+        const ctx = stitchCanvas.getContext("2d");
+        ctx.fillStyle = bg;
+        ctx.fillRect(
+        0,
+        0,
+        stitchCanvas.width,
+        stitchCanvas.height
+        );
+
+        if(direction === "vertical"){
+        let y = 0;
+
+        images.forEach((img,index) => {
+        const size = sizes[index];
+        const x = (canvasW - size.w) / 2;
+
+        ctx.drawImage(
+        img,
+        x,
+        y,
+        size.w,
+        size.h
+        );
+
+        y += size.h + gap;
+        });
+        }
+
+        if(direction === "horizontal"){
+        let x = 0;
+
+        images.forEach((img,index) => {
+        const size = sizes[index];
+        const y = (canvasH - size.h) / 2;
+
+        ctx.drawImage(
+        img,
+        x,
+        y,
+        size.w,
+        size.h
+        );
+
+        x += size.w + gap;
+        });
+        }
+
+        if(direction === "grid"){
+        const cellW = Math.max(...sizes.map(item => item.w));
+        const cellH = Math.max(...sizes.map(item => item.h));
+
+        images.forEach((img,index) => {
+        const size = sizes[index];
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+
+        const x = col * (cellW + gap) + (cellW - size.w) / 2;
+        const y = row * (cellH + gap) + (cellH - size.h) / 2;
+
+        ctx.drawImage(
+        img,
+        x,
+        y,
+        size.w,
+        size.h
+        );
+        });
+        }
+
+        stitchCanvas.style.display = "block";
+        $("stitchCanvasEmpty").style.display = "none";
+        $("stitchStatus").textContent = `已生成 ${stitchCanvas.width}×${stitchCanvas.height} 拼接图。`;
+        }
+
+        async function downloadStitchImage(){
+        if(!stitchCanvas.width || !stitchCanvas.height){
+        await buildStitchImage();
+        }
+
+        if(!stitchCanvas.width || !stitchCanvas.height){
+        return;
+        }
+
+        const format = $("stitchFormat").value;
+        const blob = await canvasToBlob(
+        stitchCanvas,
+        format,
+        0.92
+        );
+
+        const ext = extensionForMime(
+        format,
+        "png"
+        );
+
+        triggerDownload(
+        blob,
+        `stitched_${todayString()}.${ext}`
+        );
+        }
+
+        function bindStitchToolEvents(){
+        setDropZone(
+        $("stitchDrop"),
+        $("stitchInput"),
+        files => {
+        stitchFiles = files.filter(isImage);
+        renderStitchList();
+
+        stitchCanvas.width = 0;
+        stitchCanvas.height = 0;
+
+        stitchCanvas.style.display = "none";
+        $("stitchCanvasEmpty").style.display = "block";
+        $("stitchStatus").textContent = "准备就绪。";
+        }
+        );
+
+        $("stitchBuildBtn").addEventListener("click",buildStitchImage);
+        $("stitchDownloadBtn").addEventListener("click",downloadStitchImage);
+
+        $("stitchClearBtn").addEventListener("click",() => {
+        stitchFiles = [];
+        $("stitchInput").value = "";
+        renderStitchList();
+
+        stitchCanvas.width = 0;
+        stitchCanvas.height = 0;
+
+        stitchCanvas.style.display = "none";
+        $("stitchCanvasEmpty").style.display = "block";
+        $("stitchStatus").textContent = "准备就绪。";
+        });
+        }
+
+        function rgbToCmyk(r,g,b){
+        r /= 255;
+        g /= 255;
+        b /= 255;
+
+        const k = 1 - Math.max(r,g,b);
+
+        if(k >= 1){
+        return [0,0,0,100];
+        }
+
+        const c = (1 - r - k) / (1 - k);
+        const m = (1 - g - k) / (1 - k);
+        const y = (1 - b - k) / (1 - k);
+
+        return [
+        Math.round(c * 100),
+        Math.round(m * 100),
+        Math.round(y * 100),
+        Math.round(k * 100)
+        ];
+        }
+
+        function relativeLuminance(rgb){
+        const values = rgb.map(value => {
+        value /= 255;
+
+        return value <= 0.03928
+        ? value / 12.92
+        : Math.pow((value + 0.055) / 1.055,2.4);
+        });
+
+        return 0.2126 * values[0] + 0.7152 * values[1] + 0.0722 * values[2];
+        }
+
+        function contrastRatio(fg,bg){
+        const l1 = relativeLuminance(fg);
+        const l2 = relativeLuminance(bg);
+
+        const lighter = Math.max(l1,l2);
+        const darker = Math.min(l1,l2);
+
+        return (lighter + 0.05) / (darker + 0.05);
+        }
+
+        function renderColorSwatches(colors){
+        const box = $("colorPreviewBox");
+        box.innerHTML = "";
+
+        colors.forEach(rgb => {
+        const hex = rgbToHex(rgb);
+
+        const item = document.createElement("div");
+        item.className = "swatch";
+
+        item.innerHTML = `
+        <div class="swatchColor" style="background:${hex};"></div>
+        <div class="swatchInfo">
+        <b>${hex}</b>
+        <span>RGB(${rgb.join(", ")})</span>
+        </div>
+        `;
+
+        item.addEventListener("click",() => copyText(hex));
+
+        box.appendChild(item);
+        });
+        }
+
+        function convertColor(){
+        let hex = $("hexInput").value.trim();
+
+        if(!hex.startsWith("#")){
+        hex = "#" + hex;
+        }
+
+        const rgb = hexToRgb(hex);
+        const hsl = rgbToHsl(
+        rgb[0],
+        rgb[1],
+        rgb[2]
+        );
+
+        const cmyk = rgbToCmyk(
+        rgb[0],
+        rgb[1],
+        rgb[2]
+        );
+
+        const h = Math.round(hsl[0] * 360);
+        const s = Math.round(hsl[1] * 100);
+        const l = Math.round(hsl[2] * 100);
+
+        $("colorInput").value = rgbToHex(rgb);
+        $("hexInput").value = rgbToHex(rgb);
+
+        const palette = [
+        rgb,
+        hslToRgb((hsl[0] + 0.08) % 1,hsl[1],Math.min(1,hsl[2] + 0.1)).map(v => Math.round(v)),
+        hslToRgb((hsl[0] + 0.5) % 1,hsl[1],hsl[2]).map(v => Math.round(v)),
+        hslToRgb((hsl[0] + 0.33) % 1,hsl[1] * 0.8,hsl[2]).map(v => Math.round(v)),
+        hslToRgb((hsl[0] + 0.66) % 1,hsl[1] * 0.8,hsl[2]).map(v => Math.round(v)),
+        hslToRgb(hsl[0],Math.max(0.1,hsl[1] * 0.35),Math.min(1,hsl[2] + 0.2)).map(v => Math.round(v))
+        ];
+
+        renderColorSwatches(palette);
+
+        $("colorResult").textContent =
+        `HEX：${rgbToHex(rgb)}\n` +
+        `RGB：rgb(${rgb.join(", ")})\n` +
+        `HSL：hsl(${h}, ${s}%, ${l}%)\n` +
+        `CMYK 近似：cmyk(${cmyk.join("%, ")}%)\n\n` +
+        `CSS 变量：\n` +
+        `--color-main: ${rgbToHex(rgb)};`;
+        }
+
+        function checkContrast(){
+        const fg = hexToRgb($("contrastFg").value);
+        const bg = hexToRgb($("contrastBg").value);
+
+        const ratio = contrastRatio(fg,bg);
+        const score = ratio >= 7
+        ? "AAA"
+        : ratio >= 4.5
+        ? "AA"
+        : ratio >= 3
+        ? "大字号可用"
+        : "不建议";
+
+        $("colorResult").textContent =
+        `前景色：${rgbToHex(fg)}\n` +
+        `背景色：${rgbToHex(bg)}\n` +
+        `对比度：${ratio.toFixed(2)} : 1\n` +
+        `结果：${score}`;
+        }
+
+        function generateGradient(){
+        const a = $("gradA").value;
+        const b = $("gradB").value;
+
+        const css =
+        `background: linear-gradient(135deg, ${a}, ${b});`;
+
+        $("colorResult").textContent =
+        `CSS 渐变：\n${css}\n\n` +
+        `完整示例：\n.box {\n  ${css}\n}`;
+
+        renderColorSwatches([
+        hexToRgb(a),
+        hexToRgb(b)
+        ]);
+        }
+
+        function bindColorToolEvents(){
+        $("colorInput").addEventListener("input",() => {
+        $("hexInput").value = $("colorInput").value.toUpperCase();
+        convertColor();
+        });
+
+        $("colorConvertBtn").addEventListener("click",convertColor);
+
+        $("colorCopyBtn").addEventListener("click",() => {
+        copyText($("colorResult").textContent);
+        });
+
+        $("contrastCheckBtn").addEventListener("click",checkContrast);
+        $("gradientBtn").addEventListener("click",generateGradient);
+
+        convertColor();
+        }
+
+        function textLines(){
+        return $("textInput").value.split(/\r?\n/);
+        }
+
+        function writeTextOutput(lines){
+        $("textOutput").value = Array.isArray(lines)
+        ? lines.join("\n")
+        : String(lines);
+
+        $("textStatus").textContent =
+        `结果长度：${$("textOutput").value.length.toLocaleString()} 字符`;
+        }
+
+        function bindTextToolEvents(){
+        $("textUniqueBtn").addEventListener("click",() => {
+        const seen = new Set();
+        const result = [];
+
+        textLines().forEach(line => {
+        if(!seen.has(line)){
+        seen.add(line);
+        result.push(line);
+        }
+        });
+
+        writeTextOutput(result);
+        });
+
+        $("textSortBtn").addEventListener("click",() => {
+        const collator = new Intl.Collator("zh-CN",{
+        numeric:true,
+        sensitivity:"base"
+        });
+
+        writeTextOutput(textLines().sort(collator.compare));
+        });
+
+        $("textTrimBtn").addEventListener("click",() => {
+        writeTextOutput(textLines().map(line => line.trim()));
+        });
+
+        $("textReplaceBtn").addEventListener("click",() => {
+        const find = $("textFind").value;
+        const replace = $("textReplace").value;
+
+        if(!find){
+        writeTextOutput($("textInput").value);
+        return;
+        }
+
+        writeTextOutput($("textInput").value.split(find).join(replace));
+        });
+
+        $("textLowerBtn").addEventListener("click",() => {
+        writeTextOutput($("textInput").value.toLowerCase());
+        });
+
+        $("textUpperBtn").addEventListener("click",() => {
+        writeTextOutput($("textInput").value.toUpperCase());
+        });
+
+        $("textCopyBtn").addEventListener("click",() => {
+        copyText($("textOutput").value);
+        });
+        }
+
+        function parseCsv(text){
+        const rows = [];
+        let row = [];
+        let cell = "";
+        let quote = false;
+
+        for(let i = 0;i < text.length;i++){
+        const ch = text[i];
+        const next = text[i + 1];
+
+        if(ch === '"' && quote && next === '"'){
+        cell += '"';
+        i++;
+        continue;
+        }
+
+        if(ch === '"'){
+        quote = !quote;
+        continue;
+        }
+
+        if(ch === "," && !quote){
+        row.push(cell);
+        cell = "";
+        continue;
+        }
+
+        if((ch === "\n" || ch === "\r") && !quote){
+        if(ch === "\r" && next === "\n"){
+        i++;
+        }
+
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = "";
+        continue;
+        }
+
+        cell += ch;
+        }
+
+        row.push(cell);
+
+        if(row.length > 1 || row[0] !== ""){
+        rows.push(row);
+        }
+
+        return rows;
+        }
+
+        function bindJsonToolEvents(){
+        $("jsonFormatBtn").addEventListener("click",() => {
+        try{
+        const obj = JSON.parse($("jsonInput").value);
+        $("jsonOutput").value = JSON.stringify(obj,null,2);
+        $("jsonStatus").textContent = "JSON 格式化完成";
+        }catch(error){
+        $("jsonStatus").textContent = "JSON 解析失败";
+        $("jsonOutput").value = error.message;
+        }
+        });
+
+        $("jsonMinifyBtn").addEventListener("click",() => {
+        try{
+        const obj = JSON.parse($("jsonInput").value);
+        $("jsonOutput").value = JSON.stringify(obj);
+        $("jsonStatus").textContent = "JSON 压缩完成";
+        }catch(error){
+        $("jsonStatus").textContent = "JSON 解析失败";
+        $("jsonOutput").value = error.message;
+        }
+        });
+
+        $("csvToJsonBtn").addEventListener("click",() => {
+        const rows = parseCsv($("jsonInput").value);
+
+        if(!rows.length){
+        $("jsonOutput").value = "[]";
+        return;
+        }
+
+        const header = rows[0];
+
+        const data = rows.slice(1).map(row => {
+        const obj = {};
+
+        header.forEach((key,index) => {
+        obj[key || `field_${index + 1}`] = row[index] ?? "";
+        });
+
+        return obj;
+        });
+
+        $("jsonOutput").value = JSON.stringify(data,null,2);
+        $("jsonStatus").textContent = `CSV 转 JSON 完成：${data.length} 行`;
+        });
+
+        $("jsonCopyBtn").addEventListener("click",() => {
+        copyText($("jsonOutput").value);
+        });
+        }
+
+        let iconFile = null;
+
+        async function renderIconPreview(){
+        if(!iconFile){
+        $("iconCanvas").style.display = "none";
+        $("iconCanvasEmpty").style.display = "block";
+        return;
+        }
+
+        const img = await loadImage(iconFile);
+        const canvas = $("iconCanvas");
+        canvas.width = 256;
+        canvas.height = 256;
+
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0,0,256,256);
+
+        const size = Math.min(
+        img.naturalWidth || img.width,
+        img.naturalHeight || img.height
+        );
+
+        const sx = ((img.naturalWidth || img.width) - size) / 2;
+        const sy = ((img.naturalHeight || img.height) - size) / 2;
+
+        ctx.drawImage(
+        img,
+        sx,
+        sy,
+        size,
+        size,
+        0,
+        0,
+        256,
+        256
+        );
+
+        canvas.style.display = "block";
+        $("iconCanvasEmpty").style.display = "none";
+        }
+
+        async function exportIcons(){
+        if(!iconFile){
+        alert("请先选择图片。");
+        return;
+        }
+
+        const sizes = $("iconSizes").value
+        .split(",")
+        .map(item => Number(item.trim()))
+        .filter(item => item > 0);
+
+        if(!sizes.length){
+        alert("请输入尺寸列表。");
+        return;
+        }
+
+        const img = await loadImage(iconFile);
+        const entries = [];
+
+        for(const sizeValue of sizes){
+        const canvas = document.createElement("canvas");
+        canvas.width = sizeValue;
+        canvas.height = sizeValue;
+
+        const ctx = canvas.getContext("2d");
+
+        const size = Math.min(
+        img.naturalWidth || img.width,
+        img.naturalHeight || img.height
+        );
+
+        const sx = ((img.naturalWidth || img.width) - size) / 2;
+        const sy = ((img.naturalHeight || img.height) - size) / 2;
+
+        ctx.clearRect(0,0,sizeValue,sizeValue);
+
+        ctx.drawImage(
+        img,
+        sx,
+        sy,
+        size,
+        size,
+        0,
+        0,
+        sizeValue,
+        sizeValue
+        );
+
+        const blob = await canvasToBlob(
+        canvas,
+        "image/png",
+        1
+        );
+
+        entries.push({
+        name:`icon_${sizeValue}x${sizeValue}.png`,
+        data:new Uint8Array(await blob.arrayBuffer())
+        });
+        }
+
+        const htmlCode =
+        `<link rel="icon" href="icon_32x32.png">\n` +
+        `<link rel="apple-touch-icon" href="icon_180x180.png">`;
+
+        entries.push({
+        name:"favicon_code.txt",
+        data:new TextEncoder().encode(htmlCode)
+        });
+
+        triggerDownload(
+        makeZip(entries),
+        `icons_${todayString()}.zip`
+        );
+
+        $("iconStatus").textContent = `完成：已生成 ${sizes.length} 个尺寸。`;
+        }
+
+        function bindIconToolEvents(){
+        setDropZone(
+        $("iconDrop"),
+        $("iconInput"),
+        files => {
+        iconFile = files.find(isImage) || null;
+        renderIconPreview();
+        $("iconStatus").textContent = iconFile ? iconFile.name : "准备就绪。";
+        }
+        );
+
+        $("iconExportBtn").addEventListener("click",exportIcons);
+
+        $("iconClearBtn").addEventListener("click",() => {
+        iconFile = null;
+        $("iconInput").value = "";
+        renderIconPreview();
+        $("iconStatus").textContent = "准备就绪。";
+        });
+        }
+
+        let hashFiles = [];
+        let hashText = "";
+
+        async function sha256(file){
+        const buffer = await file.arrayBuffer();
+        const digest = await crypto.subtle.digest("SHA-256",buffer);
+
+        return Array.from(new Uint8Array(digest))
+        .map(byte => byte.toString(16).padStart(2,"0"))
+        .join("");
+        }
+
+        async function runHash(){
+        if(!hashFiles.length){
+        alert("请先选择文件。");
+        return;
+        }
+
+        $("hashRunBtn").disabled = true;
+        $("hashProgress").classList.remove("hidden");
+        $("hashResult").textContent = "";
+
+        const map = new Map();
+        const lines = [];
+
+        try{
+        for(let i = 0;i < hashFiles.length;i++){
+        const file = hashFiles[i];
+
+        $("hashProgress").value = Math.round(i / hashFiles.length * 100);
+        $("hashStatus").textContent = `计算中 ${i + 1}/${hashFiles.length}：${file.name}`;
+
+        const hash = await sha256(file);
+
+        if(!map.has(hash)){
+        map.set(hash,[]);
+        }
+
+        map.get(hash).push(file.name);
+
+        lines.push(
+        `${i + 1}. ${file.name}\n` +
+        `大小：${formatBytes(file.size)}\n` +
+        `SHA-256：${hash}\n`
+        );
+
+        await new Promise(resolve => setTimeout(resolve,0));
+        }
+
+        const duplicates = [];
+
+        map.forEach((names,hash) => {
+        if(names.length > 1){
+        duplicates.push(
+        `重复内容：\n${names.map(name => `- ${name}`).join("\n")}\n哈希：${hash}`
+        );
+        }
+        });
+
+        hashText =
+        lines.join("\n") +
+        "\n" +
+        (duplicates.length
+        ? "\n====== 重复文件 ======\n" + duplicates.join("\n\n")
+        : "\n未发现相同哈希的重复文件。");
+
+        $("hashResult").textContent = hashText;
+        $("hashStatus").textContent = `完成：已计算 ${hashFiles.length} 个文件。`;
+        }catch(error){
+        console.error(error);
+        $("hashStatus").textContent = "哈希计算失败。";
+        $("hashResult").textContent = error.message;
+        }finally{
+        $("hashRunBtn").disabled = false;
+        $("hashProgress").classList.add("hidden");
+        $("hashProgress").value = 0;
+        }
+        }
+
+        function bindHashToolEvents(){
+        setDropZone(
+        $("hashDrop"),
+        $("hashInput"),
+        files => {
+        hashFiles = [...files];
+        hashText = "";
+        $("hashResult").textContent = hashFiles.length
+        ? `已选择 ${hashFiles.length} 个文件，点击“计算哈希”。`
+        : "选择文件后计算";
+        $("hashStatus").textContent = "准备就绪。";
+        }
+        );
+
+        $("hashRunBtn").addEventListener("click",runHash);
+
+        $("hashCopyBtn").addEventListener("click",() => {
+        copyText(hashText || $("hashResult").textContent);
+        });
+
+        $("hashClearBtn").addEventListener("click",() => {
+        hashFiles = [];
+        hashText = "";
+        $("hashInput").value = "";
+        $("hashResult").textContent = "选择文件后计算";
+        $("hashStatus").textContent = "准备就绪。";
+        });
+        }
+
+        function initialize(){
+        createImageControls();
+
+        bindImageToolEvents();
+        bindRenameToolEvents();
+        bindPdfToolEvents();
+        bindBase64ToolEvents();
+        bindFileListToolEvents();
+        bindTimeToolEvents();
+        bindStitchToolEvents();
+        bindColorToolEvents();
+        bindTextToolEvents();
+        bindJsonToolEvents();
+        bindIconToolEvents();
+        bindHashToolEvents();
+
+        renderImageFileList();
+        renderImagePreview();
+        renderRenameFiles();
+        renderPdfFiles();
+        renderBase64Results();
+        renderFileListTool();
+        renderStitchList();
+        renderIconPreview();
+        }
+
+        initialize();
+        })();
+    </script>
+</body>
+</html>

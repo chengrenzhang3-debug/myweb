@@ -11,6 +11,30 @@
     <link rel="shortcut icon" type="image/png" href="./assets/site-logo.png?v=999">
     <link rel="apple-touch-icon" href="./assets/site-logo.png?v=999">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .tool-entry-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            padding: 8px 14px;
+            border: 2px solid #111;
+            border-radius: 999px;
+            background: #ffd23f;
+            color: #111;
+            font-weight: 900;
+            line-height: 1;
+            text-decoration: none;
+            box-shadow: 3px 3px 0 #111;
+            transform: rotate(-1deg);
+            cursor: pointer;
+        }
+
+            .tool-entry-button:hover {
+                transform: translate(-1px, -1px) rotate(-1deg);
+                box-shadow: 5px 5px 0 #111;
+            }
+    </style>
 </head>
 
 <body>
@@ -68,9 +92,10 @@
       <header class="nav">
         <div class="nav-left">PORTFOLIO 2025</div>
         <nav>
-          <button data-page="0">01 &#23553;&#38754;</button>
-          <button data-page="1">02 &#31616;&#21382;</button>
-          <button data-page="2">03 &#30446;&#24405;</button>
+            <button data-page="0">01 &#23553;&#38754;</button>
+            <button data-page="1">02 &#31616;&#21382;</button>
+            <button data-page="2">03 &#30446;&#24405;</button>
+            <a class="tool-entry-button" href="tool.html">TOOL</a>
         </nav>
       </header>
 
