@@ -107,10 +107,8 @@
       <article class="video-frame">
         <div class="recording-heading"><h2 id="friend-playtest-title" tabindex="-1">朋友试玩</h2><span>6:57</span></div>
         <p>朋友实际操作，体验工作室装修、实习关卡、道具、摄影和撤离。</p>
-        <video controls playsinline preload="none" width="1920" height="1068" poster="assets/treasurewhere-video-poster.webp" aria-label="宝物去哪儿了，朋友试玩">
-          <source src="assets/treasurewhere-friend-playtest.mp4" type="video/mp4">
-          <a href="assets/treasurewhere-friend-playtest.mp4">打开朋友试玩视频</a>
-        </video>
+        <video controls playsinline preload="none" width="1920" height="1068" poster="assets/treasurewhere-video-poster.webp" aria-label="宝物去哪儿了，朋友试玩" data-playlist="assets/video-streams/friend-playtest/index.m3u8">需要浏览器支持 HTML 视频。</video>
+        <p data-video-status role="status" hidden></p>
       </article>
     </section>
 
@@ -118,10 +116,8 @@
       <article class="video-frame">
         <div class="recording-heading"><h2 id="full-showcase-title" tabindex="-1">完整展示</h2><span>8:59</span></div>
         <p>回声商场的一整局。从工作室出发，搜宝、解谜、拍摄、推车撤离，再把带回的素材剪成视频。</p>
-        <video controls playsinline preload="none" width="1280" height="720" poster="assets/treasurewhere-full-poster.webp" aria-label="宝物去哪儿了，完整展示">
-          <source src="assets/treasurewhere-full-showcase.mp4" type="video/mp4">
-          <a href="assets/treasurewhere-full-showcase.mp4">打开完整展示视频</a>
-        </video>
+        <video controls playsinline preload="none" width="1280" height="720" poster="assets/treasurewhere-full-poster.webp" aria-label="宝物去哪儿了，完整展示" data-playlist="assets/video-streams/full-showcase/index.m3u8">需要浏览器支持 HTML 视频。</video>
+        <p data-video-status role="status" hidden></p>
       </article>
     </section>
   </main>
@@ -130,6 +126,8 @@
     <button id="nextScreen" type="button">下一屏 ↓</button>
   </footer>
   <script src="js/treasurewhere.js"></script>
+  <script src="js/vendor/hls.light.min.js"></script>
+  <script src="js/portfolio-video.js"></script>
   <script src="loading-transition.js"></script>
 </body>
 </html>

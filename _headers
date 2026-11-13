@@ -1,0 +1,6 @@
+/assets/video-streams/city/index.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/assets/video-streams/friend-playtest/index.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/assets/video-streams/full-showcase/index.m3u8
+  Content-Type: application/vnd.apple.mpegurl

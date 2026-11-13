@@ -101,10 +101,8 @@
     </section>
     <section class="city-slide city-video" id="gameplay" aria-labelledby="gameplay-title" hidden>
       <h2 id="gameplay-title" tabindex="-1">实机演示</h2>
-      <video controls playsinline preload="none" width="1920" height="1200" poster="assets/city/poster.webp" aria-label="大逃杀都市实机演示">
-        <source src="assets/city/gameplay.mp4" type="video/mp4">
-        <a href="assets/city/gameplay.mp4">打开实机演示</a>
-      </video>
+      <video controls playsinline preload="none" width="1920" height="1200" poster="assets/city/poster.webp" aria-label="大逃杀都市实机演示" data-playlist="assets/video-streams/city/index.m3u8">需要浏览器支持 HTML 视频。</video>
+      <p data-video-status role="status" hidden></p>
     </section>
     <canvas id="city-particles" aria-hidden="true"></canvas>
   </main>
@@ -144,9 +142,11 @@
     </details>
     <section class="city-rule-links" aria-label="相关规则"></section>
   </dialog>
-  <noscript><p class="city-noscript"><a href="assets/city/gameplay.mp4">观看实机演示</a></p></noscript>
+  <noscript><p class="city-noscript">请启用 JavaScript 观看实机演示。</p></noscript>
   <script src="js/city-rules.js"></script>
   <script src="js/city.js"></script>
+  <script src="js/vendor/hls.light.min.js"></script>
+  <script src="js/portfolio-video.js"></script>
   <script src="loading-transition.js"></script>
 </body>
 </html>
