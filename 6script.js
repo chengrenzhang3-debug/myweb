@@ -10,6 +10,8 @@ const PROJECT_ENTRY_PAGES = new Set([
   "children-water.html",
   "ai-home.html",
   "astory.html",
+  "city.html",
+  "treasurewhere.html",
   "UIUX.html",
   "projects.html",
   "experiments.html"

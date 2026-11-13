@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="《宝物去哪儿了》是一个第一人称 3D 猫猫探险游戏原型。查看玩法设计、朋友试玩和完整展示。">
+  <title>宝物去哪儿了｜张长瑞的作品集</title>
+  <link rel="icon" href="assets/site-logo.png">
+  <link rel="stylesheet" href="css/treasurewhere.css">
+</head>
+<body>
+  <header class="case-nav">
+    <a id="portfolioBack" href="index.html?page=2">← 返回作品地图</a>
+    <nav aria-label="案例目录">
+      <a href="#cover">封面</a>
+      <a href="#design">最初企划</a>
+      <a href="#friend-playtest">朋友试玩</a>
+      <a href="#full-showcase">完整展示</a>
+    </nav>
+  </header>
+  <main class="case-stage">
+    <section class="case-screen hero" id="cover" aria-labelledby="title">
+      <div class="hero-copy">
+        <p class="eyebrow">UNITY 3D · 玩法与系统设计</p>
+        <h1 id="title" tabindex="-1">宝物去哪儿了</h1>
+        <p class="lead">你是猫猫岛的探险博主。带上队友、相机和小推车，去旧人类遗迹搜宝，把怪物和猫猫互坑的瞬间拍下来，活着撤离才能回工作室发片涨粉。</p>
+        <div class="hero-actions">
+          <a class="button" href="#full-showcase">看完整展示</a>
+          <a class="button secondary" href="#friend-playtest">看朋友试玩</a>
+        </div>
+      </div>
+      <img class="hero-art" src="assets/treasurewhere-cover.png" width="1224" height="816" alt="三只探险猫用小推车搬电视，一只猫举起摄影机，布偶怪在废弃商场探头">
+    </section>
+
+    <section class="case-screen plan-screen" id="design" aria-labelledby="design-title">
+      <article class="plan">
+        <header class="plan-header">
+          <p class="eyebrow">《宝物去哪儿了》</p>
+          <h2 id="design-title" tabindex="-1">最初企划</h2>
+          <nav class="plan-contents" aria-label="企划目录">
+            <a href="#world">背景设定</a>
+            <a href="#core">核心玩法</a>
+            <a href="#season">赛季与局外养成</a>
+          </nav>
+        </header>
+
+        <section class="plan-chapter">
+          <h3>一句话介绍</h3>
+          <p>在这款第一人称多人 PvPvE 游戏里，三只猫猫带着推车与摄影机探索旧人类遗迹，一边和怪物周旋、跟其他小队互坑夺宝，一边把惊险遭遇拍下来，回岛发布视频，经营自己的探险工作室。</p>
+        </section>
+
+        <section class="plan-chapter" id="world">
+          <h3>背景设定</h3>
+          <p>一场陨石灾难使人类文明消亡，太平洋某座岛上的猫猫却受到陨石能量影响，变成了可爱的魔法猫猫！</p>
+          <p>它们建立了自己的文明。对于从未见过人类的猫猫而言，旧人类遗迹既神秘又危险。废弃的商场、博物馆和游乐园里留下了稀奇古怪的物品，也盘踞着变异的人类和其他怪物。</p>
+          <p>旧文明遗物成了猫猫岛上的热门收藏品，去遗迹探险拍下的视频也深受居民欢迎。玩家将经营一家探险视频工作室，雇佣不同的猫猫员工，前往遗迹寻找珍宝、拍摄视频，在积累财富和粉丝的同时，把工作室发展壮大。</p>
+        </section>
+
+        <section class="plan-chapter" id="core">
+          <h3>核心玩法</h3>
+
+          <h4>1. 随机地图与宝物争夺</h4>
+          <p>每局四支猫猫小队进入同一处旧人类遗迹。每队支持一至三名玩家，单人局改为六队。各队争夺数量有限的珍贵物品，并在规定时间内撤离。</p>
+          <p>地图由预制房间按规则组合。以商场为例，监控室、仓库和地下停车场始终存在，位置、连接道路和宝物分布会变化。玩家需要找钥匙、保险丝等关卡道具，逐步打开高价值区域。</p>
+          <p>宝物需要实体搬运。猫猫可以抱起一件物品，也可以用小推车运多件。物品有不同体积、重量和价值，易碎品可能因碰撞受损。一只猫猫费半天劲把比自己还大的电视搬上车，下坡时没拉稳，连猫带车一起翻了个底朝天。</p>
+          <p>随着时间推移，怪物越来越活跃。满载的推车难以操控，也更容易发出动静。玩家可以继续搜刮，也可以先带着现有收获撤离。其他小队会抢先解谜、趁你对付怪物时拉走推车，或者埋伏在撤离路上。找到宝物只是开始，如何把它安全带出去才是这一局的难题。</p>
+
+          <h4>2. 多角色切换与怪物战斗</h4>
+          <p>每支探险队固定由三只猫猫组成，支持一至三名玩家联机，人数不足时由 AI 补足。出发前选员工，局内可接管一定距离内的 AI 队友。AI 可按预设指令跟随、警戒、看守推车，或在指定位置架设摄影机。</p>
+          <p>不同猫猫有不同的魔法和职业能力。遇到怪物时，玩家需要观察行为，再选择合适的角色与道具。搬运大型物品或被怪物控制时无法切换，接管距离也有限。谁抱宝、谁掩护、谁掌镜，会改变探索和战斗的节奏。</p>
+          <p>猫猫员工通过随机词条组合招聘和培训。服装按猫咪品类适配，例如奶牛猫专属皮肤可供所有奶牛猫穿戴。经常出镜的猫猫能因高光时刻积累个人粉丝和话题，即使能力一般，也可能成为玩家愿意继续带上场的招牌角色。</p>
+
+          <h4>3. 以互坑为主的非致命对抗</h4>
+          <p>队伍争的是位置、时间和宝物。推搡、绊倒、堵门、放黏液陷阱，或把怪物引到对手身边，都能打乱别队的计划。比如在走廊拐角布置陷阱，让抱着宝物的对手滑倒，再抢走掉落的东西。动静太大，两队也可能被同一只怪物追着跑。</p>
+          <p>同样的动作也能保护队友。推同伴一把，让它脱离怪物的攻击范围，替抱宝的队友关门，或用陷阱拖住怪物。竞争带来混乱，临时互助给了猫猫一起逃命的理由。</p>
+
+          <h4>4. 拍摄探险视频与工作室经营</h4>
+          <p>玩家需要主动操作摄影设备。定点机位可以架在走廊或宝库，让队伍在搜宝时继续记录，但离开前要回收。手持摄影机更容易抓拍突然出现的怪物、战斗或互坑瞬间，同时会影响持机猫的战斗能力。</p>
+          <p>评价依据包括对象稀有度、画面清晰度和关键动作完整度。反复拍同样的内容收益会下降。定点设备可能被怪物损坏，或被对手顺手带走。设备有密码，对手无法用偷来的素材剪片。设备和素材成功带出，才能获得完整收益。</p>
+          <p>回到工作室后，员工的剪辑、配乐能力会影响成片。发布视频能获得播放收入和粉丝。金钱可买设备、培训员工、扩建工作室，知名度则能带来品牌赞助、观众委托和特殊遗迹情报。爆火的视频还会获得推流和话题热度。</p>
+          <p>工作室也是可以自由布置的家园。剪辑室负责制片，器材间改装设备，宿舍用于培训，展览室陈列收藏。摆上电视，下班的猫猫会围在一起看节目。玩家也能邀请好友参观，一起回看探险片段。</p>
+        </section>
+
+        <section class="plan-chapter" id="season">
+          <h3>赛季与局外养成</h3>
+
+          <h4>工作室、粉丝与员工</h4>
+          <p>每局有两类产出。遗物出售换钱，素材剪辑发布后获得播放收入和粉丝。出售、播放和委托带来的资金，用于补给、维修摄影设备、培训员工与扩建功能房间。</p>
+          <p>粉丝代表工作室的知名度。达到一定规模后会接到赞助、委托和稀有遗迹情报。收藏家可能委托玩家找旧时代的街机，并提供地图线索。摄影品牌则可能指定设备和拍摄对象，完成后提供奖金和器材。</p>
+          <p>视频题材会影响吸引来的观众。常拍怪物的工作室更容易收到探灵委托，专拍旧文明物品的工作室则更容易被收藏家关注。粉丝规模代表总体知名度，内容偏好决定工作室更容易拿到哪类机会。</p>
+          <p>员工有等级、职业技能和培训天赋。参与探险、拍摄和完成委托可获得经验。职业技能影响局内行动与制片表现，培训天赋影响具体操作，例如提高架机速度、提高素材利用率或降低推车体力消耗。猫猫的出场和高光也会带来个人流量。</p>
+
+          <h4>十周赛季</h4>
+          <p>每赛季暂定十周，围绕一片新的人类遗迹展开，带来新的怪物、宝物、拍摄主题和特殊委托。工作室家园、累计粉丝、已雇佣的员工、基础职业技能和收藏品永久保留。</p>
+          <p>赛季内有独立的地图调查进度、临时天赋和特殊设备改装。完成赛季委托、击败特殊怪物、带回赛季遗物或拍到指定素材，都会提高调查等级，逐步解锁本赛季的新能力。</p>
+          <p>例如在废弃游乐园赛季里，玩家可以研究异常机械，解锁带弹跳效果的陷阱，或者学会修复过山车，把怪物和其他猫猫送上去兜一圈。</p>
+
+          <h4>夺宝榜与探险视频榜</h4>
+          <p>夺宝榜按带出遗迹的赛季遗物价值计算，鼓励冒险争夺高价值宝物。探险视频榜按当季作品的热度积分计算，鼓励寻找稀有怪物并拍到精彩画面。</p>
+          <p>两张榜分别统计个人最佳和赛季累计成绩，让单局发挥出色的玩家和长期活跃的玩家都有目标。赛季结算发放限定猫猫服装、工作室装饰、摄影机外观和称号，并保留历史成绩。</p>
+        </section>
+        <a class="button" href="#friend-playtest">下一屏 · 朋友试玩</a>
+      </article>
+    </section>
+
+    <section class="case-screen video-screen" id="friend-playtest" aria-labelledby="friend-playtest-title">
+      <article class="video-frame">
+        <div class="recording-heading"><h2 id="friend-playtest-title" tabindex="-1">朋友试玩</h2><span>6:57</span></div>
+        <p>朋友实际操作，体验工作室装修、实习关卡、道具、摄影和撤离。</p>
+        <video controls playsinline preload="none" width="1920" height="1068" poster="assets/treasurewhere-video-poster.webp" aria-label="宝物去哪儿了，朋友试玩">
+          <source src="assets/treasurewhere-friend-playtest.mp4" type="video/mp4">
+          <a href="assets/treasurewhere-friend-playtest.mp4">打开朋友试玩视频</a>
+        </video>
+      </article>
+    </section>
+
+    <section class="case-screen video-screen" id="full-showcase" aria-labelledby="full-showcase-title">
+      <article class="video-frame">
+        <div class="recording-heading"><h2 id="full-showcase-title" tabindex="-1">完整展示</h2><span>8:59</span></div>
+        <p>回声商场的一整局。从工作室出发，搜宝、解谜、拍摄、推车撤离，再把带回的素材剪成视频。</p>
+        <video controls playsinline preload="none" width="1280" height="720" poster="assets/treasurewhere-full-poster.webp" aria-label="宝物去哪儿了，完整展示">
+          <source src="assets/treasurewhere-full-showcase.mp4" type="video/mp4">
+          <a href="assets/treasurewhere-full-showcase.mp4">打开完整展示视频</a>
+        </video>
+      </article>
+    </section>
+  </main>
+  <footer class="case-controls" aria-label="翻页">
+    <button id="previousScreen" type="button">↑ 上一屏</button>
+    <button id="nextScreen" type="button">下一屏 ↓</button>
+  </footer>
+  <script src="js/treasurewhere.js"></script>
+  <script src="loading-transition.js"></script>
+</body>
+</html>

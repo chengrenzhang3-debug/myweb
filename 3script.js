@@ -18,7 +18,7 @@ function withPortfolioReturn(url) {
 
 document.querySelectorAll('.quick-index > a[href]').forEach(function (link) {
   const href = link.getAttribute("href");
-  const projectPages = ["polar-rover.html","children-water.html","ai-home.html","astory.html","UIUX.html","projects.html","experiments.html"];
+  const projectPages = ["polar-rover.html","children-water.html","ai-home.html","astory.html","city.html","treasurewhere.html","UIUX.html","projects.html","experiments.html"];
   if (projectPages.some(function (page) { return href && href.indexOf(page) === 0; })) {
     link.setAttribute("href", withPortfolioReturn(href));
   }

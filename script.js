@@ -149,7 +149,7 @@ const enterTitle = document.querySelector("#enterTitle");
 let boatX = 420;
 let boatFrame = 0;
 const boatMin = 320;
-const boatMax = 6100;
+const boatMax = 7900;
 let lastBoatSpeech = 0;
 let enteringIsland = false;
 let boatEdgeIntent = 0;
@@ -185,6 +185,8 @@ const portfolioProjectFiles = new Set([
   "children-water.html",
   "polar-rover.html",
   "astory.html",
+  "city.html",
+  "treasurewhere.html",
   "ai-home.html",
   "UIUX.html",
   "projects.html",
@@ -287,7 +289,7 @@ function updateBoatMap() {
 
   const viewport = document.querySelector(".river-viewport");
   const viewWidth = viewport ? viewport.clientWidth : window.innerWidth;
-  const worldWidth = riverWorld.clientWidth || 6600;
+  const worldWidth = riverWorld.clientWidth || 8400;
 
   boatWrap.style.left = boatX + "px";
 

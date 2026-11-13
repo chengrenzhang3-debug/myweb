@@ -2102,10 +2102,16 @@ body.theme-phantom .project-stage{--stage-bg:radial-gradient(circle at 24% 18%,r
 .case-1{grid-column:1/4;grid-row:1/3;}
 .case-2{grid-column:4/7;grid-row:1/2;}
 .case-3{grid-column:4/6;grid-row:2/4;}
-.case-4{grid-column:6/7;grid-row:2/5;}
-.case-5{grid-column:1/3;grid-row:3/5;}
-.case-6{grid-column:3/4;grid-row:3/5;}
-.case-7{grid-column:4/6;grid-row:4/5;}
+.case-4{grid-column:6/7;grid-row:2/4;}
+.case-5{grid-column:1/4;grid-row:3/4;}
+.case-6{grid-column:1/3;grid-row:4/5;}
+.case-7{grid-column:3/5;grid-row:4/5;}
+.case-8{grid-column:5/6;grid-row:4/5;}
+.case-9{grid-column:6/7;grid-row:4/5;}
+.case-6,.case-7,.case-8,.case-9{padding:clamp(8px,1vw,16px);}
+.case-6 strong,.case-7 strong,.case-8 strong,.case-9 strong{font-size:clamp(15px,1.4vw,24px);line-height:1.18;margin:6px 0;}
+.case-6 small,.case-7 small,.case-8 small,.case-9 small{font-size:10px;letter-spacing:1px;}
+.case-8 span,.case-9 span{display:none;}
 
 /* 3 游戏：选关 */
 body.theme-game .project-stage{--stage-bg:radial-gradient(circle at 85% 18%,rgba(84,255,194,.22),transparent 24%),linear-gradient(135deg,#06101f 0%,#15133b 58%,#05070d 100%);--stage-ink:#e8fff8;--stage-title:#f7ff6f;--stage-text:#d7fff8;--stage-accent:#47ffbc;--stage-line:rgba(71,255,188,.45);--stage-orb:rgba(71,255,188,.16);--card-bg:#101d3c;--card-border:3px solid #47ffbc;--card-shadow:8px 8px 0 #000;--card-shadow-hover:0 0 0 4px #f7ff6f,14px 14px 0 #000;}

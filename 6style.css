@@ -2790,7 +2790,7 @@ body.theme-swiss .swiss-hero{
 }
 
 body.theme-swiss .swiss-table{
-  grid-template-rows:repeat(7,minmax(0,1fr))!important;
+  grid-template-rows:repeat(9,minmax(0,1fr))!important;
   align-self:stretch!important;
   max-height:calc(100vh - 88px)!important;
   overflow:hidden!important;

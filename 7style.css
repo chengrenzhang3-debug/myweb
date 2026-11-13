@@ -2450,15 +2450,15 @@ body.theme-magazine .dir-card h3{
 }
 body.theme-magazine .dir-card p{ font:700 14px/1.55 "Microsoft YaHei", Arial, sans-serif; color:#443830; }
 body.theme-magazine .dir-kicker{ color:#cc6a45; font:700 12px/1.2 Arial,sans-serif; letter-spacing:2.3px; }
-body.theme-magazine .dir-polar{ grid-column:1; grid-row:1 / span 2; }
-body.theme-magazine .dir-child{ grid-column:2 / span 2; grid-row:1; }
-body.theme-magazine .dir-ai{ grid-column:2; grid-row:2; }
-body.theme-magazine .dir-astory{ grid-column:3; grid-row:2 / span 2; background:#cc6a45; color:#fffaf4; }
-body.theme-magazine .dir-astory .dir-kicker,
-body.theme-magazine .dir-astory p{ color:#fff4e9; }
-body.theme-magazine .dir-uiux{ grid-column:1; grid-row:3; }
-body.theme-magazine .dir-other{ grid-column:2; grid-row:3; }
-body.theme-magazine .dir-more{ grid-column:3; grid-row:3; }
+body.theme-magazine .directory-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));}
+body.theme-magazine .dir-card{grid-column:auto;grid-row:auto;padding:clamp(8px,1.2vw,16px);}
+body.theme-magazine .dir-card h3{font-size:clamp(15px,1.7vw,33px);line-height:1.14;margin:5px 0;}
+body.theme-magazine .dir-card p{font-size:clamp(11px,1vw,14px);line-height:1.35;margin:0;}
+body.theme-magazine .dir-card .dir-kicker{font-size:clamp(9px,.85vw,12px);letter-spacing:1px;}
+body.theme-magazine .dir-astory{background:#cc6a45;color:#fffaf4;}
+body.theme-magazine .dir-astory .dir-kicker,body.theme-magazine .dir-astory p{color:#fff4e9;}
+body.theme-magazine .dir-city{background:#f4e1dc;}
+body.theme-magazine .dir-treasurewhere{background:#e8eddb;}
 
 /* method page: airy magazine spread instead of old cards */
 body.theme-magazine .method-page{

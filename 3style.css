@@ -2648,13 +2648,18 @@ body.theme-game .quest-node span{
   margin-top: 6px;
 }
 
-body.theme-game .node-polar{left:15%;top:72%;width:230px;}
-body.theme-game .node-water{left:31%;top:43%;width:215px;}
-body.theme-game .node-ai{left:47%;top:29%;width:220px;}
-body.theme-game .node-astory{left:63%;top:43%;width:195px;}
-body.theme-game .node-uiux{left:78%;top:22%;width:210px;}
-body.theme-game .node-other{left:56%;top:78%;width:230px;}
-body.theme-game .node-lab{left:83%;top:72%;width:205px;background:linear-gradient(180deg,#2b245f,#18143e);}
+body.theme-game .quest-node{width:29%;min-height:0;padding:clamp(8px,1vw,16px);}
+body.theme-game .quest-node strong{font-size:clamp(16px,1.55vw,29px);}
+body.theme-game .quest-node span{font-size:clamp(10px,.95vw,14px);}
+body.theme-game .node-polar{left:17%;top:18%;}
+body.theme-game .node-water{left:50%;top:18%;}
+body.theme-game .node-ai{left:83%;top:18%;}
+body.theme-game .node-astory{left:83%;top:50%;}
+body.theme-game .node-uiux{left:50%;top:50%;}
+body.theme-game .node-city{left:17%;top:50%;background:linear-gradient(180deg,#502b43,#241c36);}
+body.theme-game .node-treasurewhere{left:17%;top:82%;background:linear-gradient(180deg,#28564c,#142e30);}
+body.theme-game .node-other{left:50%;top:82%;}
+body.theme-game .node-lab{left:83%;top:82%;background:linear-gradient(180deg,#2b245f,#18143e);}
 
 body.theme-game .player-marker{
   position: absolute;

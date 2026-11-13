@@ -1302,7 +1302,7 @@
 
 /* ===== v4 FIX: keep page 01/02, only rebuild page 03 boat map ===== */
 .river-world{
-  width: 6600px !important;
+  width: 8400px !important;
 }
 .water-layer{
   background:
@@ -1313,14 +1313,15 @@
   background-position: 0 0 !important;
 }
 
-/* correct island order: child → polar → astory → ai → uiux → other → experiments */
+/* correct island order: child → polar → astory → ai → uiux → city → treasurewhere → other → experiments */
 .island-child { left: 620px !important; top: 58% !important; animation: islandFloatKid 3.2s ease-in-out infinite; }
 .island-polar { left: 1450px !important; top: 34% !important; animation: islandFloatPolar 3.9s ease-in-out infinite; }
 .island-astory { left: 2350px !important; top: 62% !important; animation: islandFloatAstory 4.2s ease-in-out infinite; }
 .island-ai { left: 3250px !important; top: 36% !important; animation: islandFloatAi 3.6s ease-in-out infinite; }
 .island-uiux{ left: 4150px !important; top: 60% !important; animation: islandFloatUiux 3.3s ease-in-out infinite; }
-.island-other{ left: 5050px !important; top: 35% !important; animation: islandFloatOther 4s ease-in-out infinite; }
-.island-more{ left: 5950px !important; top: 66% !important; animation: islandFloatMore 3.5s ease-in-out infinite; }
+.island-other{ left: 6850px !important; top: 35% !important; animation: islandFloatOther 4s ease-in-out infinite; }
+.island-more{ left: 7750px !important; top: 66% !important; animation: islandFloatMore 3.5s ease-in-out infinite; }
+.island-treasurewhere { left: 5950px; top: 39%; animation: islandFloatAstory 4.2s ease-in-out infinite; }
 
 .island.entering{
   z-index: 80;
@@ -1911,3 +1912,5 @@
   .ending-poster { opacity: .18; right: 24px; }
   .ending-content blockquote { width: 86vw; }
 }
+.island-city { left: 5050px; top: 35%; animation: islandFloatOther 4s ease-in-out infinite; }
+.island-city img { width: 82%; height: 74%; margin: 8% 9% 0; object-fit: cover; border: 4px solid #111; border-radius: 16% 12% 18% 10%; }

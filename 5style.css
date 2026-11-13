@@ -2164,13 +2164,18 @@ body.theme-museum .project-stage{--stage-bg:radial-gradient(circle at 15% 80%,rg
 .museum-room small{display:block;color:#8a5b22;font-weight:900;letter-spacing:2px;margin-bottom:8px;}
 .museum-room strong{font-family:Georgia,"Microsoft YaHei",serif;font-size:clamp(21px,1.8vw,34px);}
 .museum-room span{display:block;margin-top:8px;font-size:12px;letter-spacing:2px;font-weight:900;color:#5f4225;}
-.room-1{left:7%;top:10%;width:30%;height:26%;}
-.room-2{left:42%;top:9%;width:22%;height:22%;}
-.room-3{right:7%;top:12%;width:22%;height:30%;}
-.room-4{left:9%;bottom:12%;width:25%;height:28%;}
-.room-5{left:41%;bottom:10%;width:22%;height:24%;}
-.room-6{right:8%;bottom:12%;width:23%;height:20%;}
-.room-7{left:37%;top:39%;width:26%;height:19%;background:#2a1c0f;color:#fff7e7;border-color:#fff7e7;}
+.museum-room{width:28%;height:24%;padding:clamp(8px,1.15vw,18px);min-width:0;}
+.museum-room strong{font-size:clamp(15px,1.45vw,28px);}
+.room-1,.room-4,.room-7{left:5%;}
+.room-2,.room-5,.room-8{left:36%;}
+.room-3,.room-6,.room-9{left:67%;}
+.room-1,.room-2,.room-3{top:6%;}
+.room-4,.room-5,.room-6{top:36%;}
+.room-7,.room-8,.room-9{top:66%;}
+.room-6{background:#eadfd4;}
+.room-7{background:#e9ecd4;}
+.floor-plan .you-are-here{left:5%;bottom:2%;padding:3px 8px;}
+
 .you-are-here{position:absolute;left:22px;bottom:22px;background:#8a5b22;color:#fff;padding:8px 13px;font:900 12px Arial;letter-spacing:2px;}
 
 /* 6 瑞士：网格索引 */
