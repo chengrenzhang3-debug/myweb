@@ -53,7 +53,10 @@ function nextPage() { goToPage(currentPage + 1); }
 function prevPage() { goToPage(currentPage - 1); }
 
 window.addEventListener("wheel", function (event) {
-  if (event.target.closest(".quick-index")) return;
+  if (event.ctrlKey || !event.deltaY || event.target.closest(".quick-index")) return;
+  const activePage = pages[currentPage];
+  const remaining = activePage.scrollHeight - activePage.clientHeight - activePage.scrollTop;
+  if (getComputedStyle(activePage).overflowY === "auto" && (event.deltaY > 0 ? remaining > 1 : activePage.scrollTop > 1)) return;
   event.preventDefault();
 
   if (currentPage === 2) {

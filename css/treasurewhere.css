@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap");
+
 
 :root {
   color-scheme: light;
@@ -75,7 +75,7 @@ video { display: block; width: 100%; height: auto; background: #132b2c; border-r
   color: var(--green);
   text-decoration-thickness: 3px;
 }
-.case-stage { min-height: 0; }
+.case-stage { min-height: 0; container-type: size; }
 .paged-case .case-screen {
   height: 100%;
   overflow-y: auto;
@@ -122,7 +122,13 @@ button:focus-visible { outline: 3px solid #af552d; outline-offset: 3px; }
 .video-frame .recording-heading h2 { font-size: clamp(1.65rem, 3.3vw, 2.8rem); }
 .video-frame .recording-heading span { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 700; }
 .video-frame p { margin: .35rem 0 .75rem; color: var(--muted); }
-.video-frame video { max-height: max(14rem, calc(100dvh - 15rem)); object-fit: contain; }
+.video-frame video { object-fit: contain; }
+.paged-case .video-frame video { max-height: max(6rem, calc(100cqh - 8rem)); }
+@media (max-height: 500px) {
+  .video-frame { padding-block: .5rem; }
+  .video-frame p { margin: .2rem 0 .35rem; }
+  .paged-case .video-frame video { max-height: max(4rem, calc(100cqh - 5.5rem)); }
+}
 @media (max-width: 760px) {
   .case-nav { padding-block: .5rem; }
   .case-nav nav { gap: .25rem .85rem; font-size: .875rem; }

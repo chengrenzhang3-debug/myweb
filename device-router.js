@@ -29,6 +29,16 @@
   if (!Object.prototype.hasOwnProperty.call(desktopToMobile, file)) return;
 
   var base = path.slice(0, path.length - file.length);
-  var target = base + desktopToMobile[file] + (window.location.search || "") + (window.location.hash || "");
-  if (target !== window.location.href) window.location.replace(target);
+  var target = new URL(base + desktopToMobile[file], window.location.href);
+  target.search = window.location.search;
+  target.hash = window.location.hash;
+  if (file === "" || file === "index.html") {
+    var chapters = ["#cover", "#resume", "#map", "#method", "#ending"];
+    var page = target.searchParams.get("page");
+    if (page !== null && /^[0-4]$/.test(page)) {
+      if (!target.hash) target.hash = chapters[Number(page)];
+      target.searchParams.delete("page");
+    }
+  }
+  if (target.href !== window.location.href) window.location.replace(target.href);
 })();
